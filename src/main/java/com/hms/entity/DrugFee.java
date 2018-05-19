@@ -1,8 +1,6 @@
 package com.hms.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -18,6 +16,17 @@ public class DrugFee implements Serializable{
     private int drugNum;//药物数量
     private int patientId;
     private BigDecimal totalPrice;//总价
+
+    private int medicalRecordId;//FK
+
+
+    public int getMedicalRecordId() {
+        return medicalRecordId;
+    }
+
+    public void setMedicalRecordId(int medicalRecordId) {
+        this.medicalRecordId = medicalRecordId;
+    }
 
     public int getId() {
         return id;

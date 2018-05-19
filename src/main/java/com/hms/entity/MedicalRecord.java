@@ -1,6 +1,9 @@
 package com.hms.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,20 +12,27 @@ import java.util.List;
  */
 @Entity
 public class MedicalRecord implements Serializable{
+    @Id
+    @GeneratedValue
     private int id;
     private int patientId;
     private int doctorId;//这里的id都是user表的里id
     private String diseaseName;//病名
     private String recommend;//（饮食，预防）建议
-    private List<DrugFee> drugs;//所开的药
-    private List<Check> checks;//所做的检查
 
-    public List<Check> getChecks() {
-        return checks;
+    @ManyToMany(mappedBy="medicalRecordId")
+    private List<DrugFee> drugs;//所开的药
+
+    @ManyToMany(mappedBy="medicalRecordId")
+    private List<physicalExamination> physicalExaminations;//所做的检查
+
+    public List<physicalExamination> getPhysicalExaminations() {
+        return physicalExaminations;
     }
 
-    public void setChecks(List<Check> checks) {
-        this.checks = checks;
+
+    public void setPhysicalExaminations(List<physicalExamination> physicalExaminations) {
+        this.physicalExaminations = physicalExaminations;
     }
 
     public String getDiseaseName() {
@@ -33,9 +43,11 @@ public class MedicalRecord implements Serializable{
         this.diseaseName = diseaseName;
     }
 
+
     public List<DrugFee> getDrugs() {
         return drugs;
     }
+
 
     public void setDrugs(List<DrugFee> drugs) {
         this.drugs = drugs;

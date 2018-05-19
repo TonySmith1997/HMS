@@ -12,8 +12,8 @@ public class TotalFee implements Serializable{
     @Id
     @GeneratedValue
     private int id;
-    private List checkIds;
-    private List drugIds;//DrugFee's id
+    private String checkIds;//for loop to get
+    private String drugIds;//DrugFee's id
     private int patientId;
     private BigDecimal totalFee;
 
@@ -25,19 +25,19 @@ public class TotalFee implements Serializable{
         this.id = id;
     }
 
-    public List getCheckIds() {
+    public String getCheckIds() {
         return checkIds;
     }
 
-    public void setCheckIds(List checkIds) {
+    public void setCheckIds(String checkIds) {
         this.checkIds = checkIds;
     }
 
-    public List getDrugIds() {
+    public String getDrugIds() {
         return drugIds;
     }
 
-    public void setDrugIds(List drugIds) {
+    public void setDrugIds(String drugIds) {
         this.drugIds = drugIds;
     }
 

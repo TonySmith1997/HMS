@@ -1,5 +1,6 @@
 package com.hms.core.base;
 
+import com.hms.core.util.Reflections;
 import org.hibernate.*;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
@@ -9,23 +10,21 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 
 @Repository("baseDAO")
 public class BaseDAOImpl<T,Pk extends Serializable> implements IBaseDAO<T,Pk>{
 
+    @Autowired
     private SessionFactory sessionFactory;
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
 
     protected Class<T> clazz;
 
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public BaseDAOImpl() {
+        this.clazz = Reflections.getClassGenricType(getClass());
     }
 
     private Session getCurrentSession(){
@@ -50,12 +49,13 @@ public class BaseDAOImpl<T,Pk extends Serializable> implements IBaseDAO<T,Pk>{
     }
 
     public T find(  Serializable id) {
-        return getCurrentSession().load(clazz,id);
+        return (T) getCurrentSession().load(clazz,id);
     }
 
 
     public T findUniqueBy(String propertyName, Object value) {
         Criterion criterion = Restrictions.eq(propertyName,value);
+        System.out.println(criterion);
         return (T) createCriteria(criterion).uniqueResult();
     }
 
