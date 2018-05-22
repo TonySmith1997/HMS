@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
     <title>Welcome to HMS</title>
-    <meta name="keywords" content="A system for Hospital Management System">
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/static/css/animate.css" rel="stylesheet">
-    <link href="/static/css/style.css" rel="stylesheet">
-    <link href="/static/css/login.css" rel="stylesheet">
-    <link rel="shortcut icon" href="favicon.ico">
+    <meta name="keywords" content="A system for Hospital Management System" />
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet" />
+    <link href="/static/css/animate.css" rel="stylesheet"/>
+    <link href="/static/css/style.css" rel="stylesheet" />
+    <link href="/static/css/login.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="favicon.ico" />
 </head>
 
 
@@ -41,14 +42,14 @@
             </div>
             <div class="col-sm-5">
                 <form method="post" action="loginCheck">
-                    <h4 class="no-margins">LOGIN：</h4>
+                    <h4 class="no-margins">LOGIN :</h4>
                     <p class="m-t-md">LOGIN TO HMS </p>
                     <input type="text" class="form-control uname" placeholder="username/email/phone" name="loginName"/>
                     <input type="password" class="form-control pword m-b" placeholder="password" name="password"/>
-                    <a href="">forget password ？</a>
+                    <a href="">forget password ? </a>
                     <button class="btn btn-success btn-block">login</button>
                     <br />
-                    <p style="color:red">{$message}</p>
+                    <p style="color:red" th:text="${message}">aa</p>
                 </form>
             </div>
         </div>

@@ -1,5 +1,7 @@
 package com.hms.entity;
 
+import com.hms.core.base.BaseEntity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,7 +13,7 @@ import java.util.Date;
  * including doctor and data input operator
  */
 @Entity
-public class EmployeeInfo implements Serializable {
+public class EmployeeInfo extends BaseEntity {
     @Id
     @GeneratedValue
     private int id;

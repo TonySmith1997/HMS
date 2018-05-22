@@ -1,5 +1,7 @@
 package com.hms.entity;
 
+import com.hms.core.base.BaseEntity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,7 +13,7 @@ import java.util.List;
  * 病历
  */
 @Entity
-public class MedicalRecord implements Serializable{
+public class MedicalRecord extends BaseEntity{
     @Id
     @GeneratedValue
     private int id;

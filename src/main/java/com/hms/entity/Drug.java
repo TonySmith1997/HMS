@@ -1,5 +1,7 @@
 package com.hms.entity;
 
+import com.hms.core.base.BaseEntity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,7 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-public class Drug implements Serializable{
+public class Drug extends BaseEntity{
     @Id
     @GeneratedValue
     private int id;

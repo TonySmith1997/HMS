@@ -1,5 +1,7 @@
 package com.hms.entity;
 
+import com.hms.core.base.BaseEntity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,12 +9,21 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-public class User implements Serializable{
+public class User extends BaseEntity{
     @Id
     @GeneratedValue
     private int id;
     private String username;//for login,must be 数字加字母不能有@
     private String trueName;//真实姓名
+    private String password;
+    private String email;
+    private String mobile;
+    private String avator;
+    private int age;
+    private int gender;//male 1，female 0
+    private int status;//状态，备用
+    private int departId;
+
 
     public String getTrueName() {
         return trueName;
@@ -22,29 +33,12 @@ public class User implements Serializable{
         this.trueName = trueName;
     }
 
-    private String password;
-    private String email;
-    private String mobile;
-    private String avator;
-    private int age;
-    private int gender;//male 1，female 0
-    private int status;//状态，备用
-    private Timestamp createTime;
-
     public int getStatus() {
         return status;
     }
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public Timestamp getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
     }
 
     public int getId() {
@@ -109,5 +103,13 @@ public class User implements Serializable{
 
     public void setGender(int gender) {
         this.gender = gender;
+    }
+
+    public int getDepartId() {
+        return departId;
+    }
+
+    public void setDepartId(int departId) {
+        this.departId = departId;
     }
 }

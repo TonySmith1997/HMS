@@ -11,12 +11,14 @@
 
     <context:property-placeholder location="classpath:jdbc.properties" file-encoding="UTF-8" />
 
+    <!--transaction-->
     <tx:annotation-driven transaction-manager="txManager" />
 
     <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
 
+    <!--hiberante-->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="packagesToScan" value="com.hms.entity" />
         <property name="hibernateProperties">
@@ -46,5 +48,26 @@
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/static/" />
         <property name="suffix" value=".html" />
+    </bean>
+
+
+    <!-- thymeleaf-->
+    <bean id="templateResolver"
+          class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="/static/" />
+        <property name="suffix" value=".html" />
+        <property name="templateMode" value="HTML5"/>
+    </bean>
+
+    <bean id="templateEngine"
+          class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
+
+    </bean>
+
+    <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine" />
+        <property name="order" value="1" />
+        <!--<property name="characterEncoding" value="" />-->
     </bean>
 </beans>

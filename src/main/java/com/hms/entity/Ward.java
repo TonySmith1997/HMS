@@ -1,5 +1,7 @@
 package com.hms.entity;
 
+import com.hms.core.base.BaseEntity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,7 +11,7 @@ import java.io.Serializable;
  * 病房管理
  */
 @Entity
-public class Ward implements Serializable{
+public class Ward extends BaseEntity{
     @Id
     @GeneratedValue
     private int id;

@@ -59,6 +59,18 @@ public class BaseDAOImpl<T,Pk extends Serializable> implements IBaseDAO<T,Pk>{
         return (T) createCriteria(criterion).uniqueResult();
     }
 
+    public List<T> findAllNOTNULL(String propertyName) {
+        Criterion criterion = Restrictions.isNotNull(propertyName);
+        System.out.println(criterion);
+        return createCriteria(criterion).list();
+    }
+
+    public List<T> findAllEq(String propertyName, Object value) {
+        Criterion criterion = Restrictions.eq(propertyName,value);
+        System.out.println(criterion);
+        return createCriteria(criterion).list();
+    }
+
     /**
      * 是否升序
      * @param orderByProperty

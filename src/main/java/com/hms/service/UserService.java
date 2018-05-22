@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -94,4 +95,15 @@ public class UserService extends BaseService<User,Integer> {
         byte[] hashPassword = Digests.MD5(user.getPassword().getBytes());
         user.setPassword(hashPassword.toString());
     }
+
+    /**
+     * 得到除patient以外的user信息表
+     * @return
+     */
+    public List<User> getEmployeeList(){
+        String propertyName = "departId";
+        return userDAO.findAllNOTNULL("departId");
+    }
+
+
 }

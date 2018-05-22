@@ -1,10 +1,373 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/html">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="renderer" content="webkit" />
+
+    <title>HMS - Hospital Management System</title>
+
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
+    <link href="/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" />
+    <link href="/static/css/animate.css" rel="stylesheet" />
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet" />
 </head>
-<body>
-index
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+<div id="wrapper">
+    <!--左侧导航开始-->
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="nav-close"><i class="fa fa-times-circle"></i>
+        </div>
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <span><img alt="image" class="img-circle" src="/static/img/profile_small.jpg" /></span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                               <span class="block m-t-xs"><strong class="font-bold">Tony Lin</strong></span>
+                                <span class="text-muted text-xs block">admin<b class="caret"></b></span>
+                                </span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a class="J_menuItem" href="form_avatar.html">change avator</a>
+                            </li>
+                            <li><a class="J_menuItem" href="profile.html">profile</a>
+                            </li>
+                            <li><a class="J_menuItem" href="mailbox.html">mail box</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="login.html">logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">HMS
+                    </div>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fa fa-home"></i>
+                        <span class="nav-label">Homepage</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-user-md"></i> <span class="nav-label">Employee Management</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="/employee/totalList">Total List</a>
+                        </li>
+                        <li>
+                            <a href="#">Employee List <span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level">
+                                <li><a class="J_menuItem" href="projects.html">Doctor List</a>
+                                </li>
+                                <li><a class="J_menuItem" href="project_detail.html">DIO List</a>
+                                </li>
+                                <li><a class="J_menuItem" href="project_detail.html">Employee Insert</a>
+                                </li>
+                                <li><a class="J_menuItem" href="project_detail.html">Employee History</a>
+                                </li>
+                                <li><a class="J_menuItem" href="project_detail.html">Employee Log</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Department <span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level">
+                                <li><a class="J_menuItem" href="blog.html" >Department Insert</a>
+                                </li>
+                                <li><a class="J_menuItem" href="article.html">Department Log</a>
+                                </li>
+                                <li><a class="J_menuItem" href="article.html">Department List</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa fa-stethoscope"></i>
+                        <span class="nav-label">Patient Management</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="graph_echarts.html">Total List</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="graph_flot.html">Inpatient List</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="graph_morris.html" >Outpatient List</a>
+                        </li>
+                        <li><a class="J_menuItem" href="projects.html">Patient insert</a>
+                        </li>
+                        <li><a class="J_menuItem" href="projects.html">Patient Log</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa fa-hotel"></i>
+                        <span class="nav-label">Ward Management</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="graph_echarts.html">Ward List</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="graph_flot.html" >Ward Log</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa fa-medkit"></i>
+                        <span class="nav-label">Record Management</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="graph_echarts.html">Record List</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="graph_flot.html" >Record Log</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa fa-flask"></i>
+                        <span class="nav-label">Drug Management</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="graph_echarts.html">Drug Stock</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="graph_flot.html">Drug Log</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="graph_morris.html">Drug Insert</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa fa-wheelchair"></i>
+                        <span class="nav-label">Device Management</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="graph_echarts.html">Equipment Stock</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="graph_flot.html">Equipment Log</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="graph_morris.html">Equipment Insert</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa fa-pencil-square-o"></i>
+                        <span class="nav-label">Check Management</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="graph_echarts.html">Examination List</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="graph_flot.html">Examination Log</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="graph_morris.html">Examination Insert</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">mail box</span><span class="label label-warning pull-right">16</span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="mailbox.html">Inbox</a>
+                        </li>
+                        <li><a class="J_menuItem" href="mail_detail.html" >Checking</a>
+                        </li>
+                        <li><a class="J_menuItem" href="mail_compose.html">Write Letters</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-line-chart"></i> <span class="nav-label">Financial Management</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="form_basic.html">Financial Record</a>
+                        </li>
+                        <li><a class="J_menuItem" href="form_validate.html">Financial Log</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-heartbeat"></i> <span class="nav-label">Blood Management</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="#">Blood Donor <span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level">
+                                <li><a class="J_menuItem" href="projects.html">Insert</a>
+                                </li>
+                                <li><a class="J_menuItem" href="project_detail.html">List</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Blood Bank <span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level">
+                                <li><a class="J_menuItem" href="blog.html">Blood Log</a>
+                                </li>
+                                <li><a class="J_menuItem" href="404.html">Blood List</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+    <!--左侧导航结束-->
+    <!--右侧部分开始-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
+                        <div class="form-group">
+                            <input type="text" placeholder="Search ..." class="form-control" name="top-search" id="top-search" />
+                        </div>
+                    </form>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-messages">
+                            <li class="m-t-xs">
+                                <div class="dropdown-messages-box">
+                                    <a href="profile.html" class="pull-left">
+                                        <img alt="image" class="img-circle" src="/static/img/a9.jpg" />
+                                    </a>
+                                    <div class="media-body">
+                                        <small class="pull-right">46 hours ago</small>
+                                        <strong>Tony</strong> Come to my office quickly
+                                        <br />
+                                        <small class="text-muted">3days ago 2014.11.8</small>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="dropdown-messages-box">
+                                    <a href="profile.html" class="pull-left">
+                                        <img alt="image" class="img-circle" src="/static/img/a4.jpg" />
+                                    </a>
+                                    <div class="media-body ">
+                                        <small class="pull-right text-navy">25 hours ago</small>
+                                        <strong>Andy</strong> I need help,Miss.Nurse
+                                        <br />
+                                        <small class="text-muted">yesterday</small>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="text-center link-block">
+                                    <a class="J_menuItem" href="mailbox.html">
+                                        <i class="fa fa-envelope"></i> <strong>check all the messages</strong>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <a href="mailbox.html">
+                                    <div>
+                                        <i class="fa fa-envelope fa-fw"></i>16 unread messages
+                                        <span class="pull-right text-muted small">4 minutes age</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="profile.html">
+                                    <div>
+                                        <i class="fa fa-qq fa-fw"></i> 3 new response
+                                        <span class="pull-right text-muted small">12 minutes ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="text-center link-block">
+                                    <a class="J_menuItem" href="404.html">
+                                        <strong>check all </strong>
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="row content-tabs">
+            <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i>
+            </button>
+            <nav class="page-tabs J_menuTabs">
+                <div class="page-tabs-content">
+                    <a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">Homepage</a>
+                </div>
+            </nav>
+            <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> Logout</a>
+        </div>
+        <div class="row J_mainContent" id="content-main">
+            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="404.html" frameborder="0" data-id="index_v1.html"></iframe>
+        </div>
+        <div class="footer">
+            <div class="pull-right">&copy; 2018-2018
+            </div>
+        </div>
+    </div>
+    <!--右侧部分结束-->
+</div>
+
+<!-- 全局js -->
+<script src="/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/static/js/plugins/layer/layer.min.js"></script>
+
+<!-- 自定义js -->
+<script src="/static/js/hplus.js?v=4.1.0"></script>
+<script src="/static/js/contabs.js"></script>
+
+<!-- 第三方插件 -->
+<script src="/static/js/plugins/pace/pace.min.js"></script>
+
 </body>
+
 </html>

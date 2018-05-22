@@ -1,17 +1,20 @@
 package com.hms.entity;
 
+import com.hms.core.base.BaseEntity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
-public class BloodBank implements Serializable{
+public class BloodBank extends BaseEntity{
     @Id
     @GeneratedValue
     private int id;
     private String bloodType;//血型
-    private int qty;//储量
+    private BigDecimal qty;//储量,ml or cc
 
     public int getId() {
         return id;
@@ -29,11 +32,11 @@ public class BloodBank implements Serializable{
         this.bloodType = bloodType;
     }
 
-    public int getQty() {
+    public BigDecimal getQty() {
         return qty;
     }
 
-    public void setQty(int qty) {
+    public void setQty(BigDecimal qty) {
         this.qty = qty;
     }
 }

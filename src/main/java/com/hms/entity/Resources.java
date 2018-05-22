@@ -11,7 +11,15 @@ public class Resources implements Serializable{
     @GeneratedValue
     private int id;
     private String resName;
-    private String resOp;
+    private String decription;
+
+    public String getDecription() {
+        return decription;
+    }
+
+    public void setDecription(String decription) {
+        this.decription = decription;
+    }
 
     public int getId() {
         return id;
@@ -27,13 +35,5 @@ public class Resources implements Serializable{
 
     public void setResName(String resName) {
         this.resName = resName;
-    }
-
-    public String getResOp() {
-        return resOp;
-    }
-
-    public void setResOp(String resOp) {
-        this.resOp = resOp;
     }
 }

@@ -1,5 +1,7 @@
 package com.hms.entity;
 
+import com.hms.core.base.BaseEntity;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -8,7 +10,7 @@ import java.math.BigDecimal;
  * drug and patient relation
  */
 @Entity
-public class DrugFee implements Serializable{
+public class DrugFee extends BaseEntity{
     @Id
     @GeneratedValue
     private int id;
@@ -16,7 +18,6 @@ public class DrugFee implements Serializable{
     private int drugNum;//药物数量
     private int patientId;
     private BigDecimal totalPrice;//总价
-
     private int medicalRecordId;//FK
 
 

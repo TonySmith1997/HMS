@@ -17,7 +17,8 @@ public interface IBaseDAO<T,Pk extends Serializable> {
     public void saveOrUpdate(final T o);
     public T find(final Pk id);
     public T findUniqueBy(final String propertyName,final Object value);
-
+    public List<T> findAllEq(String propertyName,Object value);
+    public List<T> findAllNOTNULL(String propertyName);
 
     /**
      * findAll

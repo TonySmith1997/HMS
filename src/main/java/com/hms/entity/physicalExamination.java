@@ -1,5 +1,7 @@
 package com.hms.entity;
 
+import com.hms.core.base.BaseEntity;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -8,7 +10,7 @@ import java.math.BigDecimal;
  * 检查
  */
 @Entity
-public class physicalExamination implements Serializable{
+public class physicalExamination extends BaseEntity{
     @Id
     @GeneratedValue
     private int id;
