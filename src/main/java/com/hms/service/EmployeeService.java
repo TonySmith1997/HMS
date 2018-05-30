@@ -6,6 +6,8 @@ import com.hms.dao.EmployeeDAO;
 import com.hms.entity.EmployeeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,8 +21,20 @@ public class EmployeeService extends BaseService<EmployeeInfo,Integer>{
         return employeeDAO;
     }
 
+    /**
+     * 得到所有跟这个员工有关的log信息
+     * @param userId
+     * @return
+     */
+    @Transactional(propagation=Propagation.REQUIRED,readOnly=false,rollbackFor={Exception.class})
     public EmployeeInfo getEmployeeInfo(int userId){
         String propertyName = "userId";
         return employeeDAO.findUniqueBy(propertyName,userId);
+    }
+
+    @Transactional(propagation= Propagation.REQUIRED,readOnly=false,rollbackFor={Exception.class})
+    public List<EmployeeInfo> getEmployeeInfoByDepartment(int departId){
+        String propertyName  = "departId";
+        return employeeDAO.findAllEq(propertyName,departId);
     }
 }

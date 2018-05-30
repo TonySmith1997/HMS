@@ -5,6 +5,7 @@ import com.hms.core.base.BaseEntity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -19,9 +20,44 @@ public class EmployeeInfo extends BaseEntity {
     private int id;
     private int userId;
     private int departId;//科室Id
-    private int status;//1.在班，2.下班 3.离职
-    private Date startTime;//入职时间
-    private Date endTime;//离职时间，默认为null
+    private int status;//1.在班，0下班 3.离职
+    private boolean ifHead;
+    private String type;
+    private String description;
+    @Transient
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean isIfHead() {
+        return ifHead;
+    }
+
+    public void setIfHead(boolean ifHead) {
+        this.ifHead = ifHead;
+    }
 
     public int getId() {
         return id;
@@ -53,21 +89,5 @@ public class EmployeeInfo extends BaseEntity {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
     }
 }

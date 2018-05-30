@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 @Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value="/login", method = RequestMethod.GET)
+    @RequestMapping(value="/login", method = GET)
     public String initForm(ModelMap model){
         System.out.println("########## init login page.");
         Login login = new Login();
@@ -45,5 +47,10 @@ public class UserController {
             model.addAttribute("message","Welcome");
             return "index";
         }
+    }
+
+    @RequestMapping(value = "/profile",method = GET)
+    public String getProfile(){
+        return "profile";
     }
 }

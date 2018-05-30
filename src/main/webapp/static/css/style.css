@@ -4745,8 +4745,8 @@ body.modal-open {
 .contact-box {
     background-color: #ffffff;
     border: 1px solid #e7eaec;
-    padding: 20px;
-    margin-bottom: 20px;
+    paddinng:5px 0 0 5px;
+    margin-bottom: 5px;
 }
 
 .contact-box a {
@@ -7889,4 +7889,9 @@ body.skin-3 {
         width: 12.5%;
         font-size: 12px
     }
+}
+
+#prof_img {
+    width:45%;
+    height:45%;
 }

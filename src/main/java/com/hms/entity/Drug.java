@@ -2,22 +2,23 @@ package com.hms.entity;
 
 import com.hms.core.base.BaseEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Entity
 public class Drug extends BaseEntity{
-    @Id
-    @GeneratedValue
     private int id;
     private String drugName;
     private String description;
     private String effect;//药物疗效，适合治疗什么疾病
     private BigDecimal unitPrice;//单价
-    private int qty;//库存容量
+    private String avator;
+
+    public String getAvator() {
+        return avator;
+    }
+
+    public void setAvator(String avator) {
+        this.avator = avator;
+    }
 
     public int getId() {
         return id;
@@ -57,13 +58,5 @@ public class Drug extends BaseEntity{
 
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
-    }
-
-    public int getQty() {
-        return qty;
-    }
-
-    public void setQty(int qty) {
-        this.qty = qty;
     }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html
+        xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -24,7 +25,7 @@
         <div class="col-sm-8">
             <div class="ibox">
                 <div class="ibox-content">
-                    <span class="text-muted small pull-right">Last Updated：<i class="fa fa-clock-o"></i> 2015-5-21 0:02</span>
+                    <span class="text-muted small pull-right">Last Updated: <i class="fa fa-clock-o"></i> 2015-5-21 0:02</span>
                     <h2>Employee Management</h2>
                     <div class="input-group">
                         <input type="text" placeholder="Find Employee" class="input form-control" />
@@ -35,14 +36,227 @@
                     <div class="clients-list">
                         <ul class="nav nav-tabs">
                             <span class="pull-right small text-muted">1406 Emloyees</span>
-                            <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Employee</a>
+                            <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i>Total Employee</a>
                             </li>
-                            <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Department</a>
+                            <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-medkit"></i> Doctor</a>
+                            </li>
+                            <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-calculator"></i> Data Input Operator</a>
+                            </li>
+                            <li class=""><a data-toggle="tab" href="#tab-4"><i class="fa fa-group"></i> Department</a>
                             </li>
                         </ul>
 
                         <div class="tab-content">
                             <div id="tab-1" class="tab-pane active">
+                            <div class="full-height-scroll">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <tbody>
+                                        <tr>
+                                            <td class="client-avatar"><img alt="image" src="/static/img/a2.jpg" /> </td>
+                                            <td><a data-toggle="tab" href="#contact-1" class="client-link">Admin</a>
+                                            </td>
+                                            <td> aaa</td>
+                                            <td class="contact-type"><i class="fa fa-phone"> </i>
+                                            </td>
+                                            <td> 13209009485</td>
+                                            <td class="client-status"></td>
+                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                            </td>
+                                            <td> gravida@qq.com</td>
+                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-remove" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                            </td>
+                                            <td>bbb</td>
+                                            <td class="contact-type"><i class="fa fa-phone"> </i>
+                                            </td>
+                                            <td> 13209009485</td>
+                                            <td class="client-status"></td>
+                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                            </td>
+                                            <td> rooney@sina.com</td>
+                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                            </td>
+                                            <td>bbb</td>
+                                            <td class="contact-type"><i class="fa fa-phone"> </i>
+                                            </td>
+                                            <td> 13209009485</td>
+                                            <td class="client-status"></td>
+                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                            </td>
+                                            <td> rooney@sina.com</td>
+                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                        </tr><tr>
+                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                            </td>
+                                            <td>bbb</td>
+                                            <td class="contact-type"><i class="fa fa-phone"> </i>
+                                            </td>
+                                            <td> 13209009485</td>
+                                            <td class="client-status"></td>
+                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                            </td>
+                                            <td> rooney@sina.com</td>
+                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                        </tr><tr>
+                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                            </td>
+                                            <td>bbb</td>
+                                            <td class="contact-type"><i class="fa fa-phone"> </i>
+                                            </td>
+                                            <td> 13209009485</td>
+                                            <td class="client-status"></td>
+                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                            </td>
+                                            <td> rooney@sina.com</td>
+                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                        </tr><tr>
+                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                            </td>
+                                            <td>bbb</td>
+                                            <td class="contact-type"><i class="fa fa-phone"> </i>
+                                            </td>
+                                            <td> 13209009485</td>
+                                            <td class="client-status"></td>
+                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                            </td>
+                                            <td> rooney@sina.com</td>
+                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                        </tr><tr>
+                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                            </td>
+                                            <td>bbb</td>
+                                            <td class="contact-type"><i class="fa fa-phone"> </i>
+                                            </td>
+                                            <td> 13209009485</td>
+                                            <td class="client-status"></td>
+                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                            </td>
+                                            <td> rooney@sina.com</td>
+                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                        </tr><tr>
+                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                            </td>
+                                            <td>bbb</td>
+                                            <td class="contact-type"><i class="fa fa-phone"> </i>
+                                            </td>
+                                            <td> 13209009485</td>
+                                            <td class="client-status"></td>
+                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                            </td>
+                                            <td> rooney@sina.com</td>
+                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                        </tr><tr>
+                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                            </td>
+                                            <td>bbb</td>
+                                            <td class="contact-type"><i class="fa fa-phone"> </i>
+                                            </td>
+                                            <td> 13209009485</td>
+                                            <td class="client-status"></td>
+                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                            </td>
+                                            <td> rooney@sina.com</td>
+                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                        </tr><tr>
+                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                            </td>
+                                            <td>bbb</td>
+                                            <td class="contact-type"><i class="fa fa-phone"> </i>
+                                            </td>
+                                            <td> 13209009485</td>
+                                            <td class="client-status"></td>
+                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                            </td>
+                                            <td> rooney@sina.com</td>
+                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                        </tr><tr>
+                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                            </td>
+                                            <td>bbb</td>
+                                            <td class="contact-type"><i class="fa fa-phone"> </i>
+                                            </td>
+                                            <td> 13209009485</td>
+                                            <td class="client-status"></td>
+                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                            </td>
+                                            <td> rooney@sina.com</td>
+                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                        </tr><tr>
+                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                            </td>
+                                            <td>bbb</td>
+                                            <td class="contact-type"><i class="fa fa-phone"> </i>
+                                            </td>
+                                            <td> 13209009485</td>
+                                            <td class="client-status"></td>
+                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                            </td>
+                                            <td> rooney@sina.com</td>
+                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                        </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                            <div id="tab-2" class="tab-pane ">
                                 <div class="full-height-scroll">
                                     <div class="table-responsive">
                                         <table class="table table-striped table-hover">
@@ -251,169 +465,232 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="tab-2" class="tab-pane">
+                            <div id="tab-3" class="tab-pane ">
                                 <div class="full-height-scroll">
                                     <div class="table-responsive">
                                         <table class="table table-striped table-hover">
                                             <tbody>
                                             <tr>
-                                                <td><a data-toggle="tab" href="#company-1" class="client-link">瑞安市海诚机械有限公司</a>
+                                                <td class="client-avatar"><img alt="image" src="/static/img/a2.jpg" /> </td>
+                                                <td><a data-toggle="tab" href="#contact-1" class="client-link">Admin</a>
                                                 </td>
-                                                <td>广州</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
-                                                <td class="client-status"><span class="label label-primary">已验证</span>
+                                                <td> aaa</td>
+                                                <td class="contact-type"><i class="fa fa-phone"> </i>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-2" class="client-link">上海申弘投资发展有限公司</a>
-                                                </td>
-                                                <td>广州</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
-                                                <td class="client-status"><span class="label label-primary">已验证</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-3" class="client-link">衢州凯德竹业科技有限公司</a>
-                                                </td>
-                                                <td>广州</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
+                                                <td> 13209009485</td>
                                                 <td class="client-status"></td>
+                                                <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                                </td>
+                                                <td> gravida@qq.com</td>
+                                                <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" />
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td><a data-toggle="tab" href="#company-1" class="client-link">北京科诺耐尔科技发展有限公司</a>
+                                                <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                                <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
                                                 </td>
-                                                <td>广州</td>
-                                                <td><i class="fa fa-flag"></i> 中国，美国</td>
-                                                <td class="client-status"><span class="label label-warning">等待验证</span>
+                                                <td>bbb</td>
+                                                <td class="contact-type"><i class="fa fa-phone"> </i>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-2" class="client-link">上海一喜食品机械有限公司</a>
-                                                </td>
-                                                <td>广州</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
+                                                <td> 13209009485</td>
                                                 <td class="client-status"></td>
+                                                <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                                </td>
+                                                <td> rooney@sina.com</td>
+                                                <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
                                             </tr>
+
                                             <tr>
-                                                <td><a data-toggle="tab" href="#company-3" class="client-link"> 北京巨皓知识产权代理有限公司</a>
+                                                <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                                <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
                                                 </td>
-                                                <td>广州</td>
-                                                <td><i class="fa fa-flag"></i> 日本</td>
-                                                <td class="client-status"><span class="label label-primary">已验证</span>
+                                                <td>bbb</td>
+                                                <td class="contact-type"><i class="fa fa-phone"> </i>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-2" class="client-link">山东百洋工业装备有限公司</a>
-                                                </td>
-                                                <td>广州</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
-                                                <td class="client-status"><span class="label label-primary">已验证</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-1" class="client-link">瑞安市海诚机械有限公司</a>
-                                                </td>
-                                                <td>广州</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
-                                                <td class="client-status"><span class="label label-primary">已验证</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-2" class="client-link">上海申弘投资发展有限公司</a>
-                                                </td>
-                                                <td>广州</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
+                                                <td> 13209009485</td>
                                                 <td class="client-status"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-3" class="client-link">衢州凯德竹业科技有限公司</a>
+                                                <td class="contact-type"><i class="fa fa-envelope"> </i>
                                                 </td>
-                                                <td>广州</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
+                                                <td> rooney@sina.com</td>
+                                                <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                            </tr><tr>
+                                                <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                                <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                                </td>
+                                                <td>bbb</td>
+                                                <td class="contact-type"><i class="fa fa-phone"> </i>
+                                                </td>
+                                                <td> 13209009485</td>
                                                 <td class="client-status"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-1" class="client-link">北京科诺耐尔科技发展有限公司</a>
+                                                <td class="contact-type"><i class="fa fa-envelope"> </i>
                                                 </td>
-                                                <td>上海</td>
-                                                <td><i class="fa fa-flag"></i> 中国，加拿大</td>
-                                                <td class="client-status"><span class="label label-warning">等待验证</span>
+                                                <td> rooney@sina.com</td>
+                                                <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                            </tr><tr>
+                                                <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                                <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-2" class="client-link">上海一喜食品机械有限公司</a>
+                                                <td>bbb</td>
+                                                <td class="contact-type"><i class="fa fa-phone"> </i>
                                                 </td>
-                                                <td>上海</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
+                                                <td> 13209009485</td>
                                                 <td class="client-status"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-3" class="client-link"> 北京巨皓知识产权代理有限公司</a>
+                                                <td class="contact-type"><i class="fa fa-envelope"> </i>
                                                 </td>
-                                                <td>上海</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
-                                                <td class="client-status"><span class="label label-primary">已验证</span>
+                                                <td> rooney@sina.com</td>
+                                                <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                            </tr><tr>
+                                                <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                                <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-2" class="client-link">山东百洋工业装备有限公司</a>
+                                                <td>bbb</td>
+                                                <td class="contact-type"><i class="fa fa-phone"> </i>
                                                 </td>
-                                                <td>上海</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
-                                                <td class="client-status"><span class="label label-primary">已验证</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-1" class="client-link">瑞安市海诚机械有限公司</a>
-                                                </td>
-                                                <td>上海</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
-                                                <td class="client-status"><span class="label label-primary">已验证</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-2" class="client-link">上海申弘投资发展有限公司</a>
-                                                </td>
-                                                <td>上海</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
+                                                <td> 13209009485</td>
                                                 <td class="client-status"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-3" class="client-link">衢州凯德竹业科技有限公司</a>
+                                                <td class="contact-type"><i class="fa fa-envelope"> </i>
                                                 </td>
-                                                <td>北京</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
+                                                <td> rooney@sina.com</td>
+                                                <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                            </tr><tr>
+                                                <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                                <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                                </td>
+                                                <td>bbb</td>
+                                                <td class="contact-type"><i class="fa fa-phone"> </i>
+                                                </td>
+                                                <td> 13209009485</td>
                                                 <td class="client-status"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-1" class="client-link">北京科诺耐尔科技发展有限公司</a>
+                                                <td class="contact-type"><i class="fa fa-envelope"> </i>
                                                 </td>
-                                                <td>北京</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
-                                                <td class="client-status"><span class="label label-warning">等待验证</span>
+                                                <td> rooney@sina.com</td>
+                                                <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                            </tr><tr>
+                                                <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                                <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-2" class="client-link">上海一喜食品机械有限公司</a>
+                                                <td>bbb</td>
+                                                <td class="contact-type"><i class="fa fa-phone"> </i>
                                                 </td>
-                                                <td>北京</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
+                                                <td> 13209009485</td>
                                                 <td class="client-status"></td>
+                                                <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                                </td>
+                                                <td> rooney@sina.com</td>
+                                                <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                            </tr><tr>
+                                                <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                                <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                                </td>
+                                                <td>bbb</td>
+                                                <td class="contact-type"><i class="fa fa-phone"> </i>
+                                                </td>
+                                                <td> 13209009485</td>
+                                                <td class="client-status"></td>
+                                                <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                                </td>
+                                                <td> rooney@sina.com</td>
+                                                <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                            </tr><tr>
+                                                <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                                <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                                </td>
+                                                <td>bbb</td>
+                                                <td class="contact-type"><i class="fa fa-phone"> </i>
+                                                </td>
+                                                <td> 13209009485</td>
+                                                <td class="client-status"></td>
+                                                <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                                </td>
+                                                <td> rooney@sina.com</td>
+                                                <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                            </tr><tr>
+                                                <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                                <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                                </td>
+                                                <td>bbb</td>
+                                                <td class="contact-type"><i class="fa fa-phone"> </i>
+                                                </td>
+                                                <td> 13209009485</td>
+                                                <td class="client-status"></td>
+                                                <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                                </td>
+                                                <td> rooney@sina.com</td>
+                                                <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
+                                            </tr><tr>
+                                                <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
+                                                <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
+                                                </td>
+                                                <td>bbb</td>
+                                                <td class="contact-type"><i class="fa fa-phone"> </i>
+                                                </td>
+                                                <td> 13209009485</td>
+                                                <td class="client-status"></td>
+                                                <td class="contact-type"><i class="fa fa-envelope"> </i>
+                                                </td>
+                                                <td> rooney@sina.com</td>
+                                                <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
                                             </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-3" class="client-link"> 北京巨皓知识产权代理有限公司</a>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tab-4" class="tab-pane ">
+                                <div class="full-height-scroll">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover" id="department">
+                                            <tbody>
+                                            <tr th:each="department : ${departmentList}">
+                                                <td><a data-toggle="tab"  class="client-link" id="showInfo" onclick="show(this)"
+                                                       th:text="${department.departName}">Medical Department</a>
                                                 </td>
-                                                <td>北京</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
-                                                <td class="client-status"><span class="label label-primary">已验证</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><a data-toggle="tab" href="#company-2" class="client-link">山东百洋工业装备有限公司</a>
-                                                </td>
-                                                <td>北京</td>
-                                                <td><i class="fa fa-flag"></i> 中国</td>
-                                                <td class="client-status"><span class="label label-primary">已验证</span>
+                                                <td><input style="display: none" th:value="${department.id}"/></td>
+                                                <td th:text="${department.num} + ' staff inside'">20 people inside</td>
+                                                <td><i class="fa fa-user-secret"></i></td>
+                                                <td th:text="${department.headName}"></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" />
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -435,78 +712,86 @@
                         <div id="contact-1" class="tab-pane active">
                             <div class="row m-b-lg">
                                 <div class="col-lg-4 text-center">
-                                    <h2>Tony</h2>
-
-                                    <div class="m-b-sm">
-                                        <img alt="image" class="img-circle" src="/static/img/a2.jpg" style="width: 62px" />
-                                    </div>
+                                    <h2 id="departName">Medical department </h2>
                                 </div>
                                 <div class="col-lg-8">
                                     <h3>
-                                        Doctor
+                                        Description
                                     </h3>
-                                    <p>
-                                        aaaaaaaaaaaaaaa
+                                    <p id="description">
+                                        xcxcxcczxczcc
                                     </p>
-                                    <p>
-                                        aaaaaaaaaaaaaaaaaaaaaaaaaa
-                                    </p>
-                                    <br />
-                                    <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message
-                                    </button>
                                 </div>
                             </div>
-                            <div class="client-detail">
-                                <div class="full-height-scroll">
-                                    <strong>Time Line</strong>
-                                    <div id="vertical-timeline" class="vertical-container light-timeline">
-                                        <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon navy-bg">
-                                                <i class="fa fa-briefcase"></i>
+                            <div  class="client-detail">
+                                <div class="full-height-scroll" id="contactInfo">
+                                    <div class="contact-box">
+                                        <a href="profile.html">
+                                            <div class="col-sm-4">
+                                                <div class="text-center">
+                                                    <img alt="image" class="img-circle m-t-xs img-responsive" src="/static/img/a8.jpg" />
+                                                    <div class="m-t-xs font-bold">CTO</div>
+                                                </div>
                                             </div>
+                                            <div class="col-sm-8">
+                                                <h3><strong>tony<button type="button" class="btn btn-primary btn-sm btn-info">working</button></strong></h3>
+                                                <p><i class="fa fa-venus"></i> 20 years old</p>
+                                                <address>
+                                                    <strong>Info</strong><br />
+                                                    E-mail:xxx@baidu.com<br />
+                                                    <abbr title="Phone">Tel:</abbr> (123) 456-7890
+                                                    <br />
+                                                    <button type="button" class="btn btn-primary"><i class="fa fa-envelope"></i>Message
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger"><i class="fa fa-lock"></i> Delete
+                                                    </button>
+                                                </address>
 
-                                            <div class="vertical-timeline-content">
-                                                <h2>Joining</h2>
-                                                <p>Joining our Hospital
-                                                </p>
-                                                <a href="#" class="btn btn-sm btn-primary"> more info</a>
-                                                <span class="vertical-date">
-                                        2015 <br />
-                                        <small>08.30</small>
-                                    </span>
                                             </div>
-                                        </div>
-
-                                        <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon blue-bg">
-                                                <i class="fa fa-file-text"></i>
+                                            <div class="clearfix"></div>
+                                        </a>
+                                    </div>
+                                    <div class="contact-box">
+                                        <a href="profile.html">
+                                            <div class="col-sm-4">
+                                                <div class="text-center">
+                                                    <img alt="image" class="img-circle m-t-xs img-responsive" src="/static/img/a8.jpg" />
+                                                    <div class="m-t-xs font-bold">CTO</div>
+                                                </div>
                                             </div>
-
-                                            <div class="vertical-timeline-content">
-                                                <h2>Treating</h2>
-                                                <p>treating a patient</p>
-                                                <a href="#" class="btn btn-sm btn-success"> more info </a>
-                                                <span class="vertical-date">
-                                        2015 <br />
-                                        <small>9.20</small>
-                                    </span>
+                                            <div class="col-sm-8">
+                                                <h3><strong>tony</strong></h3>
+                                                <p><i class="fa fa-map-marker"></i> ssssss</p>
+                                                <address>
+                                                    <strong>Baidu, Inc.</strong><br />
+                                                    E-mail:xxx@baidu.com<br />
+                                                    Weibo:<a href="">http://weibo.com/xxx</a><br />
+                                                    <abbr title="Phone">Tel:</abbr> (123) 456-7890
+                                                </address>
                                             </div>
-                                        </div>
-
-                                        <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon lazur-bg">
-                                                <i class="fa fa-coffee"></i>
+                                            <div class="clearfix"></div>
+                                        </a>
+                                    </div>
+                                    <div class="contact-box">
+                                        <a href="profile.html">
+                                            <div class="col-sm-4">
+                                                <div class="text-center">
+                                                    <img alt="image" class="img-circle m-t-xs img-responsive" src="/static/img/a8.jpg" />
+                                                    <div class="m-t-xs font-bold">CTO</div>
+                                                </div>
                                             </div>
-
-                                            <div class="vertical-timeline-content">
-                                                <h2>promotion</h2>
-                                                <p>promote to be a chief</p>
-                                                <a href="#" class="btn btn-sm btn-info">more info</a>
-                                                <span class="vertical-date"> Last day <br /><small>2.2</small></span>
+                                            <div class="col-sm-8">
+                                                <h3><strong>tony</strong></h3>
+                                                <p><i class="fa fa-map-marker"></i> ssssss</p>
+                                                <address>
+                                                    <strong>Baidu, Inc.</strong><br />
+                                                    E-mail:xxx@baidu.com<br />
+                                                    Weibo:<a href="">http://weibo.com/xxx</a><br />
+                                                    <abbr title="Phone">Tel:</abbr> (123) 456-7890
+                                                </address>
                                             </div>
-                                        </div>
-
-
+                                            <div class="clearfix"></div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -535,6 +820,77 @@
     });
 </script>
 
+<!-- ajax -->
+<script th:inline="text">
+    function show(btn) {
+        var id = $(btn).closest('tr').find('input').eq(0).val();
+        $.ajax({
+            type:"GET",
+            url:"/department/"+id,
+            dataType: "JSON",
+            success:function(data) {
+                console.log(data);
+                $('#departName').replaceWith("<h2 id='departName'>" + data.departName + "</h2>");
+                $('#description').replaceWith("<p id='description'>" + data.detail + "</p>");
+                var employees = data.employees;
+                let html = "";
+                $.each(employees, function (i, val) {
+                    let gender = employees[i].user.gender;
+                    let genderClass = "";
+                    if(gender==true){
+                        genderClass = "fa fa-mars";
+                    }
+                    else{
+                        genderClass = "fa fa-venus";
+                    }
+                    let status = employees[i].status;
+                    let statusHtml = "";
+                    switch(status){
+                        case 1:
+                            statusHtml = `<button type="button" class="btn btn-primary btn-sm btn-info">working</button>`;
+                            break;
+                        case 0:
+                            statusHtml = `<button type="button" class="btn btn-primary btn-sm btn-warning">relaxing</button>`;
+                            break;
+                        case -1:
+                            statusHtml = `<button type="button" class="btn btn-primary btn-sm btn-danger">fired</button>`;
+                            break;
+                    }
+                    html += ` <div class="contact-box">
+                                        <a href="profile.html">
+                                            <div class="col-sm-4">
+                                                <div class="text-center">
+                                                    <img alt="image" class="img-circle m-t-xs img-responsive" src=${employees[i].user.avator} />
+                                                    <div class="m-t-xs font-bold">${employees[i].type}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <h3><strong>${employees[i].user.trueName}
+                                                ${statusHtml}</strong></h3>
+                                                <p><i class='${genderClass}'></i>${employees[i].user.age}</p>
+                                                <address>
+                                                    <strong>Info</strong><br />
+                                                    E-mail:${employees[i].user.email}<br />
+                                                    <abbr title="Phone">Tel:</abbr> ${employees[i].user.mobile}
+                                                    <br />
+                                                    <button type="button" class="btn btn-primary"><i class="fa fa-envelope"></i>Message
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger"><i class="fa fa-lock"></i> Delete
+                                                    </button>
+                                                </address>
+
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </a>
+                                    </div>`;
+                    console.log(html);
+                });
+                $('#contactInfo').empty();
+                $("#contactInfo").append(html);
+            }
+            })
+    };
+</script>
 
 </body>
 

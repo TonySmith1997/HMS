@@ -11,14 +11,14 @@ public class Resources implements Serializable{
     @GeneratedValue
     private int id;
     private String resName;
-    private String decription;
+    private String description;
 
-    public String getDecription() {
-        return decription;
+    public String getDescription() {
+        return description;
     }
 
     public void setDecription(String decription) {
-        this.decription = decription;
+        this.description = decription;
     }
 
     public int getId() {

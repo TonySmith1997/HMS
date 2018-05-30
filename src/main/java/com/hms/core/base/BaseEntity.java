@@ -4,12 +4,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class BaseEntity implements Serializable{
+@MappedSuperclass
+public class BaseEntity implements Serializable{
     private Date createTime;
     private int createBy;
+    @Column(nullable = true)
     private Date updateTime;
-    private int updateBy;
+    @Column(nullable = true)
+    private Integer updateBy;
 
     public Date getCreateTime() {
         return createTime;
@@ -35,11 +37,11 @@ public abstract class BaseEntity implements Serializable{
         this.updateTime = updateTime;
     }
 
-    public int getUpdateBy() {
+    public Integer getUpdateBy() {
         return updateBy;
     }
 
-    public void setUpdateBy(int updateBy) {
+    public void setUpdateBy(Integer updateBy) {
         this.updateBy = updateBy;
     }
 

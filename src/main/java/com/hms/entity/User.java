@@ -1,6 +1,7 @@
 package com.hms.entity;
 
 import com.hms.core.base.BaseEntity;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+@Proxy(lazy = false)
 @Entity
 public class User extends BaseEntity{
     @Id
@@ -20,10 +22,8 @@ public class User extends BaseEntity{
     private String mobile;
     private String avator;
     private int age;
-    private int gender;//male 1，female 0
-    private int status;//状态，备用
-    private int departId;
-
+    private boolean gender;//male 1，female 0
+    private boolean ifEmloyee;
 
     public String getTrueName() {
         return trueName;
@@ -31,14 +31,6 @@ public class User extends BaseEntity{
 
     public void setTrueName(String trueName) {
         this.trueName = trueName;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 
     public int getId() {
@@ -97,19 +89,19 @@ public class User extends BaseEntity{
         this.age = age;
     }
 
-    public int getGender() {
+    public boolean isGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 
-    public int getDepartId() {
-        return departId;
+    public boolean isIfEmloyee() {
+        return ifEmloyee;
     }
 
-    public void setDepartId(int departId) {
-        this.departId = departId;
+    public void setIfEmloyee(boolean ifEmloyee) {
+        this.ifEmloyee = ifEmloyee;
     }
 }

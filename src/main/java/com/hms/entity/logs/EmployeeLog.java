@@ -6,6 +6,9 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * EmployeeLog
+ */
 @Entity
 public class EmployeeLog implements Serializable{
     @Id
@@ -13,6 +16,14 @@ public class EmployeeLog implements Serializable{
     private int id;
     private int who;//user_id
     private String what;//doing what
+    private String type;
+    /**
+     * joining the hospital
+     * promoting(if head become 1)
+     * demote（when update then if head become 0)
+     * transfer(update the departId)
+     * firing
+     */
     private Date when;
 
     public int getId() {
