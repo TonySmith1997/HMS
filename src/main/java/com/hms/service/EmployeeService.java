@@ -21,11 +21,7 @@ public class EmployeeService extends BaseService<EmployeeInfo,Integer>{
         return employeeDAO;
     }
 
-    /**
-     * 得到所有跟这个员工有关的log信息
-     * @param userId
-     * @return
-     */
+
     @Transactional(propagation=Propagation.REQUIRED,readOnly=false,rollbackFor={Exception.class})
     public EmployeeInfo getEmployeeInfo(int userId){
         String propertyName = "userId";

@@ -1,5 +1,7 @@
 package com.hms.entity.logs;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,6 +11,7 @@ import java.util.Date;
 /**
  * EmployeeLog
  */
+@Proxy(lazy =false)
 @Entity
 public class EmployeeLog implements Serializable{
     @Id
@@ -23,8 +26,17 @@ public class EmployeeLog implements Serializable{
      * demote（when update then if head become 0)
      * transfer(update the departId)
      * firing
+     * healing
      */
     private Date when;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public int getId() {
         return id;

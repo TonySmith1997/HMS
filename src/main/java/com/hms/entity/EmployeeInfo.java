@@ -1,6 +1,9 @@
 package com.hms.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.hms.core.base.BaseEntity;
+import com.hms.entity.logs.EmployeeLog;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -26,6 +30,18 @@ public class EmployeeInfo extends BaseEntity {
     private String description;
     @Transient
     private User user;
+    @Transient
+    @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
+    @JsonSerialize
+    private List<EmployeeLog> employeeLogs;
+
+    public List<EmployeeLog> getEmployeeLogs() {
+        return employeeLogs;
+    }
+
+    public void setEmployeeLogs(List<EmployeeLog> employeeLogs) {
+        this.employeeLogs = employeeLogs;
+    }
 
     public User getUser() {
         return user;

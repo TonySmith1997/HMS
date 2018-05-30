@@ -101,8 +101,8 @@ public class UserService extends BaseService<User,Integer> {
      * @return
      */
     public List<User> getEmployeeList(){
-        String propertyName = "departId";
-        return userDAO.findAllNOTNULL("departId");
+        String propertyName = "ifEmloyee";
+        return userDAO.findAllEq(propertyName,true);
     }
 
 

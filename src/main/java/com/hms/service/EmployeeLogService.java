@@ -6,6 +6,8 @@ import com.hms.dao.EmployeeLogDAO;
 import com.hms.entity.logs.EmployeeLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,8 +21,9 @@ public class EmployeeLogService extends BaseService<EmployeeLog,Integer>{
         return dao;
     }
 
-    public List<EmployeeLog> getEmployeeLog(int userId){
-        String propertyName = "userId";
-        return dao.findAllEq(propertyName,"userId");
+    @Transactional(propagation= Propagation.REQUIRED,readOnly=false,rollbackFor={Exception.class})
+    public List<EmployeeLog> getEmployeeLog(int who){
+        String propertyName = "who";
+        return dao.findAllEq(propertyName,who);
     }
 }

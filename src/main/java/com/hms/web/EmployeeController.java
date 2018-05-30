@@ -1,8 +1,10 @@
 package com.hms.web;
 
+import com.hms.entity.Department;
 import com.hms.entity.EmployeeInfo;
 import com.hms.entity.User;
 import com.hms.entity.logs.EmployeeLog;
+import com.hms.service.DepartmentService;
 import com.hms.service.EmployeeLogService;
 import com.hms.service.EmployeeService;
 import com.hms.service.UserService;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -20,6 +24,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
+@RequestMapping(value = "/employee")
 public class EmployeeController {
 
     protected Logger log = LogManager.getLogger(EmployeeController.class);
@@ -30,20 +35,24 @@ public class EmployeeController {
     private EmployeeService employeeService;
     @Autowired
     private EmployeeLogService employeeLogService;
+    @Autowired
+    private DepartmentService departmentService;
 
 
-//    @RequestMapping(value = "/employee",method = GET)
-//    public String getTotalList(ModelMap map){
-//        List<User> employees = userService.getEmployeeList();
-//        map.addAttribute("employee",employees);
-//        return "TotalList";
-//    }
-//
-//    @RequestMapping(value = "/employee/info",method = GET)
+    @RequestMapping(value = "",method = GET)
+    public String getTotalList(ModelMap map){
+        List<User> employees = userService.getEmployeeList();
+        List<Department> departmentList = departmentService.getAll();
+        map.addAttribute("departmentList",departmentList);
+        map.addAttribute("employees",employees);
+        return "TotalList";
+    }
+
+//    @RequestMapping(value = "/info",method = GET)
 //    public String getEmployeeInfo(ModelMap map,int userId) {
 //        EmployeeInfo employeeInfo = employeeService.getEmployeeInfo(userId);
 //        map.addAttribute("employeeInfo",employeeInfo);
-//        List<Log> employeeLogs  = employeeLogService.getEmployeeLog(userId);
+////        List<Log> employeeLogs  = employeeLogService.getEmployeeLog(userId);
 //        return "TotalList";
 //    }
 
@@ -82,13 +91,14 @@ public class EmployeeController {
         }
     }
 
-    @RequestMapping(value = "employee/{id}",method = GET)
-    public String getEmployeeInfo(@PathVariable int id,ModelMap map) {
-         EmployeeInfo employeeInfo = employeeService.getEmployeeInfo(id);
-         map.addAttribute("employee",employeeInfo);
-         return "TotalList";
+    @RequestMapping(value = "{id}",method = RequestMethod.GET)
+    public @ResponseBody EmployeeInfo getDepartment(ModelMap map, @PathVariable String id) {
+        Integer userId = Integer.valueOf(id);
+        EmployeeInfo employeeInfo = employeeService.getEmployeeInfo(userId);
+        User user = userService.get(userId);
+        List<EmployeeLog> employeeLogs = employeeLogService.getEmployeeLog(userId);
+        employeeInfo.setUser(user);
+        employeeInfo.setEmployeeLogs(employeeLogs);
+        return employeeInfo;
     }
-
-
-
 }

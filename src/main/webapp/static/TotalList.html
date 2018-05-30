@@ -1,24 +1,15 @@
 <!DOCTYPE html>
-<html
-        xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-
     <title>HMS Employee Management</title>
-
     <link rel="shortcut icon" href="favicon.ico"/>
     <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
     <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet" />
-
     <link href="/static/css/animate.css" rel="stylesheet" />
     <link href="/static/css/style.css?v=4.1.0" rel="stylesheet" />
-
 </head>
-
 <body class="gray-bg">
 <div class="wrapper wrapper-content  animated fadeInRight">
     <div class="row">
@@ -30,8 +21,7 @@
                     <div class="input-group">
                         <input type="text" placeholder="Find Employee" class="input form-control" />
                         <span class="input-group-btn">
-                                        <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
-                                </span>
+                                        <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button></span>
                     </div>
                     <div class="clients-list">
                         <ul class="nav nav-tabs">
@@ -52,205 +42,24 @@
                                 <div class="table-responsive">
                                     <table class="table table-striped table-hover">
                                         <tbody>
-                                        <tr>
-                                            <td class="client-avatar"><img alt="image" src="/static/img/a2.jpg" /> </td>
-                                            <td><a data-toggle="tab" href="#contact-1" class="client-link">Admin</a>
+                                        <tr th:each="employee : ${employees}">
+                                            <td class="client-avatar"><img alt="image" th:icon="${employee.avator}" /> </td>
+                                            <td><a data-toggle="tab" onclick="showEmp(this)" class="client-link" th:text="${employee.trueName}">Admin</a>
                                             </td>
-                                            <td> aaa</td>
+                                            <td><input th:value="${employee.id}" style="display: none;"/></td>
                                             <td class="contact-type"><i class="fa fa-phone"> </i>
                                             </td>
-                                            <td> 13209009485</td>
+                                            <td th:text="${employee.mobile}"> 13209009485</td>
                                             <td class="client-status"></td>
                                             <td class="contact-type"><i class="fa fa-envelope"> </i>
                                             </td>
-                                            <td> gravida@qq.com</td>
+                                            <td th:text="${employee.email}"> gravida@qq.com</td>
                                             <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
                                             <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
                                             <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
                                             <td class="contact-type"><a href="#" class="fa fa-remove" />
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
-                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
-                                            </td>
-                                            <td>bbb</td>
-                                            <td class="contact-type"><i class="fa fa-phone"> </i>
-                                            </td>
-                                            <td> 13209009485</td>
-                                            <td class="client-status"></td>
-                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
-                                            </td>
-                                            <td> rooney@sina.com</td>
-                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
-                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
-                                            </td>
-                                            <td>bbb</td>
-                                            <td class="contact-type"><i class="fa fa-phone"> </i>
-                                            </td>
-                                            <td> 13209009485</td>
-                                            <td class="client-status"></td>
-                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
-                                            </td>
-                                            <td> rooney@sina.com</td>
-                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
-                                        </tr><tr>
-                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
-                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
-                                            </td>
-                                            <td>bbb</td>
-                                            <td class="contact-type"><i class="fa fa-phone"> </i>
-                                            </td>
-                                            <td> 13209009485</td>
-                                            <td class="client-status"></td>
-                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
-                                            </td>
-                                            <td> rooney@sina.com</td>
-                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
-                                        </tr><tr>
-                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
-                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
-                                            </td>
-                                            <td>bbb</td>
-                                            <td class="contact-type"><i class="fa fa-phone"> </i>
-                                            </td>
-                                            <td> 13209009485</td>
-                                            <td class="client-status"></td>
-                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
-                                            </td>
-                                            <td> rooney@sina.com</td>
-                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
-                                        </tr><tr>
-                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
-                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
-                                            </td>
-                                            <td>bbb</td>
-                                            <td class="contact-type"><i class="fa fa-phone"> </i>
-                                            </td>
-                                            <td> 13209009485</td>
-                                            <td class="client-status"></td>
-                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
-                                            </td>
-                                            <td> rooney@sina.com</td>
-                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
-                                        </tr><tr>
-                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
-                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
-                                            </td>
-                                            <td>bbb</td>
-                                            <td class="contact-type"><i class="fa fa-phone"> </i>
-                                            </td>
-                                            <td> 13209009485</td>
-                                            <td class="client-status"></td>
-                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
-                                            </td>
-                                            <td> rooney@sina.com</td>
-                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
-                                        </tr><tr>
-                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
-                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
-                                            </td>
-                                            <td>bbb</td>
-                                            <td class="contact-type"><i class="fa fa-phone"> </i>
-                                            </td>
-                                            <td> 13209009485</td>
-                                            <td class="client-status"></td>
-                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
-                                            </td>
-                                            <td> rooney@sina.com</td>
-                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
-                                        </tr><tr>
-                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
-                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
-                                            </td>
-                                            <td>bbb</td>
-                                            <td class="contact-type"><i class="fa fa-phone"> </i>
-                                            </td>
-                                            <td> 13209009485</td>
-                                            <td class="client-status"></td>
-                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
-                                            </td>
-                                            <td> rooney@sina.com</td>
-                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
-                                        </tr><tr>
-                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
-                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
-                                            </td>
-                                            <td>bbb</td>
-                                            <td class="contact-type"><i class="fa fa-phone"> </i>
-                                            </td>
-                                            <td> 13209009485</td>
-                                            <td class="client-status"></td>
-                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
-                                            </td>
-                                            <td> rooney@sina.com</td>
-                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
-                                        </tr><tr>
-                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
-                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
-                                            </td>
-                                            <td>bbb</td>
-                                            <td class="contact-type"><i class="fa fa-phone"> </i>
-                                            </td>
-                                            <td> 13209009485</td>
-                                            <td class="client-status"></td>
-                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
-                                            </td>
-                                            <td> rooney@sina.com</td>
-                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
-                                        </tr><tr>
-                                            <td class="client-avatar"><img alt="image" src="/static/img/a3.jpg" /> </td>
-                                            <td><a data-toggle="tab" href="#contact-2" class="client-link">Andy</a>
-                                            </td>
-                                            <td>bbb</td>
-                                            <td class="contact-type"><i class="fa fa-phone"> </i>
-                                            </td>
-                                            <td> 13209009485</td>
-                                            <td class="client-status"></td>
-                                            <td class="contact-type"><i class="fa fa-envelope"> </i>
-                                            </td>
-                                            <td> rooney@sina.com</td>
-                                            <td class="contact-type"><a href="#" class="fa fa-plus" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-refresh" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-edit" /></td>
-                                            <td class="contact-type"><a href="#" class="fa fa-remove" /></td>
-                                        </tr>
-
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -711,10 +520,10 @@
                     <div class="tab-content">
                         <div id="contact-1" class="tab-pane active">
                             <div class="row m-b-lg">
-                                <div class="col-lg-4 text-center">
+                                <div class="col-lg-4 text-center" id="Name">
                                     <h2 id="departName">Medical department </h2>
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-8" id="Info">
                                     <h3>
                                         Description
                                     </h3>
@@ -725,74 +534,6 @@
                             </div>
                             <div  class="client-detail">
                                 <div class="full-height-scroll" id="contactInfo">
-                                    <div class="contact-box">
-                                        <a href="profile.html">
-                                            <div class="col-sm-4">
-                                                <div class="text-center">
-                                                    <img alt="image" class="img-circle m-t-xs img-responsive" src="/static/img/a8.jpg" />
-                                                    <div class="m-t-xs font-bold">CTO</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <h3><strong>tony<button type="button" class="btn btn-primary btn-sm btn-info">working</button></strong></h3>
-                                                <p><i class="fa fa-venus"></i> 20 years old</p>
-                                                <address>
-                                                    <strong>Info</strong><br />
-                                                    E-mail:xxx@baidu.com<br />
-                                                    <abbr title="Phone">Tel:</abbr> (123) 456-7890
-                                                    <br />
-                                                    <button type="button" class="btn btn-primary"><i class="fa fa-envelope"></i>Message
-                                                    </button>
-                                                    <button type="button" class="btn btn-danger"><i class="fa fa-lock"></i> Delete
-                                                    </button>
-                                                </address>
-
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </a>
-                                    </div>
-                                    <div class="contact-box">
-                                        <a href="profile.html">
-                                            <div class="col-sm-4">
-                                                <div class="text-center">
-                                                    <img alt="image" class="img-circle m-t-xs img-responsive" src="/static/img/a8.jpg" />
-                                                    <div class="m-t-xs font-bold">CTO</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <h3><strong>tony</strong></h3>
-                                                <p><i class="fa fa-map-marker"></i> ssssss</p>
-                                                <address>
-                                                    <strong>Baidu, Inc.</strong><br />
-                                                    E-mail:xxx@baidu.com<br />
-                                                    Weibo:<a href="">http://weibo.com/xxx</a><br />
-                                                    <abbr title="Phone">Tel:</abbr> (123) 456-7890
-                                                </address>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </a>
-                                    </div>
-                                    <div class="contact-box">
-                                        <a href="profile.html">
-                                            <div class="col-sm-4">
-                                                <div class="text-center">
-                                                    <img alt="image" class="img-circle m-t-xs img-responsive" src="/static/img/a8.jpg" />
-                                                    <div class="m-t-xs font-bold">CTO</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <h3><strong>tony</strong></h3>
-                                                <p><i class="fa fa-map-marker"></i> ssssss</p>
-                                                <address>
-                                                    <strong>Baidu, Inc.</strong><br />
-                                                    E-mail:xxx@baidu.com<br />
-                                                    Weibo:<a href="">http://weibo.com/xxx</a><br />
-                                                    <abbr title="Phone">Tel:</abbr> (123) 456-7890
-                                                </address>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -806,12 +547,9 @@
 <!-- 全局js -->
 <script src="/static/js/jquery.min.js?v=2.1.4"></script>
 <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
-
 <script src="/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
 <!-- 自定义js -->
 <script src="/static/js/content.js?v=1.0.0"></script>
-
 <script>
     $(function () {
         $('.full-height-scroll').slimScroll({
@@ -820,7 +558,7 @@
     });
 </script>
 
-<!-- ajax -->
+<!-- ajax for department-->
 <script th:inline="text">
     function show(btn) {
         var id = $(btn).closest('tr').find('input').eq(0).val();
@@ -829,9 +567,12 @@
             url:"/department/"+id,
             dataType: "JSON",
             success:function(data) {
-                console.log(data);
-                $('#departName').replaceWith("<h2 id='departName'>" + data.departName + "</h2>");
-                $('#description').replaceWith("<p id='description'>" + data.detail + "</p>");
+                let NameHtml = `<h2 id='departName'>${data.departName}</h2>`;
+                $('#Name').empty().append(NameHtml);
+//                $('#departName').replaceWith("<h2 id='departName'>" + data.departName + "</h2>");
+                let docHtml = `<p id='description'>${data.detail}</p>`;
+                $('#Info').empty().append(docHtml);
+//                $('#description').replaceWith("<p id='description'>" + data.detail + "</p>");
                 var employees = data.employees;
                 let html = "";
                 $.each(employees, function (i, val) {
@@ -857,7 +598,6 @@
                             break;
                     }
                     html += ` <div class="contact-box">
-                                        <a href="profile.html">
                                             <div class="col-sm-4">
                                                 <div class="text-center">
                                                     <img alt="image" class="img-circle m-t-xs img-responsive" src=${employees[i].user.avator} />
@@ -878,18 +618,183 @@
                                                     <button type="button" class="btn btn-danger"><i class="fa fa-lock"></i> Delete
                                                     </button>
                                                 </address>
-
                                             </div>
                                             <div class="clearfix"></div>
-                                        </a>
                                     </div>`;
-                    console.log(html);
                 });
                 $('#contactInfo').empty();
                 $("#contactInfo").append(html);
             }
             })
     };
+</script>
+
+<!--ajax for employeement-->
+<script>
+    function showEmp(btn) {
+        var id = $(btn).closest('tr').find('input').eq(0).val();
+        $.ajax({
+            type: "GET",
+            url: "/employee/" + id,
+            dataType: "JSON",
+            success: function (data) {
+                let NameHtml = `<h2>${data.user.trueName}</h2>
+                            <div class="m-b-sm">
+                                <img alt="image" class="img-circle" src="${data.user.avator}" style="width: 110px" />
+                            </div>`;
+                $('#Name').empty().append(NameHtml);
+                let status = data.status;
+                let statusHtml = "";
+                switch(status){
+                    case 1:
+                        statusHtml = `<button type="button" class="btn btn-primary btn-sm btn-info">working</button>`;
+                        break;
+                    case 0:
+                        statusHtml = `<button type="button" class="btn btn-primary btn-sm btn-warning">relaxing</button>`;
+                        break;
+                    case -1:
+                        statusHtml = `<button type="button" class="btn btn-primary btn-sm btn-danger">fired</button>`;
+                        break;
+                }
+                let docHtml = `
+                            <h3>${data.type}${statusHtml}</h3>
+                            <p>
+                                ${data.description}
+                            </p>
+                            <br />
+                            <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm btn-block"><i class="fa fa-envelope"></i>Delete
+                            </button>`;
+                let gender = data.user.gender;
+                let genderHtml = "";
+                if(gender==true){
+                    genderHtml = "Male";
+                }
+                else{
+                    genderHtml = "Female";
+                }
+                $('#Info').empty().append(docHtml);
+                let html = `<ul  class="list-group clear-list">
+                                    <li class="list-group-item fist-item">
+                                    <span class="pull-right">${data.user.age} </span> Age
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right"> ${genderHtml} </span> Gender
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.user.mobile} </span> Mobile
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.user.email} </span> Email
+                                    </li>
+                                    </ul>
+                                    <strong>Time Line</strong>
+                                    <div id="vertical-timeline" class="vertical-container light-timeline">
+                                    </div>
+                                    `;
+                let Emplogs = data.employeeLogs;
+                let timeLineHtml = "";
+                $.each(Emplogs, function (i, val){
+                    switch (Emplogs[i].type){
+                        case "joining":
+                            timeLineHtml += `
+                                            <div class="vertical-timeline-block">
+                                            <div class="vertical-timeline-icon navy-bg">
+                                                <i class="fa fa-briefcase"></i>
+                                            </div>
+                                            <div class="vertical-timeline-content">
+                                                <h2>Joining</h2>
+                                                <p>${Emplogs[i].what}
+                                                </p>
+                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
+                                                <span class="vertical-date">
+                                    <br>
+                                    <small>${Emplogs[i].when}</small>
+                                    </span>
+                                            </div>
+                                            </div>`;
+                            break;
+                        case "promoting":
+                            timeLineHtml += `
+                                            <div class="vertical-timeline-block">
+                                            <div class="vertical-timeline-icon yellow-bg">
+                                                <i class="fa fa-coffee"></i>
+                                            </div>
+                                            <div class="vertical-timeline-content">
+                                                <h2>Promoting</h2>
+                                                <p>${Emplogs[i].what}
+                                                </p>
+                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
+                                                <span class="vertical-date">
+                                    <br>
+                                    <small>${Emplogs[i].when}</small>
+                                    </span>
+                                            </div>
+                                            </div>`;
+                            break;
+                        case "demoting":
+                            timeLineHtml += `
+                                            <div class="vertical-timeline-block">
+                                            <div class="vertical-timeline-icon blue-bg">
+                                                <i class="fa fa-text"></i>
+                                            </div>
+                                            <div class="vertical-timeline-content">
+                                                <h2>Demoting</h2>
+                                                <p>${Emplogs[i].what}
+                                                </p>
+                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
+                                                <span class="vertical-date">
+                                    <br>
+                                    <small>${Emplogs[i].when}</small>
+                                    </span>
+                                            </div>
+                                            </div>`;
+                            break;
+                        case "transferring":
+                            timeLineHtml += `
+                                            <div class="vertical-timeline-block">
+                                            <div class="vertical-timeline-icon blue-bg">
+                                                <i class="fa fa-text"></i>
+                                            </div>
+                                            <div class="vertical-timeline-content">
+                                                <h2>Transferring</h2>
+                                                <p>${Emplogs[i].what}
+                                                </p>
+                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
+                                                <span class="vertical-date">
+                                    <br>
+                                    <small>${Emplogs[i].when}</small>
+                                    </span>
+                                            </div>
+                                            </div>`;
+                            break;
+                        case "healing":
+                            timeLineHtml += `
+                                            <div class="vertical-timeline-block">
+                                            <div class="vertical-timeline-icon red-bg">
+                                                <i class="fa fa-heart"></i>
+                                            </div>
+                                            <div class="vertical-timeline-content">
+                                                <h2>Healing</h2>
+                                                <p>${Emplogs[i].what}
+                                                </p>
+                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
+                                                <span class="vertical-date">
+                                    <br>
+                                    <small>${Emplogs[i].when}</small>
+                                    </span>
+                                            </div>
+                                            </div>`;
+                            break;
+                    }
+                });
+                $('#contactInfo').empty();
+                $("#contactInfo").append(html);
+                $("#vertical-timeline").empty().append(timeLineHtml);
+            }
+        })
+    }
 </script>
 
 </body>

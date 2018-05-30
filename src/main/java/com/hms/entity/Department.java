@@ -25,7 +25,6 @@ public class Department extends BaseEntity{
     @Transient
     @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
     @JsonSerialize
-
     private List<EmployeeInfo> employees;
 
     public List<EmployeeInfo> getEmployees() {
