@@ -11,7 +11,7 @@
  Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 30/05/2018 09:29:00
+ Date: 30/05/2018 16:08:44
 */
 
 SET NAMES utf8mb4;
@@ -173,25 +173,79 @@ CREATE TABLE `EmployeeInfo` (
 -- Records of EmployeeInfo
 -- ----------------------------
 BEGIN;
-INSERT INTO `EmployeeInfo` VALUES (1, 1, '2018-05-28 23:29:43', NULL, NULL, 1, 0, 1, 1, 'head of the medical department', NULL);
-INSERT INTO `EmployeeInfo` VALUES (2, 1, '2018-05-28 23:31:45', NULL, NULL, 2, 0, 2, 1, 'head of the surgical department', NULL);
-INSERT INTO `EmployeeInfo` VALUES (3, 1, '2018-05-28 23:32:54', NULL, NULL, 3, 0, 3, 1, 'head of the cardiology department ', NULL);
-INSERT INTO `EmployeeInfo` VALUES (4, 1, '2018-05-28 23:33:47', NULL, NULL, 4, 0, 4, 1, 'head of the dental department', NULL);
-INSERT INTO `EmployeeInfo` VALUES (5, 1, '2018-05-28 23:34:26', NULL, NULL, 5, 0, 5, 1, 'head of the skin department ', NULL);
-INSERT INTO `EmployeeInfo` VALUES (6, 1, '2018-05-28 23:35:02', NULL, NULL, 6, 0, 6, 1, 'head of the neurology department', NULL);
-INSERT INTO `EmployeeInfo` VALUES (7, 1, '2018-05-28 23:36:06', NULL, NULL, 8, 0, 7, 1, 'head of the ophthalmology department', NULL);
-INSERT INTO `EmployeeInfo` VALUES (8, 1, '2018-05-28 23:36:53', NULL, NULL, 9, 0, 8, 1, 'head of the orthopedics department', NULL);
-INSERT INTO `EmployeeInfo` VALUES (9, 1, '2018-05-28 23:37:23', NULL, NULL, 10, 0, 9, 1, 'head of the otorhinolaryngological department ', NULL);
-INSERT INTO `EmployeeInfo` VALUES (10, 1, '2018-05-28 23:38:02', NULL, NULL, 11, 0, 10, 1, 'head of the paediatrics department', NULL);
-INSERT INTO `EmployeeInfo` VALUES (11, 1, '2018-05-28 23:40:21', NULL, NULL, 12, 0, 11, 1, 'head of the urology department', NULL);
-INSERT INTO `EmployeeInfo` VALUES (12, 1, '2018-05-28 23:41:00', NULL, NULL, 13, 0, 12, 1, 'head of the X-ray department', NULL);
-INSERT INTO `EmployeeInfo` VALUES (13, 1, '2018-05-28 23:41:22', NULL, NULL, 14, 0, 13, 0, 'register staff', NULL);
-INSERT INTO `EmployeeInfo` VALUES (14, 1, '2018-05-28 23:41:54', NULL, NULL, 15, 0, 14, 1, 'head of the Laboratory', NULL);
-INSERT INTO `EmployeeInfo` VALUES (15, 1, '2018-05-28 23:42:19', NULL, NULL, 16, 0, 15, 0, 'Blood collector', NULL);
-INSERT INTO `EmployeeInfo` VALUES (16, 1, '2018-05-28 23:42:47', NULL, NULL, 17, 0, 16, 0, 'pharmacist', NULL);
-INSERT INTO `EmployeeInfo` VALUES (17, 1, '2018-05-28 23:43:22', NULL, NULL, 18, 0, 17, 1, 'head nurse', NULL);
-INSERT INTO `EmployeeInfo` VALUES (18, 1, '2018-05-28 23:35:31', NULL, NULL, 7, 0, 18, 1, 'head of the obstetrics and gynecology department', NULL);
-INSERT INTO `EmployeeInfo` VALUES (19, 1, '2018-05-30 08:00:43', NULL, NULL, 1, 0, 19, 0, 'interne', NULL);
+INSERT INTO `EmployeeInfo` VALUES (1, 1, '2018-05-28 23:29:43', NULL, NULL, 1, 0, 1, 1, 'head of the medical department', 'fasfsafas');
+INSERT INTO `EmployeeInfo` VALUES (2, 1, '2018-05-28 23:31:45', NULL, NULL, 2, 0, 2, 1, 'head of the surgical department', 'fasfasf');
+INSERT INTO `EmployeeInfo` VALUES (3, 1, '2018-05-28 23:32:54', NULL, NULL, 3, 0, 3, 1, 'head of the cardiology department ', 'asfdasf');
+INSERT INTO `EmployeeInfo` VALUES (4, 1, '2018-05-28 23:33:47', NULL, NULL, 4, 0, 4, 1, 'head of the dental department', 'asfasf');
+INSERT INTO `EmployeeInfo` VALUES (5, 1, '2018-05-28 23:34:26', NULL, NULL, 5, 0, 5, 1, 'head of the skin department ', 'asfaf');
+INSERT INTO `EmployeeInfo` VALUES (6, 1, '2018-05-28 23:35:02', NULL, NULL, 6, 0, 6, 1, 'head of the neurology department', 'asfasf');
+INSERT INTO `EmployeeInfo` VALUES (7, 1, '2018-05-28 23:36:06', NULL, NULL, 8, 0, 7, 1, 'head of the ophthalmology department', 'asf');
+INSERT INTO `EmployeeInfo` VALUES (8, 1, '2018-05-28 23:36:53', NULL, NULL, 9, 0, 8, 1, 'head of the orthopedics department', 'fasf');
+INSERT INTO `EmployeeInfo` VALUES (9, 1, '2018-05-28 23:37:23', NULL, NULL, 10, 0, 9, 1, 'head of the otorhinolaryngological department ', 'fasf');
+INSERT INTO `EmployeeInfo` VALUES (10, 1, '2018-05-28 23:38:02', NULL, NULL, 11, 0, 10, 1, 'head of the paediatrics department', 'asf');
+INSERT INTO `EmployeeInfo` VALUES (11, 1, '2018-05-28 23:40:21', NULL, NULL, 12, 0, 11, 1, 'head of the urology department', 'asfsaf');
+INSERT INTO `EmployeeInfo` VALUES (12, 1, '2018-05-28 23:41:00', NULL, NULL, 13, 0, 12, 1, 'head of the X-ray department', 'asfasf');
+INSERT INTO `EmployeeInfo` VALUES (13, 1, '2018-05-28 23:41:22', NULL, NULL, 14, 0, 13, 0, 'register staff', 'fasf');
+INSERT INTO `EmployeeInfo` VALUES (14, 1, '2018-05-28 23:41:54', NULL, NULL, 15, 0, 14, 1, 'head of the Laboratory', 'asf');
+INSERT INTO `EmployeeInfo` VALUES (15, 1, '2018-05-28 23:42:19', NULL, NULL, 16, 0, 15, 0, 'Blood collector', 'fasf');
+INSERT INTO `EmployeeInfo` VALUES (16, 1, '2018-05-28 23:42:47', NULL, NULL, 17, 0, 16, 0, 'pharmacist', 'fasfas');
+INSERT INTO `EmployeeInfo` VALUES (17, 1, '2018-05-28 23:43:22', NULL, NULL, 18, 0, 17, 1, 'head nurse', 'sad');
+INSERT INTO `EmployeeInfo` VALUES (18, 1, '2018-05-28 23:35:31', NULL, NULL, 7, 0, 18, 1, 'head of the obstetrics and gynecology department', 'das');
+INSERT INTO `EmployeeInfo` VALUES (19, 1, '2018-05-30 08:00:43', NULL, NULL, 1, 0, 19, 0, 'interne', 'dsa');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for EmployeeLog
+-- ----------------------------
+DROP TABLE IF EXISTS `EmployeeLog`;
+CREATE TABLE `EmployeeLog` (
+  `id` int(11) NOT NULL,
+  `who` int(11) NOT NULL,
+  `what` varchar(100) NOT NULL,
+  `when` datetime NOT NULL,
+  `type` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of EmployeeLog
+-- ----------------------------
+BEGIN;
+INSERT INTO `EmployeeLog` VALUES (1, 1, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (2, 2, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (3, 3, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (4, 4, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (5, 5, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (6, 6, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (7, 7, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (8, 8, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (9, 9, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (10, 10, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (11, 11, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (12, 12, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (13, 13, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (14, 14, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (15, 15, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (16, 16, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (17, 17, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (18, 18, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-28 23:29:43', 'joining');
+INSERT INTO `EmployeeLog` VALUES (19, 1, 'promoting to be the head of the medical department', '2018-05-30 14:42:09', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (20, 2, 'promoting to be the head of the surgical department', '2018-05-30 14:42:56', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (21, 3, 'promoting to be the head of the cardiology department ', '2018-05-30 14:43:12', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (22, 4, 'promoting to be the head of the dental department', '2018-05-30 14:43:12', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (23, 5, 'promoting to be the head of the skin department ', '2018-05-30 14:43:12', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (24, 6, 'promoting to be the head of the neurology department', '2018-05-30 14:43:12', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (25, 7, 'promoting to be the head of the ophthalmology department', '2018-05-30 14:43:12', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (26, 8, 'promoting to be the head of the orthopedics department', '2018-05-30 14:43:12', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (27, 9, 'promoting to be the head of the otorhinolaryngological department ', '2018-05-30 14:43:12', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (28, 10, 'promoting to be the head of the paediatrics department', '2018-05-30 14:43:12', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (29, 11, 'promoting to be the head of the urology department', '2018-05-30 14:43:12', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (30, 12, 'promoting to be the head of the X-ray department', '2018-05-30 14:43:12', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (32, 14, 'promoting to be the head of the Laboratory', '2018-05-30 14:43:12', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (33, 19, 'joining the hospital at 2018-05-28 23:29:43,registered by Tony', '2018-05-30 14:43:12', 'joining');
+INSERT INTO `EmployeeLog` VALUES (35, 17, 'promoting to be the head nurse', '2018-05-30 14:43:12', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (36, 18, 'promoting to be the head of the obstetrics and gynecology department', '2018-05-30 14:43:12', 'promoting');
+INSERT INTO `EmployeeLog` VALUES (37, 1, 'healing a patient called Andy  at 2018-05-30 14:43:12', '2018-05-30 14:43:12', 'healing');
 COMMIT;
 
 -- ----------------------------
