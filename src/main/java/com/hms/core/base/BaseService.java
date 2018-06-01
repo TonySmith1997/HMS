@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 提供基础的service的操作
  */
-public abstract class BaseService<T,Pk extends Serializable>{
+public abstract class BaseService<T,Pk extends Serializable> {
 
     public abstract BaseDAOImpl<T,Pk> getBaseDAO();
 

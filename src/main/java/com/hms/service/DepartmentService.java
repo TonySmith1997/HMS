@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
 
-
-import java.util.List;
 
 @Service
 public class DepartmentService extends BaseService<Department,Integer>{
@@ -25,7 +22,15 @@ public class DepartmentService extends BaseService<Department,Integer>{
     public Department getDepartmentUnique(int id)
     {
         String property = "id";
-        return dao.findUniqueBy("id",id);
+        return dao.findUniqueBy(property,id);
     }
+
+    @Transactional(propagation= Propagation.REQUIRED,readOnly=false,rollbackFor={Exception.class})
+    public Department getDepartmentByName(String departmentName)
+    {
+        String property = "departName";
+        return dao.findUniqueBy(property,departmentName);
+    }
+
 
 }

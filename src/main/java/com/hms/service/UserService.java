@@ -2,7 +2,6 @@ package com.hms.service;
 
 import com.hms.core.base.BaseDAOImpl;
 import com.hms.core.base.BaseService;
-import com.hms.core.security.Digests;
 import com.hms.core.util.ValidatorUtil;
 import com.hms.dao.UserDAO;
 import com.hms.entity.User;
@@ -18,7 +17,6 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class UserService extends BaseService<User,Integer> {
 
-    public static final String HASH_ALGORITHM = "MD5";
 
     @Autowired
     private UserDAO userDAO;
@@ -33,7 +31,6 @@ public class UserService extends BaseService<User,Integer> {
      */
     @Transactional(readOnly = false)
     public void save(User user){
-        entryptPassword(user);
         user.setCreateTime((Timestamp) new Date());
         userDAO.save(user);
     }
@@ -44,7 +41,6 @@ public class UserService extends BaseService<User,Integer> {
      */
     @Transactional(readOnly = false)
     public void updatePwd(User user){
-        entryptPassword(user);
         userDAO.update(user);
     }
 
@@ -75,26 +71,16 @@ public class UserService extends BaseService<User,Integer> {
         return "username";
     }
 
-    /**
-     * 检验密码
-     * @param user
-     * @param password
-     * @return
-     */
+
     public boolean checkPassword(User user,String password){
-        byte[] hashPassword = Digests.MD5(password.trim().getBytes());
-        byte[] truePassword = user.getPassword().getBytes();
-        if(hashPassword.equals(truePassword)){
+        String truePassword = user.getPassword();
+        if(password.equals(truePassword)){
             return true;
         }
         return false;
     }
 
 
-    private void entryptPassword(User user){
-        byte[] hashPassword = Digests.MD5(user.getPassword().getBytes());
-        user.setPassword(hashPassword.toString());
-    }
 
     /**
      * 得到除patient以外的user信息表

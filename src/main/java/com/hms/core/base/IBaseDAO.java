@@ -34,7 +34,7 @@ public interface IBaseDAO<T,Pk extends Serializable> {
      * HQL
      */
     public T findUnique(final String hql,final Map<String, ?> values);
-
+    public Integer count(String hql);
 
     public void initProxyObject(Object proxy);
     public void flush();

@@ -133,6 +133,10 @@ public class BaseDAOImpl<T,Pk extends Serializable> implements IBaseDAO<T,Pk>{
         return query;
     }
 
+    public Integer count(String hql) {
+        return (Integer) this.getCurrentSession().createQuery(hql).uniqueResult();
+    }
+
     public void initProxyObject(Object proxy) {
         Hibernate.initialize(proxy);
     }

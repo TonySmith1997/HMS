@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/static/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/static/css/plugins/cropper/cropper.min.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Employee Register</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="form_wizard.html#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="form_wizard.html#">1</a>
+                            </li>
+                            <li><a href="form_wizard.html#">2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <h2>
+                        Employee Register
+                    </h2>
+                    <form id="form" action="form_wizard.html#" class="wizard-big">
+                        <h1>Basic Info </h1>
+                        <fieldset>
+                            <h2>Basic Info</h2>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <label>Username *</label>
+                                        <input id="userName" name="userName" type="text" class="form-control required">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>password *</label>
+                                        <input id="password" name="password" type="text" class="form-control required">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>confirm password *</label>
+                                        <input id="confirm" name="confirm" type="text" class="form-control required">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="text-center">
+                                        <div style="margin-top: 20px">
+                                            <i class="fa fa-sign-in" style="font-size: 180px;color: #e5e5e5 "></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <h1>User Info</h1>
+                        <fieldset>
+                            <h2>User Info</h2>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>TrueName* </label>
+                                        <input id="name" name="name" type="text" class="form-control required">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Age* </label>
+                                        <input id="age" name="age" type="text" class="form-control required">
+                                        <label>gender* </label>
+                                        <select id="gender">
+                                            <option label="Male" value="true"></option>
+                                            <option label="Female" value="false"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Email *</label>
+                                        <input id="email" name="email" type="text" class="form-control required email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mobile *</label>
+                                        <input id="address" name="address" type="text" class="form-control required">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <h1>Employee Info</h1>
+                        <fieldset>
+                            <h2>User Info</h2>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Department* </label>
+                                        <select id="depart">
+                                            <option value="1">Medical department</option>
+                                            <option value="2">Surgical department</option>
+                                            <option value="3">Cardiology department</option>
+                                            <option value="4">Dental department</option>
+                                            <option value="5">Skin department</option>
+                                            <option value="6">Neurology department</option>
+                                            <option value="7">Obstetrics and gynecology department</option>
+                                            <option value="8">Ophthalmology department</option>
+                                            <option value="9">Orthopedics department</option>
+                                            <option value="10">Otorhinolaryngological department</option>
+                                            <option value="11">Paediatrics department</option>
+                                            <option value="12">Urology department</option>
+                                            <option value="13">X-ray department</option>
+                                            <option value="14">Registration office</option>
+                                            <option value="15">Laboratory</option>
+                                            <option value="16">Blood bank</option>
+                                            <option value="17">Pharmacy</option>
+                                            <option value="18">Nursing department</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Position* </label>
+                                        <select data-placeholder="choose position..." class="chosen-select" style="width:350px;" tabindex="2"
+                                                id="position">
+                                            <option value="Chief Doctor">Chief Doctor</option>
+                                            <option value="Associate Chief Doctor">Associate Chief Doctor</option>
+                                            <option value="Attending Doctor">Attending Doctor</option>
+                                            <option value="Interne">Interne</option>
+                                            <option value="Staff">Staff</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 全局js -->
+<script src="/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+<!-- 自定义js -->
+<script src="/static/js/content.js?v=1.0.0"></script>
+
+
+<!-- Steps -->
+<script src="/static/js/plugins/staps/jquery.steps.min.js"></script>
+
+<!-- Jquery Validate -->
+<script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="/static/js/plugins/validate/messages_zh.min.js"></script>
+<!-- Image cropper -->
+<script src="/static/js/plugins/cropper/cropper.min.js"></script>
+<script src="/static/js/demo/form-advanced-demo.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#wizard").steps();
+        $("#form").steps({
+            bodyTag: "fieldset",
+            onStepChanging: function (event, currentIndex, newIndex) {
+                // Always allow going backward even if the current step contains invalid fields!
+                if (currentIndex > newIndex) {
+                    return true;
+                }
+
+                // Forbid suppressing "Warning" step if the user is to young
+                if (newIndex === 3 && Number($("#age").val()) < 18) {
+                    return false;
+                }
+
+                var form = $(this);
+
+                // Clean up if user went backward before
+                if (currentIndex < newIndex) {
+                    // To remove error styles
+                    $(".body:eq(" + newIndex + ") label.error", form).remove();
+                    $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                }
+
+                // Disable validation on fields that are disabled or hidden.
+                form.validate().settings.ignore = ":disabled,:hidden";
+
+                // Start validation; Prevent going forward if false
+                return form.valid();
+            },
+            onStepChanged: function (event, currentIndex, priorIndex) {
+                // Suppress (skip) "Warning" step if the user is old enough.
+                if (currentIndex === 2 && Number($("#age").val()) >= 18) {
+                    $(this).steps("next");
+                }
+
+                // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                if (currentIndex === 2 && priorIndex === 3) {
+                    $(this).steps("previous");
+                }
+            },
+            onFinishing: function (event, currentIndex) {
+                var form = $(this);
+
+                // Disable validation on fields that are disabled.
+                // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                form.validate().settings.ignore = ":disabled";
+
+                // Start validation; Prevent form submission if false
+                return form.valid();
+            },
+            onFinished: function (event, currentIndex) {
+                var form = $(this);
+
+                // Submit form input
+                form.submit();
+            }
+        }).validate({
+            errorPlacement: function (error, element) {
+                element.before(error);
+            },
+            rules: {
+                confirm: {
+                    equalTo: "#password"
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>

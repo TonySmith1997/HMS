@@ -26,6 +26,9 @@ public class EmployeeInfo extends BaseEntity {
     private int departId;//科室Id
     private int status;//1.在班，0下班 3.离职
     private boolean ifHead;
+    /**
+     * Chief,Associate Chief,Attending,Intern
+     */
     private String type;
     private String description;
     @Transient
