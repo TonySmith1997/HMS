@@ -38,4 +38,6 @@ public abstract class BaseService<T,Pk extends Serializable> {
     }
 
 
+    @Transactional
+    public int count() {return getBaseDAO().count();}
 }

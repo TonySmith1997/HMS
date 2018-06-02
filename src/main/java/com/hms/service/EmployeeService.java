@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,5 +33,13 @@ public class EmployeeService extends BaseService<EmployeeInfo,Integer>{
     public List<EmployeeInfo> getEmployeeInfoByDepartment(int departId){
         String propertyName  = "departId";
         return employeeDAO.findAllEq(propertyName,departId);
+    }
+
+
+    @Transactional
+    public Date getLastUpdate() {
+        String propertyName = "updateTime";
+        List<EmployeeInfo> employeeInfos =  employeeDAO.findAll(propertyName,false);
+        return employeeInfos.get(0).getUpdateTime();
     }
 }

@@ -42,24 +42,54 @@ public class EmployeeInfoController {
     private DepartmentService departmentService;
 
 
+    /**
+     * 显示主页面
+     * 最新更新时间
+     * 用户数量
+     * 员工表
+     * 科室表
+     * @param map
+     * @return
+     */
     @RequestMapping(value = "",method = GET)
     public String getTotalList(ModelMap map){
         List<User> employees = userService.getEmployeeList();
         List<Department> departmentList = departmentService.getAll();
+        int count = employeeService.count();
+        Date LastUpdate = employeeService.getLastUpdate();
+        map.addAttribute("lastUpdate",LastUpdate);
+        map.addAttribute("empCount",count);
         map.addAttribute("departmentList",departmentList);
         map.addAttribute("employees",employees);
         return "TotalList";
     }
 
+    /**
+     * 通过id得到员工的详细信息
+     * @param map
+     * @param userId
+     * @return
+     */
     @RequestMapping(value = "/info",method = GET)
     public String getEmployeeInfo(ModelMap map,int userId) {
         EmployeeInfo employeeInfo = employeeService.getEmployeeInfo(userId);
         map.addAttribute("employeeInfo",employeeInfo);
-//        List<Log> employeeLogs  = employeeLogService.getEmployeeLog(userId);
         return "TotalList";
     }
 
 
+    /**
+     * 表单提交更新员工
+     * @param userid
+     * @param username
+     * @param mobile
+     * @param email
+     * @param age
+     * @param gender
+     * @param department
+     * @param position
+     * @return
+     */
     @RequestMapping(value = "update",method=POST)
     public String registerNewEmployee(
                                       @RequestParam("userid") String userid,
@@ -119,6 +149,11 @@ public class EmployeeInfoController {
      }
 
 
+    /**
+     * 显示表单更新时的弹出框
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/update/{id}",method = GET)
     public @ResponseBody EmployeeInfo getEmployeeForUpdate(@PathVariable String id) {
         Integer userId = Integer.valueOf(id);
@@ -129,10 +164,14 @@ public class EmployeeInfoController {
         return employeeInfo;
     }
 
-
+    /**
+     * 获得用户详情
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "{id}",method = RequestMethod.GET)
     public @ResponseBody
-    EmployeeInfo getDepartment(@PathVariable String id) {
+    EmployeeInfo getEmployeeDetail(@PathVariable String id) {
         Integer userId = Integer.valueOf(id);
         EmployeeInfo employeeInfo = employeeService.getEmployeeInfo(userId);
         User user = userService.get(userId);
@@ -142,6 +181,18 @@ public class EmployeeInfoController {
         return employeeInfo;
     }
 
+    @RequestMapping(value = "/search/{searchName}",method = RequestMethod.GET)
+    public @ResponseBody
+    List<User> getEmployeeLike(@PathVariable String searchName) {
+        List<User> users = userService.getEmployeeLike(searchName.trim()+"%");
+        return users;
+    }
+
+
+    /**
+     * 跳转用户注册页面
+     * @return
+     */
     @RequestMapping(value = "insert",method = RequestMethod.GET)
     public String getEmployeeInsertPage(){
         return "EmployeeInsert";

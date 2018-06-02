@@ -18,7 +18,12 @@ public interface IBaseDAO<T,Pk extends Serializable> {
     public T find(final Pk id);
     public T findUniqueBy(final String propertyName,final Object value);
     public List<T> findAllEq(String propertyName,Object value);
+    public List<T> findAllLike(String propertyName, Object value);//模糊搜索
     public List<T> findAllNOTNULL(String propertyName);
+
+    Criterion findlike(String propertyName, Object value);
+
+    Criterion findEQ(String propertyName, Object value);
 
     /**
      * findAll
@@ -34,7 +39,7 @@ public interface IBaseDAO<T,Pk extends Serializable> {
      * HQL
      */
     public T findUnique(final String hql,final Map<String, ?> values);
-    public Integer count(String hql);
+    public Integer count();
 
     public void initProxyObject(Object proxy);
     public void flush();

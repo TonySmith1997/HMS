@@ -91,5 +91,9 @@ public class UserService extends BaseService<User,Integer> {
         return userDAO.findAllEq(propertyName,true);
     }
 
+    @Transactional
+    public List<User> getEmployeeLike(String searchName) {
+        return userDAO.findEmployee(searchName);
+    }
 
 }
