@@ -11,7 +11,7 @@
  Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 30/05/2018 16:08:44
+ Date: 03/06/2018 09:56:30
 */
 
 SET NAMES utf8mb4;
@@ -167,31 +167,32 @@ CREATE TABLE `EmployeeInfo` (
   `type` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of EmployeeInfo
 -- ----------------------------
 BEGIN;
-INSERT INTO `EmployeeInfo` VALUES (1, 1, '2018-05-28 23:29:43', NULL, NULL, 1, 0, 1, 1, 'head of the medical department', 'fasfsafas');
-INSERT INTO `EmployeeInfo` VALUES (2, 1, '2018-05-28 23:31:45', NULL, NULL, 2, 0, 2, 1, 'head of the surgical department', 'fasfasf');
-INSERT INTO `EmployeeInfo` VALUES (3, 1, '2018-05-28 23:32:54', NULL, NULL, 3, 0, 3, 1, 'head of the cardiology department ', 'asfdasf');
-INSERT INTO `EmployeeInfo` VALUES (4, 1, '2018-05-28 23:33:47', NULL, NULL, 4, 0, 4, 1, 'head of the dental department', 'asfasf');
-INSERT INTO `EmployeeInfo` VALUES (5, 1, '2018-05-28 23:34:26', NULL, NULL, 5, 0, 5, 1, 'head of the skin department ', 'asfaf');
-INSERT INTO `EmployeeInfo` VALUES (6, 1, '2018-05-28 23:35:02', NULL, NULL, 6, 0, 6, 1, 'head of the neurology department', 'asfasf');
-INSERT INTO `EmployeeInfo` VALUES (7, 1, '2018-05-28 23:36:06', NULL, NULL, 8, 0, 7, 1, 'head of the ophthalmology department', 'asf');
-INSERT INTO `EmployeeInfo` VALUES (8, 1, '2018-05-28 23:36:53', NULL, NULL, 9, 0, 8, 1, 'head of the orthopedics department', 'fasf');
-INSERT INTO `EmployeeInfo` VALUES (9, 1, '2018-05-28 23:37:23', NULL, NULL, 10, 0, 9, 1, 'head of the otorhinolaryngological department ', 'fasf');
-INSERT INTO `EmployeeInfo` VALUES (10, 1, '2018-05-28 23:38:02', NULL, NULL, 11, 0, 10, 1, 'head of the paediatrics department', 'asf');
-INSERT INTO `EmployeeInfo` VALUES (11, 1, '2018-05-28 23:40:21', NULL, NULL, 12, 0, 11, 1, 'head of the urology department', 'asfsaf');
-INSERT INTO `EmployeeInfo` VALUES (12, 1, '2018-05-28 23:41:00', NULL, NULL, 13, 0, 12, 1, 'head of the X-ray department', 'asfasf');
-INSERT INTO `EmployeeInfo` VALUES (13, 1, '2018-05-28 23:41:22', NULL, NULL, 14, 0, 13, 0, 'register staff', 'fasf');
-INSERT INTO `EmployeeInfo` VALUES (14, 1, '2018-05-28 23:41:54', NULL, NULL, 15, 0, 14, 1, 'head of the Laboratory', 'asf');
-INSERT INTO `EmployeeInfo` VALUES (15, 1, '2018-05-28 23:42:19', NULL, NULL, 16, 0, 15, 0, 'Blood collector', 'fasf');
-INSERT INTO `EmployeeInfo` VALUES (16, 1, '2018-05-28 23:42:47', NULL, NULL, 17, 0, 16, 0, 'pharmacist', 'fasfas');
-INSERT INTO `EmployeeInfo` VALUES (17, 1, '2018-05-28 23:43:22', NULL, NULL, 18, 0, 17, 1, 'head nurse', 'sad');
-INSERT INTO `EmployeeInfo` VALUES (18, 1, '2018-05-28 23:35:31', NULL, NULL, 7, 0, 18, 1, 'head of the obstetrics and gynecology department', 'das');
-INSERT INTO `EmployeeInfo` VALUES (19, 1, '2018-05-30 08:00:43', NULL, NULL, 1, 0, 19, 0, 'interne', 'dsa');
+INSERT INTO `EmployeeInfo` VALUES (1, 1, '2018-05-28 23:29:43', 1, '2018-06-02 00:28:14', 1, 0, 1, 1, 'Chief Doctor', 'fasfsafas');
+INSERT INTO `EmployeeInfo` VALUES (2, 1, '2018-05-28 23:31:45', NULL, NULL, 2, 0, 2, 1, 'Chief Doctor', 'fasfasf');
+INSERT INTO `EmployeeInfo` VALUES (3, 1, '2018-05-28 23:32:54', NULL, NULL, 3, 0, 3, 1, 'Chief Doctor', 'asfdasf');
+INSERT INTO `EmployeeInfo` VALUES (4, 1, '2018-05-28 23:33:47', NULL, NULL, 4, 0, 4, 1, 'Chief Doctor', 'asfasf');
+INSERT INTO `EmployeeInfo` VALUES (5, 1, '2018-05-28 23:34:26', NULL, NULL, 5, 0, 5, 1, 'Chief Doctor', 'asfaf');
+INSERT INTO `EmployeeInfo` VALUES (6, 1, '2018-05-28 23:35:02', NULL, NULL, 6, 0, 6, 1, 'Chief Doctor', 'asfasf');
+INSERT INTO `EmployeeInfo` VALUES (7, 1, '2018-05-28 23:36:06', NULL, NULL, 8, 0, 7, 1, 'Chief Doctor', 'asf');
+INSERT INTO `EmployeeInfo` VALUES (8, 1, '2018-05-28 23:36:53', NULL, NULL, 9, 0, 8, 1, 'Chief Doctor', 'fasf');
+INSERT INTO `EmployeeInfo` VALUES (9, 1, '2018-05-28 23:37:23', NULL, NULL, 10, 0, 9, 1, 'Chief Doctor', 'fasf');
+INSERT INTO `EmployeeInfo` VALUES (10, 1, '2018-05-28 23:38:02', NULL, NULL, 11, 0, 10, 1, 'Chief Doctor', 'asf');
+INSERT INTO `EmployeeInfo` VALUES (11, 1, '2018-05-28 23:40:21', NULL, NULL, 12, 0, 11, 1, 'Chief Doctor', 'asfsaf');
+INSERT INTO `EmployeeInfo` VALUES (12, 1, '2018-05-28 23:41:00', NULL, NULL, 13, 0, 12, 1, 'Chief Doctor', 'asfasf');
+INSERT INTO `EmployeeInfo` VALUES (13, 1, '2018-05-28 23:41:22', NULL, NULL, 14, 0, 13, 0, 'Staff', 'fasf');
+INSERT INTO `EmployeeInfo` VALUES (14, 1, '2018-05-28 23:41:54', NULL, NULL, 15, 0, 14, 1, 'Chief Doctor', 'asf');
+INSERT INTO `EmployeeInfo` VALUES (15, 1, '2018-05-28 23:42:19', NULL, NULL, 16, 0, 15, 0, 'Staff', 'fasf');
+INSERT INTO `EmployeeInfo` VALUES (16, 1, '2018-05-28 23:42:47', NULL, NULL, 17, 0, 16, 0, 'Staff', 'fasfas');
+INSERT INTO `EmployeeInfo` VALUES (17, 1, '2018-05-28 23:43:22', NULL, NULL, 18, 0, 17, 1, 'Staff', 'sad');
+INSERT INTO `EmployeeInfo` VALUES (18, 1, '2018-05-28 23:35:31', NULL, NULL, 7, 0, 18, 1, 'Chief Doctor', 'das');
+INSERT INTO `EmployeeInfo` VALUES (19, 1, '2018-05-30 08:00:43', NULL, NULL, 1, 0, 19, 0, 'Interne', 'dsa');
+INSERT INTO `EmployeeInfo` VALUES (20, 1, '2018-06-03 09:49:08', NULL, NULL, 1, 0, 20, 0, 'Chief Doctor', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -199,13 +200,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `EmployeeLog`;
 CREATE TABLE `EmployeeLog` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `who` int(11) NOT NULL,
-  `what` varchar(100) NOT NULL,
-  `when` datetime NOT NULL,
+  `what` varchar(255) NOT NULL,
+  `happenTime` datetime NOT NULL,
   `type` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of EmployeeLog
@@ -246,6 +247,13 @@ INSERT INTO `EmployeeLog` VALUES (33, 19, 'joining the hospital at 2018-05-28 23
 INSERT INTO `EmployeeLog` VALUES (35, 17, 'promoting to be the head nurse', '2018-05-30 14:43:12', 'promoting');
 INSERT INTO `EmployeeLog` VALUES (36, 18, 'promoting to be the head of the obstetrics and gynecology department', '2018-05-30 14:43:12', 'promoting');
 INSERT INTO `EmployeeLog` VALUES (37, 1, 'healing a patient called Andy  at 2018-05-30 14:43:12', '2018-05-30 14:43:12', 'healing');
+INSERT INTO `EmployeeLog` VALUES (39, 1, 'modifying at Fri Jun 01 23:48:16 CST 2018, by Tony', '2018-06-01 23:48:16', 'modifying');
+INSERT INTO `EmployeeLog` VALUES (40, 1, 'modifying at Fri Jun 01 23:50:14 CST 2018, by Tony', '2018-06-01 23:50:14', 'modifying');
+INSERT INTO `EmployeeLog` VALUES (41, 1, 'modifying at Fri Jun 01 23:50:38 CST 2018, by Tony', '2018-06-01 23:50:38', 'modifying');
+INSERT INTO `EmployeeLog` VALUES (42, 1, 'modifying at Fri Jun 01 23:52:49 CST 2018, by Tony', '2018-06-01 23:52:50', 'modifying');
+INSERT INTO `EmployeeLog` VALUES (43, 1, 'modifying at Sat Jun 02 00:28:05 CST 2018, by Tony', '2018-06-02 00:28:05', 'modifying');
+INSERT INTO `EmployeeLog` VALUES (44, 1, 'modifying at Sat Jun 02 00:28:14 CST 2018, by Tony', '2018-06-02 00:28:14', 'modifying');
+INSERT INTO `EmployeeLog` VALUES (45, 20, 'joining at Sun Jun 03 09:49:08 CST 2018, by test', '2018-06-03 09:49:08', 'joining');
 COMMIT;
 
 -- ----------------------------
@@ -373,31 +381,32 @@ CREATE TABLE `User` (
   `username` varchar(255) DEFAULT NULL,
   `ifEmloyee` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of User
 -- ----------------------------
 BEGIN;
-INSERT INTO `User` VALUES (1, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 1, '13944422255', '123456', 'Tony', 'tonylin', 1);
-INSERT INTO `User` VALUES (2, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a2.jpg', 'lintong@gmail.com', 1, '13944422256', '123457', 'Andy', 'andy', 1);
-INSERT INTO `User` VALUES (3, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a3.jpg', 'lintong@gmail.com', 0, '13944422257', '123456', 'Kate', 'kate', 1);
-INSERT INTO `User` VALUES (4, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a4.jpg', 'lintong@gmail.com', 1, '13944422258', '123456', 'Charlotter', 'charlo', 1);
-INSERT INTO `User` VALUES (5, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422259', '123456', 'Catherine', 'cathy', 1);
-INSERT INTO `User` VALUES (6, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 1, '13944422260', '123456', 'George', 'geogeo', 1);
-INSERT INTO `User` VALUES (7, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422261', '123456', 'Alice', 'alice111', 1);
+INSERT INTO `User` VALUES (1, 1, '2018-05-28 08:47:55', 1, '2018-06-02 23:53:49', 20, '/static/img/avator/Tony_1.png', 'lintong@gmail.com', 1, '13958932003', '123456', 'Tony', 'Tony', 1);
+INSERT INTO `User` VALUES (2, 1, '2018-05-28 08:47:55', 1, '2018-06-03 00:12:50', 20, '/static/img/avator/Andy_2.png', 'lintong@gmail.com', 1, '13944422256', '123457', 'Andy', 'andy', 1);
+INSERT INTO `User` VALUES (3, 1, '2018-05-28 08:47:55', 1, '2018-06-03 00:00:17', 20, '/static/img/avator/Kate_3.png', 'lintong@gmail.com', 0, '13944422257', '123456', 'Kate', 'kate', 1);
+INSERT INTO `User` VALUES (4, 1, '2018-05-28 08:47:55', 1, '2018-06-03 00:09:13', 20, '/static/img/avator/Charlotter_4.png', 'lintong@gmail.com', 1, '13944422258', '123456', 'Charlotter', 'charlo', 1);
+INSERT INTO `User` VALUES (5, 1, '2018-05-28 08:47:55', 1, '2018-06-03 00:11:08', 20, '/static/img/avator/Catherine_5.png', 'lintong@gmail.com', 0, '13944422259', '123456', 'Catherine', 'cathy', 1);
+INSERT INTO `User` VALUES (6, 1, '2018-05-28 08:47:55', 1, '2018-06-03 08:29:35', 20, '/static/img/avator/George_6.png', 'lintong@gmail.com', 1, '13944422260', '123456', 'George', 'geogeo', 1);
+INSERT INTO `User` VALUES (7, 1, '2018-05-28 08:47:55', 1, '2018-06-03 00:23:24', 20, '/static/img/avator/Alice_7.png', 'lintong@gmail.com', 0, '13944422261', '123456', 'Alice', 'alice111', 1);
 INSERT INTO `User` VALUES (8, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 1, '13944422262', '123456', 'Quinn', 'quinn232', 1);
-INSERT INTO `User` VALUES (9, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 1, '13944422263', '123456', 'Jenson', 'jjeson11', 1);
-INSERT INTO `User` VALUES (10, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 1, '13944422264', '123456', 'Finn', 'finn65434', 1);
-INSERT INTO `User` VALUES (11, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 1, '13944422265', '123456', 'Eden', 'edenSuper', 1);
-INSERT INTO `User` VALUES (12, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422266', '123456', 'Maple', 'maplelily', 1);
-INSERT INTO `User` VALUES (13, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 1, '13944422267', '123456', 'Tobby', 'Tobbbby', 1);
-INSERT INTO `User` VALUES (14, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 1, '13944422268', '123456', 'Kai', 'kaikai', 1);
+INSERT INTO `User` VALUES (9, 1, '2018-05-28 08:47:55', 1, '2018-06-03 00:29:24', 20, '/static/img/avator/Jenson_9.png', 'lintong@gmail.com', 1, '13944422263', '123456', 'Jenson', 'jjeson11', 1);
+INSERT INTO `User` VALUES (10, 1, '2018-05-28 08:47:55', 1, '2018-06-03 00:32:18', 20, '/static/img/avator/Finn_10.png', 'lintong@gmail.com', 1, '13944422264', '123456', 'Finn', 'finn65434', 1);
+INSERT INTO `User` VALUES (11, 1, '2018-05-28 08:47:55', 1, '2018-06-03 00:34:45', 20, '/static/img/avator/Eden_11.png', 'lintong@gmail.com', 1, '13944422265', '123456', 'Eden', 'edenSuper', 1);
+INSERT INTO `User` VALUES (12, 1, '2018-05-28 08:47:55', 1, '2018-06-03 08:30:35', 20, '/static/img/avator/Maple_12.png', 'lintong@gmail.com', 0, '13944422266', '123456', 'Maple', 'maplelily', 1);
+INSERT INTO `User` VALUES (13, 1, '2018-05-28 08:47:55', 1, '2018-06-03 09:05:21', 20, '/static/img/avator/Tobby_13.png', 'lintong@gmail.com', 1, '13944422267', '123456', 'Tobby', 'Tobbbby', 1);
+INSERT INTO `User` VALUES (14, 1, '2018-05-28 08:47:55', 1, '2018-06-03 09:05:43', 20, '/static/img/avator/Kai_14.png', 'lintong@gmail.com', 1, '13944422268', '123456', 'Kai', 'kaikai', 1);
 INSERT INTO `User` VALUES (15, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 1, '13944422255', '123456', 'Stanley', 'stan', 1);
 INSERT INTO `User` VALUES (16, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 1, '13944422255', '123456', 'Muhammed', 'muharm', 1);
 INSERT INTO `User` VALUES (17, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422255', '123456', 'Harper', 'harper', 1);
 INSERT INTO `User` VALUES (18, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422270', '123456', 'Grace', 'grace', 1);
 INSERT INTO `User` VALUES (19, 1, '2018-05-30 07:57:38', NULL, NULL, 22, '/static/img/a8.jpg', 'ffsfd@gmail.com', 0, '1313331111111', '123456', 'Paul', 'paulWin', 1);
+INSERT INTO `User` VALUES (20, 1, '2018-06-03 09:49:08', NULL, NULL, 20, '/static/img/a5.jpg', 'test@test', 1, '13958932001', 'test', 'test', NULL, 0);
 COMMIT;
 
 -- ----------------------------
