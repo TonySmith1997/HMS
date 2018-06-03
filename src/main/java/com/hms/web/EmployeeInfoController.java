@@ -1,5 +1,6 @@
 package com.hms.web;
 
+import com.hms.core.util.AvatorCopy;
 import com.hms.entity.Department;
 import com.hms.entity.EmployeeInfo;
 import com.hms.entity.User;
@@ -18,8 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -188,13 +191,88 @@ public class EmployeeInfoController {
         return users;
     }
 
+    /**
+     * 用户头像更新
+     */
+    @RequestMapping(value = "upload",method = RequestMethod.POST)
+    public void updateAvator(@RequestParam("id") String id,@RequestParam("imgData") String dataURL) throws IOException {
+        Integer userId = Integer.valueOf(id);
+        User user = userService.get(userId);
+        String path = "/Users/tony/Documents/HMS/src/main/webapp/static/img/avator/";
+        String imgName = user.getTrueName() +"_"+userId+".png";
+        AvatorCopy.decodeBase64DataURLToImage(dataURL,path,imgName);
+        user.setUpdateTime(new Date());
+        user.setUpdateBy(1);
+        user.setAvator("/static/img/avator/"+imgName);
+        userService.update(user);
+    }
+
+    /**
+     * Employee Log
+     * @return
+     */
+    @RequestMapping(value = "logs",method = RequestMethod.GET)
+    public String getEmployeeLog(ModelMap map) {
+        List<EmployeeLog> employeeLogs = employeeLogService.getAll();
+        for(EmployeeLog employeeLog :employeeLogs){
+            int who = employeeLog.getWho();
+            User user = userService.get(who);
+            employeeLog.setUser(user);
+        }
+        map.addAttribute("employeeLogs",employeeLogs);
+        return "employeeLog";
+    }
+
 
     /**
      * 跳转用户注册页面
      * @return
      */
+    @Transactional
     @RequestMapping(value = "insert",method = RequestMethod.GET)
     public String getEmployeeInsertPage(){
+        return "EmployeeInsert";
+    }
+
+    @RequestMapping(value = "insert",method = POST)
+    public String insertNewEmployee(@RequestParam("username") String username,
+                                  @RequestParam("password") String password,
+                                  @RequestParam("trueName") String trueName,
+                                  @RequestParam("email") String email,
+                                  @RequestParam("mobile") String mobile,
+                                  @RequestParam("age") String age,
+                                  @RequestParam("gender") String gender,
+                                  @RequestParam("department") String department,
+                                  @RequestParam("position") String position) throws InterruptedException {
+        Date date = new Date();
+        /** User **/
+        User user = new User();
+        user.setAvator("/static/img/a5.jpg");//default
+        user.setPassword(password.trim());
+        user.setTrueName(trueName.trim());
+        user.setEmail(email.trim());
+        user.setMobile(mobile.trim());
+        user.setAge(Integer.valueOf(age.trim()));
+        user.setGender(Boolean.valueOf(gender));
+        user.setCreateBy(1);
+        user.setCreateTime(date);
+        userService.save(user);
+        int id = user.getId();
+        Thread.sleep(500);
+        /** employee **/
+        EmployeeInfo employeeInfo = new EmployeeInfo();
+        employeeInfo.setUserId(id);
+        employeeInfo.setDepartId(Integer.valueOf(department));
+        employeeInfo.setType(position);
+        employeeInfo.setCreateBy(1);
+        employeeInfo.setCreateTime(date);
+        if(EmployeeType.getValue(position) == 1) {
+            employeeInfo.setIfHead(true);
+        }
+        employeeService.save(employeeInfo);
+        /**employee Log **/
+        EmployeeLog employeeLog = new EmployeeLog();
+        employeeLogService.saveEmployeeLog(id,username,LogType.join,date);
         return "EmployeeInsert";
     }
 }

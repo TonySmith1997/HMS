@@ -9,6 +9,41 @@
     <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet" />
     <link href="/static/css/animate.css" rel="stylesheet" />
     <link href="/static/css/style.css?v=4.1.0" rel="stylesheet" />
+    <link href="https://cdn.bootcss.com/cropper/3.1.3/cropper.min.css" rel="stylesheet">
+    <style type="text/css">
+        #user-photo {
+            width:300px;
+            height:300px;
+            margin-top: 10px;
+        }
+        #photo {
+            max-width:100%;
+            max-height:350px;
+        }
+        .img-preview-box {
+            text-align: center;
+        }
+        .img-preview-box > div {
+            display: inline-block;;
+            margin-right: 10px;
+        }
+        .img-preview {
+            overflow: hidden;
+        }
+        .img-preview-box .img-preview-lg {
+            width: 150px;
+            height: 150px;
+        }
+        .img-preview-box .img-preview-md {
+            width: 100px;
+            height: 100px;
+        }
+        .img-preview-box .img-preview-sm {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    </style>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content  animated fadeInRight">
@@ -218,6 +253,49 @@
         </div>
 
 </div>
+
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
+                    <h4 class="modal-title text-primary">
+                        <i class="fa fa-pencil"></i>
+                        Update Avator
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <p class="tip-info text-center">
+                        Unselected picture
+                    </p>
+                    <div class="img-container hidden">
+                        <img src="" alt="" id="photo">
+                    </div>
+                    <div class="img-preview-box hidden">
+                        <hr>
+                        <span>150*150:</span>
+                        <div class="img-preview img-preview-lg">
+                        </div>
+                        <span>100*100:</span>
+                        <div class="img-preview img-preview-md">
+                        </div>
+                        <span>30*30:</span>
+                        <div class="img-preview img-preview-sm">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <label class="btn btn-danger pull-left" for="photoInput">
+                        <input type="file" class="sr-only" id="photoInput" accept="image/*">
+                        <span>upload</span>
+                    </label>
+                    <button class="btn btn-primary disabled" disabled="true" onclick="sendPhoto();">save</button>
+                    <button class="btn btn-close" aria-hidden="true" data-dismiss="modal">cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 </div>
 
 
@@ -225,7 +303,8 @@
 <script src="/static/js/jquery.min.js?v=2.1.4"></script>
 <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
 <script src="/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="/static/js/plugins/layer/layer.min.js"></script>
+<script src="https://cdn.bootcss.com/cropper/3.1.3/cropper.min.js"></script>
+<script src="/static/js/demo/form-advanced-demo.js"></script>
 <!-- 自定义js -->
 <script src="/static/js/content.js?v=1.0.0"></script>
 <script>
@@ -341,7 +420,7 @@
                 let NameHtml = `
                             <h2>${data.user.trueName}</h2>
                             <div class="m-b-sm">
-                                <img alt="image" class="img-circle" src="${data.user.avator}" style="width: 110px" />
+                                <img alt="image" class="img-circle" src="${data.user.avator}" style="width: 110px" data-toggle="modal" data-target="#myModal1"/>
                             </div>`;
                 $('#Name').empty().append(NameHtml);
                 let status = data.status;
@@ -594,6 +673,8 @@
     }
 </script>
 
+<!-- avator shiv -->
+<script src="/static/js/avator-tail.js"></script>
 </body>
 
 </html>

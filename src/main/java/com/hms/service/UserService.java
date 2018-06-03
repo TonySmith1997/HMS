@@ -31,7 +31,6 @@ public class UserService extends BaseService<User,Integer> {
      */
     @Transactional(readOnly = false)
     public void save(User user){
-        user.setCreateTime((Timestamp) new Date());
         userDAO.save(user);
     }
 
