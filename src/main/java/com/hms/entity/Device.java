@@ -3,30 +3,23 @@ package com.hms.entity;
 import com.hms.core.base.BaseEntity;
 import org.hibernate.annotations.Proxy;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.math.BigDecimal;
-@Proxy
+@Proxy(lazy = false)
 @Entity
-public class Drug extends BaseEntity{
-    @Id
-    @GeneratedValue
-    private int id;
-    private String drugName;
-    private String description;
-    private String effect;//药物疗效，适合治疗什么疾病
-    private BigDecimal unitPrice;//单价
-    private String avator;
-    private int qty;
-
-    public int getQty() {
-        return qty;
-    }
-
-    public void setQty(int qty) {
-        this.qty = qty;
-    }
+public class Device extends BaseEntity {
+        @Id
+        @GeneratedValue
+        private int id;
+        private String deviceName;
+        private String description;
+        private String location;
+        private BigDecimal unitPrice;
+        private String avator;
+        private int qty;
 
     public String getAvator() {
         return avator;
@@ -34,6 +27,14 @@ public class Drug extends BaseEntity{
 
     public void setAvator(String avator) {
         this.avator = avator;
+    }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
     }
 
     public int getId() {
@@ -44,12 +45,12 @@ public class Drug extends BaseEntity{
         this.id = id;
     }
 
-    public String getDrugName() {
-        return drugName;
+    public String getDeviceName() {
+        return deviceName;
     }
 
-    public void setDrugName(String drugName) {
-        this.drugName = drugName;
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
     }
 
     public String getDescription() {
@@ -60,12 +61,12 @@ public class Drug extends BaseEntity{
         this.description = description;
     }
 
-    public String getEffect() {
-        return effect;
+    public String getLocation() {
+        return location;
     }
 
-    public void setEffect(String effect) {
-        this.effect = effect;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public BigDecimal getUnitPrice() {
@@ -75,4 +76,6 @@ public class Drug extends BaseEntity{
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
+
+
 }

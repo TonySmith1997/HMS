@@ -16,6 +16,22 @@ public class DrugStock extends BaseEntity{
     private int drugId;
     private int qty;//库存容量
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getDrugId() {
+        return drugId;
+    }
+
+    public void setDrugId(int drugId) {
+        this.drugId = drugId;
+    }
+
     public int getQty() {
         return qty;
     }
