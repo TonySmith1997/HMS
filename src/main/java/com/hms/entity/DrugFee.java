@@ -1,6 +1,7 @@
 package com.hms.entity;
 
 import com.hms.core.base.BaseEntity;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 /**
  * drug and patient relation
  */
+@Proxy(lazy = false)
 @Entity
 public class DrugFee extends BaseEntity{
     @Id
@@ -17,9 +19,17 @@ public class DrugFee extends BaseEntity{
     private int drugId;
     private int drugNum;//药物数量
     private int patientId;
-    private BigDecimal totalPrice;//总价
     private int medicalRecordId;//FK
+    @Transient
+    private Drug drug;
 
+    public Drug getDrug() {
+        return drug;
+    }
+
+    public void setDrug(Drug drug) {
+        this.drug = drug;
+    }
 
     public int getMedicalRecordId() {
         return medicalRecordId;
@@ -59,13 +69,5 @@ public class DrugFee extends BaseEntity{
 
     public void setPatientId(int patientId) {
         this.patientId = patientId;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
     }
 }

@@ -11,7 +11,7 @@
  Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 03/06/2018 09:56:30
+ Date: 06/06/2018 00:08:01
 */
 
 SET NAMES utf8mb4;
@@ -89,13 +89,32 @@ INSERT INTO `Department` VALUES (9, 1, '2018-05-26 23:28:40', NULL, NULL, 'Ortho
 INSERT INTO `Department` VALUES (10, 1, '2018-05-26 23:29:04', NULL, NULL, 'Otorhinolaryngological department ', 3, '耳鼻喉科', 'Jenson', 9, 'The hospital is a kind of organization helping people recover or get information of keeping health. We can see a hospital everywhere in our life, because hospitals are so important to us. Patients, or the one who has some mental or bodily discomfort should go to hospital for curing.');
 INSERT INTO `Department` VALUES (11, 1, '2018-05-26 23:29:26', NULL, NULL, 'Paediatrics department', 3, '小儿科', 'Finn', 10, 'The hospital is a kind of organization helping people recover or get information of keeping health. We can see a hospital everywhere in our life, because hospitals are so important to us. Patients, or the one who has some mental or bodily discomfort should go to hospital for curing.');
 INSERT INTO `Department` VALUES (12, 1, '2018-05-26 23:29:58', NULL, NULL, 'Urology department', 3, '泌尿科', 'Eden', 11, 'The hospital is a kind of organization helping people recover or get information of keeping health. We can see a hospital everywhere in our life, because hospitals are so important to us. Patients, or the one who has some mental or bodily discomfort should go to hospital for curing.');
-INSERT INTO `Department` VALUES (13, 1, '2018-05-26 23:30:27', NULL, NULL, 'X-ray department', 3, '放射科', 'Maple', 12, 'The hospital is a kind of organization helping people recover or get information of keeping health. We can see a hospital everywhere in our life, because hospitals are so important to us. Patients, or the one who has some mental or bodily discomfort should go to hospital for curing.');
+INSERT INTO `Department` VALUES (13, 1, '2018-05-26 23:30:27', NULL, NULL, 'X-ray department', 3, '放射科', '', 0, 'The hospital is a kind of organization helping people recover or get information of keeping health. We can see a hospital everywhere in our life, because hospitals are so important to us. Patients, or the one who has some mental or bodily discomfort should go to hospital for curing.');
 INSERT INTO `Department` VALUES (14, 1, '2018-05-26 23:30:59', NULL, NULL, 'Registration office', 3, '挂号处', '', 0, 'The hospital is a kind of organization helping people recover or get information of keeping health. We can see a hospital everywhere in our life, because hospitals are so important to us. Patients, or the one who has some mental or bodily discomfort should go to hospital for curing.');
 INSERT INTO `Department` VALUES (15, 1, '2018-05-26 23:31:16', NULL, NULL, 'Laboratory', 4, '化验室', 'Kai', 14, 'The hospital is a kind of organization helping people recover or get information of keeping health. We can see a hospital everywhere in our life, because hospitals are so important to us. Patients, or the one who has some mental or bodily discomfort should go to hospital for curing.');
 INSERT INTO `Department` VALUES (16, 1, '2018-05-26 23:31:48', NULL, NULL, 'Blood bank', 4, '血库', '', 0, 'The hospital is a kind of organization helping people recover or get information of keeping health. We can see a hospital everywhere in our life, because hospitals are so important to us. Patients, or the one who has some mental or bodily discomfort should go to hospital for curing.');
 INSERT INTO `Department` VALUES (17, 1, '2018-05-26 23:32:29', NULL, NULL, 'Pharmacy', 3, '药房', '', 0, 'The hospital is a kind of organization helping people recover or get information of keeping health. We can see a hospital everywhere in our life, because hospitals are so important to us. Patients, or the one who has some mental or bodily discomfort should go to hospital for curing.');
 INSERT INTO `Department` VALUES (18, 1, '2018-05-26 23:39:35', NULL, NULL, 'Nursing department', 5, '护理部', 'Harper', 17, 'The hospital is a kind of organization helping people recover or get information of keeping health. We can see a hospital everywhere in our life, because hospitals are so important to us. Patients, or the one who has some mental or bodily discomfort should go to hospital for curing.');
 COMMIT;
+
+-- ----------------------------
+-- Table structure for Device
+-- ----------------------------
+DROP TABLE IF EXISTS `Device`;
+CREATE TABLE `Device` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `createBy` int(11) NOT NULL,
+  `createTime` datetime DEFAULT NULL,
+  `updateBy` int(11) DEFAULT NULL,
+  `updateTime` datetime DEFAULT NULL,
+  `avator` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `deviceName` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `qty` int(11) NOT NULL,
+  `unitPrice` decimal(19,2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for Drug
@@ -105,15 +124,25 @@ CREATE TABLE `Drug` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `createBy` int(11) NOT NULL,
   `createTime` datetime DEFAULT NULL,
-  `updateBy` int(11) NOT NULL,
+  `updateBy` int(11) DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `drugName` varchar(255) DEFAULT NULL,
-  `effect` varchar(255) DEFAULT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  `drugName` varchar(255) NOT NULL,
+  `effect` varchar(255) NOT NULL,
   `qty` int(11) NOT NULL,
-  `unitPrice` decimal(19,2) DEFAULT NULL,
+  `unitPrice` decimal(19,2) NOT NULL,
+  `avator` varchar(255) NOT NULL,
+  `instrument` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of Drug
+-- ----------------------------
+BEGIN;
+INSERT INTO `Drug` VALUES (1, 1, '2018-05-28 08:47:55', NULL, NULL, 'Temporarily relieves nasal congestion: due to common cold; due to hay fever or other upper respiratory allergies. Temporarily relieves stuffy nose. Helps clear nasal passages; shrinks swollen membranes. Temporarily restores freer breathing through the nose. Helps decongest sinus openings and passages; temporarily relieves sinus congestion and pressure. Easy to use and dispense. Gluten free.', 'Sunmark Nose Drops Extra Strength', 'Cough Cold & Flu', 300, 3.32, '/static/img/drug/d1.jpg', 'Use only as directed. Adults and children 12 years and over: 2 or 3 drops in each nostril not more often than every 4 hours. Children under 12 years: Ask a doctor. Store at 20-25 degrees C (68-77 degrees F). Protect from light.');
+INSERT INTO `Drug` VALUES (2, 1, '2018-05-28 08:47:55', NULL, NULL, 'Temporarily relieves nasal congestion: due to common cold; due to hay fever or other upper respiratory allergies. Temporarily relieves stuffy nose. Helps clear nasal passages; shrinks swollen membranes. Temporarily restores freer breathing through the nose. Helps decongest sinus openings and passages; temporarily relieves sinus congestion and pressure. Easy to use and dispense. Gluten free.', 'Vicks DayQuil', 'Cough Cold & Flu', 300, 7.50, '/static/img/drug/d2.jpg', 'Use only as directed. Adults and children 12 years and over: 2 or 3 drops in each nostril not more often than every 4 hours. Children under 12 years: Ask a doctor. Store at 20-25 degrees C (68-77 degrees F). Protect from light.');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for DrugFee
@@ -123,17 +152,22 @@ CREATE TABLE `DrugFee` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `createBy` int(11) NOT NULL,
   `createTime` datetime DEFAULT NULL,
-  `updateBy` int(11) NOT NULL,
+  `updateBy` int(11) DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
   `drugId` int(11) NOT NULL,
   `drugNum` int(11) NOT NULL,
   `medicalRecordId` int(11) NOT NULL,
   `patientId` int(11) NOT NULL,
-  `totalPrice` decimal(19,2) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_ilr2e14uks9xeim0a5qv1wfqr` (`medicalRecordId`),
-  CONSTRAINT `FK_ilr2e14uks9xeim0a5qv1wfqr` FOREIGN KEY (`medicalRecordId`) REFERENCES `MedicalRecord` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of DrugFee
+-- ----------------------------
+BEGIN;
+INSERT INTO `DrugFee` VALUES (2, 1, '2018-05-28 08:47:55', NULL, NULL, 1, 1, 1, 21);
+INSERT INTO `DrugFee` VALUES (3, 1, '2018-05-30 12:55:55', NULL, NULL, 2, 2, 1, 21);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for DrugStock
@@ -173,7 +207,7 @@ CREATE TABLE `EmployeeInfo` (
 -- Records of EmployeeInfo
 -- ----------------------------
 BEGIN;
-INSERT INTO `EmployeeInfo` VALUES (1, 1, '2018-05-28 23:29:43', 1, '2018-06-02 00:28:14', 1, 0, 1, 1, 'Chief Doctor', 'fasfsafas');
+INSERT INTO `EmployeeInfo` VALUES (1, 1, '2018-05-28 23:29:43', 1, '2018-06-04 16:50:38', 1, 0, 1, 1, 'Chief Doctor', 'fasfsafas');
 INSERT INTO `EmployeeInfo` VALUES (2, 1, '2018-05-28 23:31:45', NULL, NULL, 2, 0, 2, 1, 'Chief Doctor', 'fasfasf');
 INSERT INTO `EmployeeInfo` VALUES (3, 1, '2018-05-28 23:32:54', NULL, NULL, 3, 0, 3, 1, 'Chief Doctor', 'asfdasf');
 INSERT INTO `EmployeeInfo` VALUES (4, 1, '2018-05-28 23:33:47', NULL, NULL, 4, 0, 4, 1, 'Chief Doctor', 'asfasf');
@@ -184,7 +218,7 @@ INSERT INTO `EmployeeInfo` VALUES (8, 1, '2018-05-28 23:36:53', NULL, NULL, 9, 0
 INSERT INTO `EmployeeInfo` VALUES (9, 1, '2018-05-28 23:37:23', NULL, NULL, 10, 0, 9, 1, 'Chief Doctor', 'fasf');
 INSERT INTO `EmployeeInfo` VALUES (10, 1, '2018-05-28 23:38:02', NULL, NULL, 11, 0, 10, 1, 'Chief Doctor', 'asf');
 INSERT INTO `EmployeeInfo` VALUES (11, 1, '2018-05-28 23:40:21', NULL, NULL, 12, 0, 11, 1, 'Chief Doctor', 'asfsaf');
-INSERT INTO `EmployeeInfo` VALUES (12, 1, '2018-05-28 23:41:00', NULL, NULL, 13, 0, 12, 1, 'Chief Doctor', 'asfasf');
+INSERT INTO `EmployeeInfo` VALUES (12, 1, '2018-05-28 23:41:00', NULL, NULL, 13, 0, 12, 1, 'Staff', 'asfasf');
 INSERT INTO `EmployeeInfo` VALUES (13, 1, '2018-05-28 23:41:22', NULL, NULL, 14, 0, 13, 0, 'Staff', 'fasf');
 INSERT INTO `EmployeeInfo` VALUES (14, 1, '2018-05-28 23:41:54', NULL, NULL, 15, 0, 14, 1, 'Chief Doctor', 'asf');
 INSERT INTO `EmployeeInfo` VALUES (15, 1, '2018-05-28 23:42:19', NULL, NULL, 16, 0, 15, 0, 'Staff', 'fasf');
@@ -206,7 +240,7 @@ CREATE TABLE `EmployeeLog` (
   `happenTime` datetime NOT NULL,
   `type` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of EmployeeLog
@@ -254,6 +288,7 @@ INSERT INTO `EmployeeLog` VALUES (42, 1, 'modifying at Fri Jun 01 23:52:49 CST 2
 INSERT INTO `EmployeeLog` VALUES (43, 1, 'modifying at Sat Jun 02 00:28:05 CST 2018, by Tony', '2018-06-02 00:28:05', 'modifying');
 INSERT INTO `EmployeeLog` VALUES (44, 1, 'modifying at Sat Jun 02 00:28:14 CST 2018, by Tony', '2018-06-02 00:28:14', 'modifying');
 INSERT INTO `EmployeeLog` VALUES (45, 20, 'joining at Sun Jun 03 09:49:08 CST 2018, by test', '2018-06-03 09:49:08', 'joining');
+INSERT INTO `EmployeeLog` VALUES (46, 1, 'modifying at Mon Jun 04 16:50:37 CST 2018, by Tony', '2018-06-04 16:50:38', 'modifying');
 COMMIT;
 
 -- ----------------------------
@@ -262,17 +297,25 @@ COMMIT;
 DROP TABLE IF EXISTS `InHospitalInfo`;
 CREATE TABLE `InHospitalInfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `createBy` int(11) NOT NULL,
-  `createTime` datetime DEFAULT NULL,
-  `updateBy` int(11) NOT NULL,
-  `updateTime` datetime DEFAULT NULL,
   `endTime` datetime DEFAULT NULL,
   `fee` decimal(19,2) DEFAULT NULL,
   `startTime` datetime DEFAULT NULL,
   `userId` int(11) NOT NULL,
   `wardNum` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of InHospitalInfo
+-- ----------------------------
+BEGIN;
+INSERT INTO `InHospitalInfo` VALUES (2, NULL, 599.00, '2018-05-28 08:47:55', 21, 2);
+INSERT INTO `InHospitalInfo` VALUES (3, NULL, 555.00, '2018-05-28 08:47:55', 22, 2);
+INSERT INTO `InHospitalInfo` VALUES (4, NULL, 121.00, '2018-05-28 08:47:55', 23, 3);
+INSERT INTO `InHospitalInfo` VALUES (5, NULL, 323.00, '2018-05-28 08:47:55', 24, 3);
+INSERT INTO `InHospitalInfo` VALUES (6, NULL, 21212.90, '2018-05-28 08:47:55', 25, 4);
+INSERT INTO `InHospitalInfo` VALUES (7, NULL, 23232.10, '2018-05-28 08:47:55', 26, 4);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for MedicalRecord
@@ -282,14 +325,23 @@ CREATE TABLE `MedicalRecord` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `createBy` int(11) NOT NULL,
   `createTime` datetime DEFAULT NULL,
-  `updateBy` int(11) NOT NULL,
+  `updateBy` int(11) DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
   `diseaseName` varchar(255) DEFAULT NULL,
   `doctorId` int(11) NOT NULL,
   `patientId` int(11) NOT NULL,
   `recommend` varchar(255) DEFAULT NULL,
+  `medHis` varchar(50) DEFAULT NULL,
+  `diseaseDetail` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of MedicalRecord
+-- ----------------------------
+BEGIN;
+INSERT INTO `MedicalRecord` VALUES (1, 1, '2018-06-05 10:30:56', NULL, NULL, 'Cough', 1, 21, 'Should be mainly light food, do not eat spicy food and poor digestion of food, so as to avoid catching cold, drink plenty of water to add fluids.', 'abcsddsf', 'Infection caused by cold or inflammation');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for PatientInfo
@@ -299,16 +351,63 @@ CREATE TABLE `PatientInfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `createBy` int(11) NOT NULL,
   `createTime` datetime DEFAULT NULL,
-  `updateBy` int(11) NOT NULL,
+  `updateBy` int(11) DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
-  `IsInpatient` int(11) NOT NULL,
+  `inpatient` tinyint(1) NOT NULL DEFAULT '0',
   `alleHis` varchar(255) DEFAULT NULL,
-  `inHospitalId` int(11) NOT NULL,
-  `medHis` varchar(255) DEFAULT NULL,
-  `status` int(11) NOT NULL,
+  `inHospitalId` int(11) NOT NULL DEFAULT '0',
   `userId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of PatientInfo
+-- ----------------------------
+BEGIN;
+INSERT INTO `PatientInfo` VALUES (2, 1, '2018-05-28 08:47:55', NULL, NULL, 1, 'cereals', 2, 21);
+INSERT INTO `PatientInfo` VALUES (3, 1, '2018-05-28 08:47:55', NULL, NULL, 1, 'cigarette', 3, 22);
+INSERT INTO `PatientInfo` VALUES (4, 1, '2018-05-28 08:47:55', NULL, NULL, 1, 'meat', 4, 23);
+INSERT INTO `PatientInfo` VALUES (5, 1, '2018-05-28 08:47:55', NULL, NULL, 1, 'nut seeds', 5, 24);
+INSERT INTO `PatientInfo` VALUES (6, 1, '2018-05-28 08:47:55', NULL, NULL, 1, 'alcohol', 6, 25);
+INSERT INTO `PatientInfo` VALUES (7, 1, '2018-05-28 08:47:55', NULL, NULL, 1, 'salt', 7, 26);
+INSERT INTO `PatientInfo` VALUES (8, 1, '2018-05-28 08:47:55', NULL, NULL, 0, 'spices', 0, 27);
+INSERT INTO `PatientInfo` VALUES (9, 1, '2018-05-28 08:47:55', NULL, NULL, 0, 'butter', 0, 28);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for PatientLog
+-- ----------------------------
+DROP TABLE IF EXISTS `PatientLog`;
+CREATE TABLE `PatientLog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employId` int(11) NOT NULL,
+  `patientId` int(11) NOT NULL,
+  `what` varchar(255) NOT NULL,
+  `happen_time` datetime NOT NULL,
+  `type` varchar(40) NOT NULL,
+  `employeeId` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of PatientLog
+-- ----------------------------
+BEGIN;
+INSERT INTO `PatientLog` VALUES (2, 1, 21, 'Patient registered by Tony', '2018-05-28 08:47:55', 'registered', 0);
+INSERT INTO `PatientLog` VALUES (3, 1, 22, 'Patient registered by Tony', '2018-05-28 08:47:55', 'registered', 0);
+INSERT INTO `PatientLog` VALUES (4, 1, 23, 'Patient registered by Tony', '2018-05-28 08:47:55', 'registered', 0);
+INSERT INTO `PatientLog` VALUES (5, 1, 24, 'Patient registered by Tony', '2018-05-28 08:47:55', 'registered', 0);
+INSERT INTO `PatientLog` VALUES (6, 1, 25, 'Patient registered by Tony', '2018-05-28 08:47:55', 'registered', 0);
+INSERT INTO `PatientLog` VALUES (7, 1, 26, 'Patient registered by Tony', '2018-05-28 08:47:55', 'registered', 0);
+INSERT INTO `PatientLog` VALUES (8, 1, 27, 'Patient registered by Tony', '2018-05-28 08:47:55', 'registered', 0);
+INSERT INTO `PatientLog` VALUES (9, 1, 28, 'Patient registered by Tony', '2018-05-28 08:47:55', 'registered', 0);
+INSERT INTO `PatientLog` VALUES (10, 1, 21, 'Apply for hospitalization', '2018-05-28 08:47:55', 'hospitalized', 0);
+INSERT INTO `PatientLog` VALUES (11, 1, 22, 'Apply for hospitalization', '2018-05-28 08:47:55', 'hospitalized', 0);
+INSERT INTO `PatientLog` VALUES (12, 1, 23, 'Apply for hospitalization', '2018-05-28 08:47:55', 'hospitalized', 0);
+INSERT INTO `PatientLog` VALUES (13, 1, 24, 'Apply for hospitalization', '2018-05-28 08:47:55', 'hospitalized', 0);
+INSERT INTO `PatientLog` VALUES (14, 1, 25, 'Apply for hospitalization', '2018-05-28 08:47:55', 'hospitalized', 0);
+INSERT INTO `PatientLog` VALUES (15, 1, 26, 'Apply for hospitalization', '2018-05-28 08:47:55', 'hospitalized', 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for Resources
@@ -381,15 +480,15 @@ CREATE TABLE `User` (
   `username` varchar(255) DEFAULT NULL,
   `ifEmloyee` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of User
 -- ----------------------------
 BEGIN;
-INSERT INTO `User` VALUES (1, 1, '2018-05-28 08:47:55', 1, '2018-06-02 23:53:49', 20, '/static/img/avator/Tony_1.png', 'lintong@gmail.com', 1, '13958932003', '123456', 'Tony', 'Tony', 1);
+INSERT INTO `User` VALUES (1, 1, '2018-05-28 08:47:55', 1, '2018-06-04 16:50:38', 20, '/static/img/avator/Tony_1.png', 'lintong@gmail.com', 1, '13958932004', '123456', 'Tony', 'Tony', 1);
 INSERT INTO `User` VALUES (2, 1, '2018-05-28 08:47:55', 1, '2018-06-03 00:12:50', 20, '/static/img/avator/Andy_2.png', 'lintong@gmail.com', 1, '13944422256', '123457', 'Andy', 'andy', 1);
-INSERT INTO `User` VALUES (3, 1, '2018-05-28 08:47:55', 1, '2018-06-03 00:00:17', 20, '/static/img/avator/Kate_3.png', 'lintong@gmail.com', 0, '13944422257', '123456', 'Kate', 'kate', 1);
+INSERT INTO `User` VALUES (3, 1, '2018-05-28 08:47:55', 1, '2018-06-04 08:43:50', 20, '/static/img/avator/Kate_3.png', 'lintong@gmail.com', 0, '13944422257', '123456', 'Kate', 'kate', 1);
 INSERT INTO `User` VALUES (4, 1, '2018-05-28 08:47:55', 1, '2018-06-03 00:09:13', 20, '/static/img/avator/Charlotter_4.png', 'lintong@gmail.com', 1, '13944422258', '123456', 'Charlotter', 'charlo', 1);
 INSERT INTO `User` VALUES (5, 1, '2018-05-28 08:47:55', 1, '2018-06-03 00:11:08', 20, '/static/img/avator/Catherine_5.png', 'lintong@gmail.com', 0, '13944422259', '123456', 'Catherine', 'cathy', 1);
 INSERT INTO `User` VALUES (6, 1, '2018-05-28 08:47:55', 1, '2018-06-03 08:29:35', 20, '/static/img/avator/George_6.png', 'lintong@gmail.com', 1, '13944422260', '123456', 'George', 'geogeo', 1);
@@ -406,7 +505,15 @@ INSERT INTO `User` VALUES (16, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/stati
 INSERT INTO `User` VALUES (17, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422255', '123456', 'Harper', 'harper', 1);
 INSERT INTO `User` VALUES (18, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422270', '123456', 'Grace', 'grace', 1);
 INSERT INTO `User` VALUES (19, 1, '2018-05-30 07:57:38', NULL, NULL, 22, '/static/img/a8.jpg', 'ffsfd@gmail.com', 0, '1313331111111', '123456', 'Paul', 'paulWin', 1);
-INSERT INTO `User` VALUES (20, 1, '2018-06-03 09:49:08', NULL, NULL, 20, '/static/img/a5.jpg', 'test@test', 1, '13958932001', 'test', 'test', NULL, 0);
+INSERT INTO `User` VALUES (20, 1, '2018-06-03 09:49:08', NULL, NULL, 20, '/static/img/a5.jpg', 'test@test', 1, '13958932001', 'test', 'test', 'test', 1);
+INSERT INTO `User` VALUES (21, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422270', '123456', 'Gray', 'grace', 0);
+INSERT INTO `User` VALUES (22, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422270', '123456', 'Ada', 'Ada', 0);
+INSERT INTO `User` VALUES (23, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422270', '123456', 'Billy', 'Billy', 0);
+INSERT INTO `User` VALUES (24, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422270', '123456', 'Mark', 'Mark', 0);
+INSERT INTO `User` VALUES (25, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422270', '123456', 'Steven', 'Steven', 0);
+INSERT INTO `User` VALUES (26, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422270', '123456', 'Strange', 'Strange', 0);
+INSERT INTO `User` VALUES (27, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422270', '123456', 'Peter', 'Peter', 0);
+INSERT INTO `User` VALUES (28, 1, '2018-05-28 08:47:55', NULL, NULL, 20, '/static/img/a1.jpg', 'lintong@gmail.com', 0, '13944422270', '123456', 'Oliver', 'Oliver', 0);
 COMMIT;
 
 -- ----------------------------
@@ -428,13 +535,29 @@ CREATE TABLE `Ward` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `createBy` int(11) NOT NULL,
   `createTime` datetime DEFAULT NULL,
-  `updateBy` int(11) NOT NULL,
+  `updateBy` int(11) DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
-  `floorId` int(11) NOT NULL,
-  `roomId` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `num` int(11) NOT NULL,
+  `totalNum` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of Ward
+-- ----------------------------
+BEGIN;
+INSERT INTO `Ward` VALUES (1, 1, '2018-05-28 08:47:55', NULL, NULL, 'Room 1, Unit 3, Building No.2.', 0, 4);
+INSERT INTO `Ward` VALUES (2, 1, '2018-05-28 08:47:55', NULL, NULL, 'Room 2, Unit 3, Building No.2.', 2, 4);
+INSERT INTO `Ward` VALUES (3, 1, '2018-05-28 08:47:55', NULL, NULL, 'Room 3, Unit 3, Building No.2.', 2, 4);
+INSERT INTO `Ward` VALUES (4, 1, '2018-05-28 08:47:55', NULL, NULL, 'Room 4, Unit 3, Building No.2.', 2, 4);
+INSERT INTO `Ward` VALUES (5, 1, '2018-05-28 08:47:55', NULL, NULL, 'Room 5, Unit 3, Building No.2.', 0, 4);
+INSERT INTO `Ward` VALUES (6, 1, '2018-05-28 08:47:55', NULL, NULL, 'Room 1, Unit 2, Building No.2.', 0, 4);
+INSERT INTO `Ward` VALUES (7, 1, '2018-05-28 08:47:55', NULL, NULL, 'Room 2, Unit 2, Building No.2.', 0, 4);
+INSERT INTO `Ward` VALUES (8, 1, '2018-05-28 08:47:55', NULL, NULL, 'Room 3, Unit 2, Building No.2.', 0, 4);
+INSERT INTO `Ward` VALUES (9, 1, '2018-05-28 08:47:55', NULL, NULL, 'Room 4, Unit 2, Building No.2.', 0, 4);
+INSERT INTO `Ward` VALUES (10, 1, '2018-05-28 08:47:55', NULL, NULL, 'Room 5, Unit 2, Building No.2.', 0, 4);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for physicalExamination
@@ -444,7 +567,7 @@ CREATE TABLE `physicalExamination` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `createBy` int(11) NOT NULL,
   `createTime` datetime DEFAULT NULL,
-  `updateBy` int(11) NOT NULL,
+  `updateBy` int(11) DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
   `checkBy` int(11) NOT NULL,
   `checkName` varchar(255) DEFAULT NULL,
@@ -452,9 +575,16 @@ CREATE TABLE `physicalExamination` (
   `fee` decimal(19,2) DEFAULT NULL,
   `medicalRecordId` int(11) NOT NULL,
   `patientId` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_4yp4a1poye110wjoahp8xacny` (`medicalRecordId`),
-  CONSTRAINT `FK_4yp4a1poye110wjoahp8xacny` FOREIGN KEY (`medicalRecordId`) REFERENCES `MedicalRecord` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `picture` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of physicalExamination
+-- ----------------------------
+BEGIN;
+INSERT INTO `physicalExamination` VALUES (1, 1, '2018-05-30 12:55:55', NULL, NULL, 12, 'Lung CT', 'Things are quite normal', 300.40, 1, 21, '/static/img/check/lungCT.jpg');
+INSERT INTO `physicalExamination` VALUES (2, 1, '2018-06-01 18:23:55', NULL, NULL, 14, 'Blood test', 'Things are quite normal', 300.40, 1, 21, '/static/img/check/BloodTest.png');
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

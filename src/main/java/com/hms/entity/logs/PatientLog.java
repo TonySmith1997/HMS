@@ -1,19 +1,29 @@
 package com.hms.entity.logs;
 
+import org.hibernate.annotations.Proxy;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Date;
 
+@Proxy(lazy = false)
 @Entity
 public class PatientLog implements Serializable{
     @Id
     @GeneratedValue
     private int id;
+
     private int employeeId;//user_id(doctor or DIO)
+
     private int patientId;
+
     private String what;//doing what
-    private String when;
+
+    @Column(name = "happen_time")
+    private Date when;
     /**
      * (registered)patient be registered by DIO
      * (healed)patient be healed by patient
@@ -54,11 +64,11 @@ public class PatientLog implements Serializable{
         this.what = what;
     }
 
-    public String getWhen() {
+    public Date getWhen() {
         return when;
     }
 
-    public void setWhen(String when) {
+    public void setWhen(Date when) {
         this.when = when;
     }
 

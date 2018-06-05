@@ -247,6 +247,7 @@ public class EmployeeInfoController {
         Date date = new Date();
         /** User **/
         User user = new User();
+        user.setUsername(username.trim());
         user.setAvator("/static/img/a5.jpg");//default
         user.setPassword(password.trim());
         user.setTrueName(trueName.trim());
@@ -256,6 +257,7 @@ public class EmployeeInfoController {
         user.setGender(Boolean.valueOf(gender));
         user.setCreateBy(1);
         user.setCreateTime(date);
+        user.setIfEmloyee(true);
         userService.save(user);
         int id = user.getId();
         Thread.sleep(500);

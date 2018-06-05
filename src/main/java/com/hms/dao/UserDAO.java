@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class UserDAO extends BaseDAOImpl<User,Integer> {
-    public Criterion findEmployeeLike(String searchName) {
+    public Criterion findLike(String searchName) {
         return findlike("trueName",searchName);
     }
 
@@ -18,9 +18,19 @@ public class UserDAO extends BaseDAOImpl<User,Integer> {
         return findEQ("ifEmloyee",true);
     }
 
+
+    public Criterion findPatient() {
+        return findEQ("ifEmloyee",false);
+    }
+
     public List<User> findEmployee(String searchName) {
-        Criterion c1 = findEmployeeLike(searchName);
+        Criterion c1 = findLike(searchName);
         Criterion c2 = findEmployee();
+        return createCriteria(c1,c2).list();
+    }
+    public List<User> findPatient(String searchName) {
+        Criterion c1 = findLike(searchName);
+        Criterion c2 = findPatient();
         return createCriteria(c1,c2).list();
     }
 }

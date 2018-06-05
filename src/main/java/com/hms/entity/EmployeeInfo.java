@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.hms.core.base.BaseEntity;
 import com.hms.entity.logs.EmployeeLog;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * including doctor and data input operator
  */
+@Proxy(lazy = false)
 @Entity
 public class EmployeeInfo extends BaseEntity {
     @Id

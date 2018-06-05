@@ -1,16 +1,19 @@
 package com.hms.entity;
 
 import com.hms.core.base.BaseEntity;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Proxy(lazy = false)
 @Entity
-public class InHospitalInfo extends BaseEntity{
+public class InHospitalInfo implements Serializable{
     @Id
     @GeneratedValue
     private int id;
@@ -19,6 +22,16 @@ public class InHospitalInfo extends BaseEntity{
     private BigDecimal fee;//住院费
     private int wardNum;//病房号
     private int userId;
+    @Transient
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getId() {
         return id;

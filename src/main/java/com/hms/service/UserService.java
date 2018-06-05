@@ -90,9 +90,23 @@ public class UserService extends BaseService<User,Integer> {
         return userDAO.findAllEq(propertyName,true);
     }
 
+    /**
+     * 得到patient的user信息表
+     * @return
+     */
+    public List<User> getPatientList(){
+        String propertyName = "ifEmloyee";
+        return userDAO.findAllEq(propertyName,false);
+    }
+
+
     @Transactional
     public List<User> getEmployeeLike(String searchName) {
         return userDAO.findEmployee(searchName);
     }
 
+    @Transactional
+    public List<User> getPatientLike(String searchName) {
+        return userDAO.findPatient(searchName);
+    }
 }

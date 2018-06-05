@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.math.BigDecimal;
-@Proxy
+@Proxy(lazy = false)
 @Entity
 public class Drug extends BaseEntity{
     @Id
@@ -16,9 +16,18 @@ public class Drug extends BaseEntity{
     private String drugName;
     private String description;
     private String effect;//药物疗效，适合治疗什么疾病
+    private String instrument;//说明，如何使用药物
     private BigDecimal unitPrice;//单价
     private String avator;
     private int qty;
+
+    public String getInstrument() {
+        return instrument;
+    }
+
+    public void setInstrument(String instrument) {
+        this.instrument = instrument;
+    }
 
     public int getQty() {
         return qty;

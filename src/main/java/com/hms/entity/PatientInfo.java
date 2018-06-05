@@ -1,40 +1,66 @@
 package com.hms.entity;
 
 import com.hms.core.base.BaseEntity;
+import com.hms.entity.logs.PatientLog;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.io.Serializable;
-import java.util.Date;
+import javax.persistence.Transient;
+import java.util.List;
 
+@Proxy(lazy = false)
 @Entity
 public class PatientInfo extends BaseEntity{
     @Id
     @GeneratedValue
     private int id;
     private int userId;
-    private int IsInpatient;//是否住院？：1住院，2门诊
+    private boolean inpatient;//是否住院？：1住院，2门诊
     private int inHospitalId;//住院信息id，默认为null
-    private String medHis;//药物历史
     private String alleHis;//过敏历史
-    private int status;//是否出院
+    @Transient
+    private User user;
+    @Transient
+    private List<PatientLog> patientLogs;
+    @Transient
+    private InHospitalInfo inHospitalInfo;
+    @Transient
+    private Ward ward;
 
-    public int getStatus() {
-        return status;
+    public Ward getWard() {
+        return ward;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setWard(Ward ward) {
+        this.ward = ward;
     }
 
-    public String getMedHis() {
-        return medHis;
+    public InHospitalInfo getInHospitalInfo() {
+        return inHospitalInfo;
     }
 
-    public void setMedHis(String medHis) {
-        this.medHis = medHis;
+    public void setInHospitalInfo(InHospitalInfo inHospitalInfo) {
+        this.inHospitalInfo = inHospitalInfo;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<PatientLog> getPatientLogs() {
+        return patientLogs;
+    }
+
+    public void setPatientLogs(List<PatientLog> patientLogs) {
+        this.patientLogs = patientLogs;
+    }
+
 
     public String getAlleHis() {
         return alleHis;
@@ -60,12 +86,12 @@ public class PatientInfo extends BaseEntity{
         this.userId = userId;
     }
 
-    public int getIsInpatient() {
-        return IsInpatient;
+    public boolean isInpatient() {
+        return inpatient;
     }
 
-    public void setIsInpatient(int isInpatient) {
-        IsInpatient = isInpatient;
+    public void setInpatient(boolean inpatient) {
+        this.inpatient = inpatient;
     }
 
     public int getInHospitalId() {
