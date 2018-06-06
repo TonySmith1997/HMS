@@ -17,11 +17,11 @@
             <div class="ibox">
                 <div class="ibox-content">
                     <span class="text-muted small pull-right">Last Updated: <i class="fa fa-clock-o"></i>
-                    <!--<h5 th:text="${lastUpdate}"></h5>-->
+                    <h5 th:text="${lastUpdate}"></h5>
                     </span>
-                    <h2>Drug Management</h2>
+                    <h2 id="management">Drug Management</h2>
                     <div class="input-group">
-                        <input type="text" placeholder="Find Employee" class="input form-control" id="searchName"/>
+                        <input type="text" placeholder="Find Drugs" class="input form-control" id="searchName"/>
                         <span class="input-group-btn">
                                         <button type="button" class="btn btn btn-primary" onclick="search(this)"> <i class="fa fa-search" ></i> Search</button>
                                         <button type="button" class="btn btn btn-warning" onclick="refresh(this)"><i class="fa fa-refresh" ></i>Refresh </button>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="clients-list">
                         <ul class="nav nav-tabs">
-                            <span class="pull-right small text-muted" th:text="${drugCount}+ ' Employees'"></span>
+                            <span id="counts" class="pull-right small text-muted" th:text="${drugCount}+ ' drugs'"></span>
                             <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-medkit"></i>Drug</a>
                             </li>
                             <li class=""><a data-toggle="tab" href="#tab-4"><i class="fa fa-wheelchair"></i> Device</a>
@@ -37,14 +37,15 @@
                         </ul>
 
                         <div class="tab-content">
+<!--show druglist-->
                             <div id="tab-1" class="tab-pane active">
                                 <div class="full-height-scroll">
                                     <div class="table-responsive">
                                         <table class="table table-striped table-hover">
-                                            <tbody id="employees">
+                                            <tbody id="drugs">
                                             <tr th:each="drug : ${drugs}">
                                                 <td class="client-avatar"><img alt="image" th:src="${drug.avator}" /> </td>
-                                                <td><a data-toggle="tab" onclick="showEmp(this)" class="client-link" th:text="${drug.drugName}">Admin</a>
+                                                <td><a data-toggle="tab" onclick="showDrug(this)" class="client-link" th:text="${drug.drugName}">Admin</a>
                                                 </td>
                                                 <td><input th:value="${drug.id}" style="display: none;"/></td>
                                                 <td class="contact-type"><i class="fa fa-flask"> </i>
@@ -54,7 +55,8 @@
                                                     <td class="contact-type"><i class="fa fa-bar-chart"> </i>
                                                 </td>
                                                 <td th:text="${drug.qty}"> gravida@qq.com</td>
-                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal2" href="#" class="fa fa-edit" onclick="insertShow(this)"/></td>
+                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal3" href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal2" href="#" class="fa fa-edit" onclick="updateShow(this)"/></td>
                                                 <td class="contact-type"><a href="#" class="fa fa-remove" />
                                                 </td>
                                             </tr>
@@ -63,6 +65,7 @@
                                     </div>
                                 </div>
                             </div>
+<!--show devicelist-->
                             <div id="tab-4" class="tab-pane">
                                 <div class="full-height-scroll">
                                     <div class="table-responsive">
@@ -70,7 +73,7 @@
                                             <tbody id="devices">
                                             <tr th:each="device : ${deviceList}">
                                                 <td class="client-avatar"><img alt="image" th:src="${device.avator}" /> </td>
-                                                <td><a data-toggle="tab" onclick="showEmp(this)" class="client-link" th:text="${device.deviceName}">Admin</a>
+                                                <td><a data-toggle="tab" onclick="showDevice(this)" class="client-link" th:text="${device.deviceName}">Admin</a>
                                                 </td>
                                                 <td><input th:value="${device.id}" style="display: none;"/></td>
                                                 <td class="contact-type"><i class="fa fa-flask"> </i>
@@ -80,7 +83,8 @@
                                                 <td class="contact-type"><i class="fa fa-bar-chart"> </i>
                                                 </td>
                                                 <td th:text="${device.qty}"> gravida@qq.com</td>
-                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal2" href="#" class="fa fa-edit" onclick="insertShow(this)"/></td>
+                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal4" href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal2" href="#" class="fa fa-edit" onclick="updateShowdevice(this)"/></td>
                                                 <td class="contact-type"><a href="#" class="fa fa-remove" />
                                                 </td>
                                             </tr>
@@ -97,13 +101,13 @@
         </div>
         <div class="col-sm-4">
             <div class="ibox ">
-
+<!--.html right-->
                 <div class="ibox-content">
                     <div class="tab-content">
                         <div id="contact-1" class="tab-pane active">
                             <div class="row m-b-lg">
                                 <div class="col-lg-4 text-center" id="Name">
-                                    <h2 id="departName">Medical department </h2>
+                                    <h2 id="departmentName">Medical department </h2>
                                 </div>
                                 <div class="col-lg-8" id="Info">
                                     <h3>
@@ -124,94 +128,214 @@
             </div>
         </div>
     </div>
+    <!--.modify drugs-->
     <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated flipInY">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title">drug Info</h4>
-                    <small class="font-bold">Update or Insert
+                    <small class="font-bold">Update or Insert</small>
                 </div>
                 <div class="modal-body">
                     <div class="ibox-content">
                         <form class="form-horizontal m-t-md">
-                            <input type="text" style="display: none;" id="userid"/>
+                            <input type="text" style="display: none;" id="drugid"/>
                             <div class="form-group">
                                 <label class="col-sm-2 col-sm-2 control-label">Name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control"  placeholder="" id="username">
+                                    <input type="text" class="form-control"  placeholder="" id="drugname">
                                     <span class="help-block">6-8 characters</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Mobile</label>
+                                <label class="col-sm-2 control-label">effect</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="" id="mobile">
-                                    <span class="help-block">e.g. 13458769311</span>
+                                    <input type="text" class="form-control" placeholder="" id="effect">
+                                    <span class="help-block">treatment plan&effect</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Email</label>
+                                <label class="col-sm-2 control-label">qty</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control"  placeholder="" id="email">
-                                    <span class="help-block">e,g. aaa@aaa</span>
+                                    <input type="text" class="form-control"  placeholder="" id="qty">
+                                    <span class="help-block">Quantity in hospital</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Age</label>
+                                <label class="col-sm-2 control-label">unitprice</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="" id="age">
+                                    <input type="text" class="form-control" placeholder="" id="unitprice">
+                                    <span class="help-block">Unitprice:RMB</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Gender</label>
+                                <label class="col-sm-2 control-label">description</label>
                                 <div class="col-sm-10">
-                                    <select id="gender">
-                                        <option label="Male" value="true"></option>
-                                        <option label="Female" value="false"></option>
-                                    </select>
+                                    <textarea type="text" class="form-control" placeholder="" id="descriptions"></textarea>
+                                    <span class="help-block">drug's description</span>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Instrument</label>
+                                <div class="col-sm-10">
+                                    <textarea type="text" class="form-control" placeholder="" id="instruments"></textarea>
+                                    <span class="help-block">drug's instrument</span>
+                                </div>
+                                <!--<div class="col-sm-10">-->
+                                    <!--<select id="description">-->
+                                        <!--<option label="Male" value="true"></option>-->
+                                        <!--<option label="Female" value="false"></option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
                             </div>
                             <div class="hr-line-dashed"></div>
+                            <div class="hr-line-dashed"></div>
+                        </form>
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                        <button type="submit" class="btn btn-primary" onclick="update(this)">save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--.modify devices-->
+    <div class="modal inmodal" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Device Info</h4>
+            <small class="font-bold">Update or Insert</small>
+        </div>
+        <div class="modal-body">
+            <div class="ibox-content">
+                <form class="form-horizontal m-t-md">
+                    <input type="text" style="display: none;" id="deviceid"/>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control"  placeholder="" id="devicename">
+                            <span class="help-block">6-8 characters</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Location</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="" id="location">
+                            <span class="help-block">the position of devices</span>
+                        </div>
+                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label class="col-sm-2 control-label">Department</label>-->
+                        <!--<div class="col-sm-10">-->
+                            <!--<select id="depart">-->
+                                <!--<option value="1">101-1</option>-->
+                                <!--<option value="1">101-2</option>-->
+                                <!--<option value="1">102-1</option>-->
+                                <!--<option value="1">102-2</option>-->
+                                <!--<option value="1">201-1</option>-->
+                                <!--<option value="1">201-2</option>-->
+                                <!--<option value="1">301-2</option>-->
+                                <!--<option value="1">401-2</option>-->
+                                <!--<option value="1">501-2</option>-->
+                            <!--</select></div>-->
+                    <!--</div>-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Qty</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control"  placeholder="" id="deviceqty">
+                            <span class="help-block">Quantities in hospital</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Unitprice</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="" id="deviceunitprice">
+                            <span class="help-block">Treatment of expense:RMB</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Description</label>
+                        <div class="col-sm-10">
+                            <textarea type="text" class="form-control" placeholder="" id="devicedescription"/>
+                            <span class="help-block">device's description</span>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="hr-line-dashed"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                <button type="submit" class="btn btn-primary" onclick="updatedevice(this)">save</button>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+    <!--insert drug-->
+    <div class="modal inmodal" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">drug Info</h4>
+                    <small class="font-bold">Update or Insert</small>
+                </div>
+                <div class="modal-body">
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t-md">
+                            <input type="text" style="display: none;" id="drugid1"/>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Department</label>
+                                <label class="col-sm-2 col-sm-2 control-label">Name</label>
                                 <div class="col-sm-10">
-                                    <select id="depart">
-                                        <option value="1">Medical department</option>
-                                        <option value="2">Surgical department</option>
-                                        <option value="3">Cardiology department</option>
-                                        <option value="4">Dental department</option>
-                                        <option value="5">Skin department</option>
-                                        <option value="6">Neurology department</option>
-                                        <option value="7">Obstetrics and gynecology department</option>
-                                        <option value="8">Ophthalmology department</option>
-                                        <option value="9">Orthopedics department</option>
-                                        <option value="10">Otorhinolaryngological department</option>
-                                        <option value="11">Paediatrics department</option>
-                                        <option value="12">Urology department</option>
-                                        <option value="13">X-ray department</option>
-                                        <option value="14">Registration office</option>
-                                        <option value="15">Laboratory</option>
-                                        <option value="16">Blood bank</option>
-                                        <option value="17">Pharmacy</option>
-                                        <option value="18">Nursing department</option>
-                                    </select>
+                                    <input type="text" class="form-control"  placeholder="" id="drugname1">
+                                    <span class="help-block">6-8 characters</span>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Effect</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="effect1">
+                                    <span class="help-block">treatment plan&effect</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Qty</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control"  placeholder="" id="qty1">
+                                    <span class="help-block">Quantity in hospital</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Unitprice</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="unitprice1">
+                                    <span class="help-block">Unitprice:RMB</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Instrument</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="instruments1">
+                                    <span class="help-block">Drug's instrument</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Description</label>
+                                <div class="col-sm-10">
+                                    <textarea type="text" class="form-control" placeholder="" id="descriptions1"></textarea>
+                                        <span class="help-block">drug's description</span>
+
+                                </div>
+
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Position</label>
-                                <div class="col-sm-10">
-                                    <select data-placeholder="choose position..." class="chosen-select" style="width:350px;" tabindex="2"
-                                            id="position">
-                                        <option value="Chief Doctor">Chief Doctor</option>
-                                        <option value="Associate Chief Doctor">Associate Chief Doctor</option>
-                                        <option value="Attending Doctor">Attending Doctor</option>
-                                        <option value="Interne">Interne</option>
-                                        <option value="Staff">Staff</option>
-                                    </select>
-                                </div>
-                            </div>
+                            <!--<div class="hr-line-dashed"></div>-->
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
@@ -220,8 +344,69 @@
                 </div>
             </div>
         </div>
-
     </div>
+    <!--insert device-->
+    <div class="modal inmodal" id="myModal4" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">device Info</h4>
+                    <small class="font-bold">Update or Insert</small>
+                </div>
+                <div class="modal-body">
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t-md">
+                            <input type="text" style="display: none;" id="device1"/>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control"  placeholder="" id="devicename1">
+                                    <span class="help-block">6-8 characters</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Location</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="location1">
+                                    <span class="help-block">the position of devices</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Qty</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control"  placeholder="" id="deviceqty1">
+                                    <span class="help-block">Quantity in hospital</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Unitprice</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="deviceunitprice1">
+                                    <span class="help-block">Unitprice:RMB</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Description</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="devicedescription1">
+                                    <span class="help-block">device's description</span>
+                                </div>
+
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <!--<div class="hr-line-dashed"></div>-->
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                        <button type="submit" class="btn btn-primary" onclick="insertdevice(this)">save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
@@ -262,54 +447,43 @@
 
 </script>
 
-<!-- ajax for department-->
+<!-- ajax for device's html right-->
 <script th:inline="text">
-    function show(btn) {
+    function showDevice(btn) {
         var id = $(btn).closest('tr').find('input').eq(0).val();
         $.ajax({
             type:"GET",
             url:"/device/"+id,
             dataType: "JSON",
-            success:function(data) {
-                let NameHtml = `<h2 id='deviceName'>${data.deviceName}</h2>`;
+            success: function (data) {
+                let NameHtml = `
+                            <h2>${data.deviceName}</h2>
+                            <div class="m-b-sm">
+                                <img alt="image" class="img-circle" src="${data.avator}" style="width: 110px" />
+                            </div>`;
                 $('#Name').empty().append(NameHtml);
-//                $('#departName').replaceWith("<h2 id='departName'>" + data.departName + "</h2>");
-                let docHtml = `<p id='description'>${data.description}</p>`;
+                let docHtml = `
+                            <p>
+                                ${data.description}
+                            </p>
+                            <br />
+                            <button type="button" class="btn btn-success btn-sm btn-block"  onclick="updateShowdevice(this)" data-toggle="modal" data-target="#myModal1"><i class="fa fa-file"></i>Modify
+                            <button type="button" class="btn btn-danger btn-sm btn-block"><i class="fa fa-lock"></i>Delete
+                            </button>
+                            <input type="text" style="display:none;" value="${id}" id="descrpId"/>`;
                 $('#Info').empty().append(docHtml);
-                $('#description').replaceWith("<p id='description'>" + data.detail + "</p>");
-//                     switch(status){
-//
-//                         case 0:
-//                             statusHtml = `<button type="button" class="btn btn-primary btn-sm btn-warning">relaxing</button>`;
-//                             break;
-//                         case -1:
-//                             statusHtml = `<button type="button" class="btn btn-primary btn-sm btn-danger">fired</button>`;
-//                             break;
-//                     }
-                    // html += ` <div class="contact-box">
-                    //                         <div class="col-sm-4">
-                    //                             <div class="text-center">
-                    //                                 <img alt="image" class="img-circle m-t-xs img-responsive" src=${employees[i].user.avator} />
-                    //                                 <div class="m-t-xs font-bold">${employees[i].type}</div>
-                    //                             </div>
-                    //                         </div>
-                    //                         <div class="col-sm-8">
-                    //                             <h3><strong>${employees[i].user.trueName}
-                    //                             ${statusHtml}</strong></h3>
-                    //                             <p><i class='${genderClass}'></i>${employees[i].user.age}</p>
-                    //                             <address>
-                    //                                 <strong>Info</strong><br />
-                    //                                 E-mail:${employees[i].user.email}<br />
-                    //                                 <abbr title="Phone">Tel:</abbr> ${employees[i].user.mobile}
-                    //                                 <br />
-                    //                                 <button type="button" class="btn btn-primary"><i class="fa fa-envelope"></i>Message
-                    //                                 </button>
-                    //                                 <button type="button" class="btn btn-danger"><i class="fa fa-lock"></i> Delete
-                    //                                 </button>
-                    //                             </address>
-                    //                         </div>
-                    //                         <div class="clearfix"></div>
-                    //                 </div>`;
+                let html = `<ul  class="list-group clear-list">
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.location} </span> Location:
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.qty} </span> Quantity:
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.unitPrice} </span> Treatemnt expense:
+                                    </li>
+                                    </ul>
+                                    `;
                 $('#contactInfo').empty();
                 $("#contactInfo").append(html);
             }
@@ -317,9 +491,9 @@
     };
 </script>
 
-<!--ajax for employeement-->
+<!--ajax for drug's html right-->
 <script>
-    function showEmp(btn) {
+    function showDrug(btn) {
         var id = $(btn).closest('tr').find('input').eq(0).val();
         $.ajax({
             type: "GET",
@@ -337,7 +511,7 @@
                                 ${data.description}
                             </p>
                             <br />
-                            <button type="button" class="btn btn-success btn-sm btn-block"  onclick="insertShow(this)" data-toggle="modal" data-target="#myModal2"><i class="fa fa-file"></i>Modify
+                            <button type="button" class="btn btn-success btn-sm btn-block"  onclick="updateShow(this)" data-toggle="modal" data-target="#myModal2"><i class="fa fa-file"></i>Modify
                             <button type="button" class="btn btn-danger btn-sm btn-block"><i class="fa fa-lock"></i>Delete
                             </button>
                             <input type="text" style="display:none;" value="${id}" id="descrpId"/>`;
@@ -351,6 +525,12 @@
                                     </li>
                                     <li class="list-group-item ">
                                     <span class="pull-right">${data.unitPrice} </span> Price
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.instrument} </span> Instrument
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.description} </span> Description
                                     </li>
                                     </ul>
                                     `;
@@ -463,56 +643,152 @@
     }
 </script>
 
-<!--ajax for show insert -->
+<!--ajax for show drug update -->
 <script>
-    function insertShow(btn) {
+    function updateShow(btn) {
         var id = $(btn).closest('tr').find('input').eq(0).val();
         if(id == undefined){
             id = $("#descrpId").val();
+        }
+        if(id==undefined){
+            insert(btn);
         }
         $.ajax({
             type: "GET",
             url: "/drug/update/" + id,
             dataType: "JSON",
             success: function (data) {
-                console.log(data.user.id);
-                $("#userid").replaceWith(`<input type="text" style="display: none;" id="userid" value="${data.user.id}"/>`);
-                $("#username").replaceWith(`<input type="text" class="form-control"   id="username" value="${data.user.trueName}">`);
-                $("#mobile").replaceWith(`<input type="text" class="form-control"  id="mobile" value="${data.user.mobile}">`);
-                $("#email").replaceWith(`<input type="text" class="form-control"  id="email" value="${data.user.email}">`);
-                $("#age").replaceWith(`<input type="text" class="form-control"  id="age" value="${data.user.age}">`);
-                var genderInfo = String(data.user.gender);
-                var depart = String(data.departId);
-                var position = String(data.type);
-                $('#gender').val(genderInfo);
-                $('#depart').val(depart);
-                $('#position').val(position);
+                console.log(data.id);
+                $("#drugid").replaceWith(`<input type="text" style="display: none;" id="drugid" value="${data.id}"/>`);
+                $("#drugname").replaceWith(`<input type="text" class="form-control"   id="drugname" value="${data.drugName}">`);
+                $("#qty").replaceWith(`<input type="text" class="form-control"  id="qty" value="${data.qty}">`);
+                $("#effect").replaceWith(`<input type="text" class="form-control"  id="effect" value="${data.effect}">`);
+                $("#unitprice").replaceWith(`<input type="text" class="form-control"  id="unitprice" value="${data.unitPrice}">`);
+                $("#instruments").replaceWith(`<input type="text" class="form-control"  id="instruments" value="${data.instrument}">`);
+                var description= String(data.description);
+                   $('#descriptions').val(description);
             }
         })
     }
 </script>
 <script>
-    function insert(btn) {
-        var userid = $("#userid").val();
-        var username = $("#username").val();
-        var mobile = $("#mobile").val();
-        var email = $("#email").val();
-        var age = $("#age").val();
-        var gender = $('#gender').val();
-        var department = $('#depart').val();
-        var position = $('#position').val();
-        console.log(userid + username + mobile + email+age+gender+department+position);
+    function update(btn) {
+        var drugid = $("#drugid").val();
+        var drugname = $("#drugname").val();
+        var descriptions= $("#descriptions").val();
+        var effect = $("#effect").val();
+        var unitprice = $("#unitprice").val();
+        var qty= $('#qty').val();
+        var instruments=$('#instruments').val();
+        console.log(drugid + drugname + descriptions +effect+unitprice+qty+instruments);
         $.ajax({
             type: "POST",
-            url: "/employee/update",
-            data:{userid:userid,
-                username:username,
-                mobile:mobile,
-                email:email,
-                age:age,
-                gender:gender,
-                department:department,
-                position:position
+            url: "/drug/update",
+            data:{
+                drugid:drugid,
+                drugname:drugname,
+                descriptions:descriptions,
+                effect:effect,
+                unitPrice:unitprice,
+                qty:qty,
+                instruments:instruments
+            }
+        })
+
+        window.location.reload();
+    }
+</script>
+<!--drug insert-->
+<script>
+    function insert(btn) {
+        var drugname = $("#drugname1").val();
+        var descriptions= $("#descriptions1").val();
+        var effect = $("#effect1").val();
+        var unitprice = $("#unitprice1").val();
+        var qty= $('#qty1').val();
+        var instruments=$('#instruments1').val();
+        console.log( drugname + descriptions +effect+unitprice+qty+instruments);
+        $.ajax({
+            type: "POST",
+            url: "/drug/insert",
+            data:{
+                drugname:drugname,
+                descriptions:descriptions,
+                effect:effect,
+                unitPrice:unitprice,
+                qty:qty,
+                instruments:instruments
+            }
+        })
+        window.location.reload();
+    }
+</script>
+<!--ajax for show device update -->
+<script>
+    function updateShowdevice(btn) {
+        var id = $(btn).closest('tr').find('input').eq(0).val();
+        if(id == undefined){
+            id = $("#descrpId").val();
+        }
+        $.ajax({
+            type: "GET",
+            url: "/device/update/" + id,
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data.id);
+                $("#deviceid").replaceWith(`<input type="text" style="display: none;" id="deviceid" value="${data.id}"/>`);
+                $("#devicename").replaceWith(`<input type="text" class="form-control"   id="devicename" value="${data.deviceName}">`);
+                $("#deviceqty").replaceWith(`<input type="text" class="form-control"  id="deviceqty" value="${data.qty}">`);
+                $("#location").replaceWith(`<input type="text" class="form-control"  id="location" value="${data.location}">`);
+                $("#deviceunitprice").replaceWith(`<input type="text" class="form-control"  id="deviceunitprice" value="${data.unitPrice}">`);
+                var descriptions= String(data.description);
+                $('#devicedescription').val(descriptions);
+            }
+        })
+    }
+</script>
+<script>
+    function updatedevice(btn) {
+        var deviceid = $("#deviceid").val();
+        var devicename = $("#devicename").val();
+        var devicedescription= $("#devicedescription").val();
+        var location = $("#location").val();
+        var deviceunitprice = $("#deviceunitprice").val();
+        var deviceqty= $("#deviceqty").val();
+        console.log(deviceid + devicename + devicedescription +location+deviceunitprice+deviceqty);
+        $.ajax({
+            type: "POST",
+            url: "/device/update",
+            data:{
+                deviceid:deviceid,
+                devicename:devicename,
+                devicedescription:devicedescription,
+                location:location,
+                deviceunitprice:deviceunitprice,
+                deviceqty:deviceqty
+            }
+        })
+        window.location.reload();
+    }
+</script>
+<!--device insert-->
+<script>
+    function insertdevice(btn) {
+        var devicename = $("#devicename1").val();
+        var devicedescription= $("#devicedescription1").val();
+        var location = $("#location1").val();
+        var deviceunitprice = $("#deviceunitprice1").val();
+        var deviceqty= $('#deviceqty1').val();
+        console.log( devicename + devicedescription +location+deviceunitprice+deviceqty);
+        $.ajax({
+            type: "POST",
+            url: "/device/insert",
+            data:{
+                devicename:devicename,
+                devicedescription:devicedescription,
+                location:location,
+                deviceunitPrice:deviceunitprice,
+                deviceqty:deviceqty
             }
         })
         window.location.reload();
@@ -525,36 +801,41 @@
         console.log(searchName);
         $.ajax({
             type: "GET",
-            url: "/employee/search/"+searchName,
+            url: "/drug/search/"+searchName,
             dataType: "JSON",
             success: function (data) {
-                $("#employees").empty();
+                $("#drugs").empty();
                 $.each(data, function (i, val) {
                     console.log(data);
-                    $("#employees").append(
+
+                    $("#drugs").append(
                         `<tr>
-                    <td class="client-avator"><img alt="image" src="${data[i].avator}" /> </td>
-                    <td><a data-toggle="tab" onclick="showEmp(this)" class="client-link">${data[i].trueName}</a>
-                    </td>
-                    <td><input value="${data[i].id}" style="display: none;"/></td>
-                    <td class="contact-type"><i class="fa fa-phone"> </i>
-                    </td>
-                    <td>${data[i].mobile}</td>
-                    <td class="client-status"></td>
-                    <td class="contact-type"><i class="fa fa-envelope"> </i>
-                    </td>
-                    <td>${data[i].email}</td>
-                <td class="contact-type"><a data-toggle="modal" data-target="#myModal2" href="#" class="fa fa-edit" onclick="insertShow(this)"/></td>
-                    <td class="contact-type"><a href="#" class="fa fa-remove" />
-                    </td>
-                    </tr>`
+                                                <td class="client-avatar"><img alt="image" src="${data[i].avator}" /> </td>
+                                                <td><a data-toggle="tab" onclick="showDrug(this)" class="client-link" >${data[i].drugName}</a>
+                                                </td>
+                                                <td><input value="${data[i].id}" style="display: none;"/></td>
+                                                <td class="contact-type"><i class="fa fa-flask"> </i>
+                                                </td>
+                                                <td> ${data[i].effect}</td>
+                                                <td class="client-status"></td>
+                                                    <td class="contact-type"><i class="fa fa-bar-chart"> </i>
+                                                </td>
+                                                <td>${data[i].qty}</td>
+                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal3" href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal2" href="#" class="fa fa-edit" onclick="updateShow(this)"/></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" />
+                                                </td>
+                                            </tr>`
                     );
                 });
             }
         })
     }
 </script>
+<!--.-->
+<script>
 
+</script>
 </body>
 
 </html>
