@@ -13,7 +13,6 @@ public class DrugDAO extends BaseDAOImpl<Drug,Integer> {
 
     public List<Drug> findDrug(String searchName) {
         Criterion c1 = findDrugLike(searchName);
-
         return createCriteria(c1).list();
     }
 }
