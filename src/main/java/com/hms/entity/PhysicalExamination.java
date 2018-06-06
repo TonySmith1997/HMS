@@ -1,6 +1,8 @@
 package com.hms.entity;
 
 import com.hms.core.base.BaseEntity;
+import org.hibernate.annotations.Proxy;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,19 +11,31 @@ import java.math.BigDecimal;
 /**
  * 检查
  */
+@Proxy(lazy = false)
 @Entity
-public class physicalExamination extends BaseEntity{
+@Table(name = "physicalExamination")
+public class PhysicalExamination extends BaseEntity{
     @Id
     @GeneratedValue
     private int id;
     private String checkName;
     private int checkBy;
     private String checkResult;
+    private String picture;//X光...
     private BigDecimal fee;
     private int patientId;
-
     private int medicalRecordId;//FK
+    @Transient
+    private EmployeeInfo employeeInfo;
 
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     public int getMedicalRecordId() {
         return medicalRecordId;
@@ -77,5 +91,13 @@ public class physicalExamination extends BaseEntity{
 
     public void setFee(BigDecimal fee) {
         this.fee = fee;
+    }
+
+    public EmployeeInfo getEmployeeInfo() {
+        return employeeInfo;
+    }
+
+    public void setEmployeeInfo(EmployeeInfo employeeInfo) {
+        this.employeeInfo = employeeInfo;
     }
 }
