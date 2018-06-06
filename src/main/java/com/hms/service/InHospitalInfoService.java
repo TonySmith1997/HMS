@@ -26,4 +26,9 @@ public class InHospitalInfoService extends BaseService<InHospitalInfo,Integer>{
         String propertyName = "wardNum";
         return dao.findAllEq(propertyName,wardNum);
     }
+    @Transactional(propagation= Propagation.REQUIRED,readOnly=false,rollbackFor={Exception.class})
+    public InHospitalInfo getHospitalInfo(int userId){
+        String propertyName = "userId";
+        return dao.findUniqueBy(propertyName,userId);
+    }
 }

@@ -44,11 +44,12 @@
                             <dl class="dl-horizontal">
 
                                 <dt>Patient: </dt>
-                                <dd class="project-people">
+                                <dd class="project-people" onclick="showPatient(this)">
                                     <a href="#">
                                         <img alt="image" class="img-circle" th:src="${record.patientInfo.user.avator}">
                                         <h5 th:text="${record.patientInfo.user.trueName}"></h5>
                                     </a>
+                                    <input type="text" style="display:none;" th:value="${record.patientInfo.user.id}"/>
                                 </dd>
                                 <dt>status: </dt>
                                 <dd th:if="${record.patientInfo.inpatient}"><span class="label label-primary">InPatient</span></dd>
@@ -106,6 +107,7 @@
                                                     <a href="#" class="pull-left">
                                                         <img alt="image" class="img-circle" th:src="${drug.drug.avator}">
                                                     </a>
+
                                                     <div class="media-body ">
                                                         <small class="pull-right text-navy" th:text="${drug.createTime}"></small>
                                                         <strong th:text="${drug.drug.drugName}"></strong>
@@ -241,7 +243,7 @@
                 $('#Name').empty().append(NameHtml);
                 let status = data.status;
                 let statusHtml = "";
-                switch(status){
+                switch (status) {
                     case 1:
                         statusHtml = `<button type="button" class="btn btn-primary btn-sm btn-info">working</button>`;
                         break;
@@ -261,16 +263,13 @@
                             <br />
                             <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message
                             </button>
-                            <button type="button" class="btn btn-success btn-sm btn-block"  onclick="insertShow(this)" data-toggle="modal" data-target="#myModal2"><i class="fa fa-file"></i>Modify
-                            <button type="button" class="btn btn-danger btn-sm btn-block"><i class="fa fa-lock"></i>Delete
-                            </button>
                             <input type="text" style="display:none;" value="${id}" id="descrpId"/>`;
                 let gender = data.user.gender;
                 let genderHtml = "";
-                if(gender==true){
+                if (gender == true) {
                     genderHtml = "Male";
                 }
-                else{
+                else {
                     genderHtml = "Female";
                 }
                 $('#Info').empty().append(docHtml);
@@ -288,110 +287,10 @@
                                     <span class="pull-right">${data.user.email} </span> Email
                                     </li>
                                     </ul>
-                                    <strong>Time Line</strong>
-                                    <div id="vertical-timeline" class="vertical-container light-timeline">
-                                    </div>
                                     `;
-                let Emplogs = data.employeeLogs;
-                let timeLineHtml = "";
-                $.each(Emplogs, function (i, val){
-                    let TimeString = timeStamp2String(Emplogs[i].when);
-                    switch (Emplogs[i].type){
-                        case "joining":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon navy-bg">
-                                                <i class="fa fa-briefcase"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Joining</h2>
-                                                <p>${Emplogs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                        case "promoting":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon yellow-bg">
-                                                <i class="fa fa-coffee"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Promoting</h2>
-                                                <p>${Emplogs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                        case "demoting":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon blue-bg">
-                                                <i class="fa fa-text"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Demoting</h2>
-                                                <p>${Emplogs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                        case "transferring":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon blue-bg">
-                                                <i class="fa fa-text"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Transferring</h2>
-                                                <p>${Emplogs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                        case "healing":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon red-bg">
-                                                <i class="fa fa-heart"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Healing</h2>
-                                                <p>${Emplogs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                    }
-                });
+
                 $('#contactInfo').empty();
                 $("#contactInfo").append(html);
-                $("#vertical-timeline").empty().append(timeLineHtml);
             }
         })
     }
@@ -399,7 +298,7 @@
 <!--ajax for patient-->
 <script>
     function showPatient(btn) {
-        var id = $(btn).closest('tr').find('input').eq(0).val();
+        var id = $(btn).closest('div').find('input').eq(0).val();
         $.ajax({
             type: "GET",
             url: "/patient/" + id,
@@ -437,9 +336,6 @@
                             <br />
                             <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message
                             </button>
-                            <button type="button" class="btn btn-success btn-sm btn-block"  onclick="insertShow(this)" data-toggle="modal" data-target="#myModal2"><i class="fa fa-file"></i>Modify
-                            <button type="button" class="btn btn-danger btn-sm btn-block"><i class="fa fa-lock"></i>Delete
-                            </button>
                             <input type="text" style="display:none;" value="${id}" id="descrpId"/>`;
                 let gender = data.user.gender;
                 let genderHtml = "";
@@ -468,79 +364,14 @@
                                     </li>
                                     ${wardInfo}
                                     </ul>
-                                    <strong>Time Line</strong>
-                                    <div id="vertical-timeline" class="vertical-container light-timeline">
-                                    </div>
-
                                     `;
-                let logs = data.patientLogs;
-                let timeLineHtml = "";
-                $.each(logs, function (i, val){
-                    let TimeString = timeStamp2String(logs[i].when);
-                    switch (logs[i].type){
-                        case "registered":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon navy-bg">
-                                                <i class="fa fa-medkit"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Registered</h2>
-                                                <p>${logs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                        case "hospitalized":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon yellow-bg">
-                                                <i class="fa fa-hospital-o"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Hospitalized</h2>
-                                                <p>${logs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                        case "healed":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon red-bg">
-                                                <i class="fa fa-heart"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Healed</h2>
-                                                <p>${logs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                    }
-                });
                 $('#contactInfo').empty();
                 $("#contactInfo").append(html);
-                $("#vertical-timeline").empty().append(timeLineHtml);
             }
         })
     }
 </script>
+
 
 
 </body>
