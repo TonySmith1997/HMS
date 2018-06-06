@@ -59,9 +59,11 @@ public class EmployeeInfoController {
         List<User> employees = userService.getEmployeeList();
         List<Department> departmentList = departmentService.getAll();
         int count = employeeService.count();
+        int departcount = departmentService.count();
         Date LastUpdate = employeeService.getLastUpdate();
         map.addAttribute("lastUpdate",LastUpdate);
         map.addAttribute("empCount",count);
+        map.addAttribute("departCount",departcount);
         map.addAttribute("departmentList",departmentList);
         map.addAttribute("employees",employees);
         return "TotalList";

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 public class DepartmentService extends BaseService<Department,Integer>{
@@ -32,5 +34,8 @@ public class DepartmentService extends BaseService<Department,Integer>{
         return dao.findUniqueBy(property,departmentName);
     }
 
-
+    @Transactional
+    public List<Department> findDepartmentLike(String searchName) {
+        return dao.findDepartmentLike(searchName);
+    }
 }

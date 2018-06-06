@@ -136,7 +136,7 @@
                                                     <small class="text-muted" th:text="${check.checkResult}"></small>
                                                     <div class="photos">
                                                         <a target="_blank">
-                                                            <img alt="image" class="feed-photo" th:src="${check.picture}">
+                                                            <img id='img' alt="image" class="feed-photo" th:src="${check.picture}">
                                                         </a>
                                                     </div>
                                                     <div class="actions">
@@ -195,7 +195,7 @@
 <!-- 自定义js -->
 <script src="/static/js/content.js?v=1.0.0"></script>
 <script src="/static/js/date2String.js"></script>
-
+<script src="/static/js/plugins/layer/layer.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -371,8 +371,6 @@
         })
     }
 </script>
-
-
 
 </body>
 
