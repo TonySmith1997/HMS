@@ -52,20 +52,20 @@
             <div class="ibox">
                 <div class="ibox-content">
                     <span class="text-muted small pull-right">Last Updated: <i class="fa fa-clock-o"></i><h5 th:text="${lastUpdate}"></h5></span>
-                    <h2>Patient Management</h2>
+                    <h2 id="management">Patient Management</h2>
                     <div class="input-group">
                         <input type="text" placeholder="Find Patient" class="input form-control" id="searchName"/>
                         <span class="input-group-btn">
-                                        <button type="button" class="btn btn btn-primary" onclick="search(this)"> <i class="fa fa-search" ></i> Search</button>
+                                        <button type="button" class="btn btn btn-primary" id="searchBtn" onclick="search(this)"> <i class="fa fa-search" ></i> Search</button>
                                         <button type="button" class="btn btn btn-warning" onclick="refresh(this)"><i class="fa fa-refresh" ></i>Refresh </button>
                             </span>
                     </div>
                     <div class="clients-list">
                         <ul class="nav nav-tabs">
-                            <span class="pull-right small text-muted" th:text="${patientCount}+ ' Patients'"></span>
-                            <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Patient</a>
+                            <span id="count" class="pull-right small text-muted" th:text="${patientCount}+ ' Patients'"></span>
+                            <li class="active"><a data-toggle="tab" href="#tab-1" onclick="changeField(this)"><i class="fa fa-user"></i> Patient</a>
                             </li>
-                            <li class=""><a data-toggle="tab" href="#tab-4"><i class="fa fa-hotel"></i> Ward</a>
+                            <li class=""><a data-toggle="tab" href="#tab-4" onclick="changeField2(this)"><i class="fa fa-hotel"></i> Ward</a>
                             </li>
                         </ul>
 
@@ -87,7 +87,7 @@
                                                 <td class="contact-type"><i class="fa fa-envelope"> </i>
                                                 </td>
                                                 <td th:text="${patient.email}"> gravida@qq.com</td>
-                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal2" href="#" class="fa fa-edit" onclick="insertShow(this)"/></td>
+                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal2" href="#" class="fa fa-edit" onclick="updateShow(this)"/></td>
                                                 <td class="contact-type"><a href="#" class="fa fa-remove" />
                                                 </td>
                                             </tr>
@@ -151,13 +151,14 @@
             </div>
         </div>
     </div>
+    <!--Patient modify.-->
     <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated flipInY">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Employee Info</h4>
-                    <small class="font-bold">Update or Insert
+                    <h4 class="modal-title">Patient Info</h4>
+                    <small class="font-bold">Update or Insert</small>
                 </div>
                 <div class="modal-body">
                     <div class="ibox-content">
@@ -200,49 +201,11 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Department</label>
-                                <div class="col-sm-10">
-                                    <select id="depart">
-                                        <option value="1">Medical department</option>
-                                        <option value="2">Surgical department</option>
-                                        <option value="3">Cardiology department</option>
-                                        <option value="4">Dental department</option>
-                                        <option value="5">Skin department</option>
-                                        <option value="6">Neurology department</option>
-                                        <option value="7">Obstetrics and gynecology department</option>
-                                        <option value="8">Ophthalmology department</option>
-                                        <option value="9">Orthopedics department</option>
-                                        <option value="10">Otorhinolaryngological department</option>
-                                        <option value="11">Paediatrics department</option>
-                                        <option value="12">Urology department</option>
-                                        <option value="13">X-ray department</option>
-                                        <option value="14">Registration office</option>
-                                        <option value="15">Laboratory</option>
-                                        <option value="16">Blood bank</option>
-                                        <option value="17">Pharmacy</option>
-                                        <option value="18">Nursing department</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Position</label>
-                                <div class="col-sm-10">
-                                    <select data-placeholder="choose position..." class="chosen-select" style="width:350px;" tabindex="2"
-                                            id="position">
-                                        <option value="Chief Doctor">Chief Doctor</option>
-                                        <option value="Associate Chief Doctor">Associate Chief Doctor</option>
-                                        <option value="Attending Doctor">Attending Doctor</option>
-                                        <option value="Interne">Interne</option>
-                                        <option value="Staff">Staff</option>
-                                    </select>
-                                </div>
-                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
-                        <button type="submit" class="btn btn-primary" onclick="insert(this)">save</button>
+                        <button type="submit" class="btn btn-primary" onclick="update(this)">save</button>
                     </div>
                 </div>
             </div>
@@ -293,7 +256,7 @@
     </div>
 
 </div>
-</div>
+
 
 
 <!-- 全局js -->
@@ -301,6 +264,7 @@
 <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
 <script src="/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="https://cdn.bootcss.com/cropper/3.1.3/cropper.min.js"></script>
+<script src="/static/js/demo/form-advanced-demo.js"></script>
 <!-- 自定义js -->
 <script src="/static/js/content.js?v=1.0.0"></script>
 <script>
@@ -421,15 +385,15 @@
                 console.log(data);
                 let docHtml = `
                             <h3>${data.user.trueName}</h3>
-                            <button class="btn btn-outline btn-warning dim" type="button"><i class="fa fa-paste" onclick="showRecord(this)"></i>
+                            <button class="btn btn-outline btn-warning dim" type="button"  onclick="showRecord(this)"><i class="fa fa-paste"></i>
                             </button>
                             <button class="btn btn-outline btn-success dim" type="button"><i class="fa fa-binoculars"></i>
                             </button>
-                            <button class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-money" onclick="showFee(this)"></i>
+                            <button class="btn btn-outline btn-primary dim" type="button" onclick="showFee(this)"><i class="fa fa-money" ></i>
                             <br />
                             <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message
                             </button>
-                            <button type="button" class="btn btn-success btn-sm btn-block"  onclick="insertShow(this)" data-toggle="modal" data-target="#myModal2"><i class="fa fa-file"></i>Modify
+                            <button type="button" class="btn btn-success btn-sm btn-block"  onclick="updateShow(this)" data-toggle="modal" data-target="#myModal2"><i class="fa fa-file"></i>Modify
                             <button type="button" class="btn btn-danger btn-sm btn-block"><i class="fa fa-lock"></i>Delete
                             </button>
                             <input type="text" style="display:none;" value="${id}" id="descrpId"/>`;
@@ -534,16 +498,16 @@
     }
 </script>
 
-<!--ajax for show insert -->
+<!--ajax for show update -->
 <script>
-    function insertShow(btn) {
+    function updateShow(btn) {
         var id = $(btn).closest('tr').find('input').eq(0).val();
         if(id == undefined){
             id = $("#descrpId").val();
         }
         $.ajax({
             type: "GET",
-            url: "/employee/update/" + id,
+            url: "/patient/update/" + id,
             dataType: "JSON",
             success: function (data) {
                 console.log(data.user.id);
@@ -553,37 +517,29 @@
                 $("#email").replaceWith(`<input type="text" class="form-control"  id="email" value="${data.user.email}">`);
                 $("#age").replaceWith(`<input type="text" class="form-control"  id="age" value="${data.user.age}">`);
                 var genderInfo = String(data.user.gender);
-                var depart = String(data.departId);
-                var position = String(data.type);
                 $('#gender').val(genderInfo);
-                $('#depart').val(depart);
-                $('#position').val(position);
             }
         })
     }
 </script>
 <script>
-    function insert(btn) {
+    function update(btn) {
         var userid = $("#userid").val();
         var username = $("#username").val();
         var mobile = $("#mobile").val();
         var email = $("#email").val();
         var age = $("#age").val();
         var gender = $('#gender').val();
-        var department = $('#depart').val();
-        var position = $('#position').val();
-        console.log(userid + username + mobile + email+age+gender+department+position);
+        console.log(userid + username + mobile + email+age+gender);
         $.ajax({
             type: "POST",
-            url: "/employee/update",
+            url: "/patient/update",
             data:{userid:userid,
                 username:username,
                 mobile:mobile,
                 email:email,
                 age:age,
                 gender:gender,
-                department:department,
-                position:position
             }
         })
         window.location.reload();
@@ -615,7 +571,7 @@
                     <td class="contact-type"><i class="fa fa-envelope"> </i>
                     </td>
                     <td>${data[i].email}</td>
-                <td class="contact-type"><a data-toggle="modal" data-target="#myModal2" href="#" class="fa fa-edit" onclick="insertShow(this)"/></td>
+                <td class="contact-type"><a data-toggle="modal" data-target="#myModal2" href="#" class="fa fa-edit" onclick="updateShow(this)"/></td>
                     <td class="contact-type"><a href="#" class="fa fa-remove" />
                     </td>
                     </tr>`
@@ -628,6 +584,24 @@
 
 <!-- avator shiv -->
 <script src="/static/js/avator-tail.js"></script>
+<!--top device/drug change -->
+<script th:inline="javascript">
+    function changeField(btn) {
+        var patientCount = [[${patientCount}]];
+        $('#management').replaceWith(`<h2 id="management">Patient Management</h2>`);
+        $('#searchName').replaceWith(`<input type="text" placeholder="Find Drugs" class="input form-control" id="searchName"/>`);
+        $('#searchBtn').replaceWith(`<button type="button" class="btn btn btn-primary" onclick="search(this)" id="searchBtn"> <i class="fa fa-search" ></i> Search</button>`);
+        $('#count').replaceWith(`<span id="count" class="pull-right small text-muted">${patientCount} Patients</span>`);
+    };
+    function changeField2(btn) {
+        var wardCount = [[${wardCount}]];
+        console.log(wardCount);
+        $('#management').replaceWith(`<h2 id="management">Ward Management</h2>`);
+        $('#searchName').replaceWith(`<input type="text" placeholder="Find Device" class="input form-control" id="searchName"/>`);
+        $('#searchBtn').replaceWith(`<button type="button" class="btn btn btn-primary" onclick="searchward(this)" id="searchBtn"> <i class="fa fa-search" ></i> Search</button>`);
+        $('#count').replaceWith(`<span id="count" class="pull-right small text-muted">${wardCount} Wards</span>`);
+    }
+</script>
 
 <!--layui -->
 <script src="/static/js/plugins/layer/layer.min.js"></script>
@@ -655,5 +629,4 @@
     }
 </script>
 </body>
-
 </html>
