@@ -1,9 +1,9 @@
 package com.hms.dao;
 
 import com.hms.core.base.BaseDAOImpl;
-import com.hms.entity.UserRole;
+import com.hms.entity.Resources;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserRoleDAO extends BaseDAOImpl<UserRole,Integer>{
+public class ResourceDAO extends BaseDAOImpl<Resources,Integer>{
 }

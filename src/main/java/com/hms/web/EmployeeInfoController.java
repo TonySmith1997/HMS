@@ -69,18 +69,6 @@ public class EmployeeInfoController {
         return "TotalList";
     }
 
-    /**
-     * 通过id得到员工的详细信息
-     * @param map
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/info",method = GET)
-    public String getEmployeeInfo(ModelMap map,int userId) {
-        EmployeeInfo employeeInfo = employeeService.getEmployeeInfo(userId);
-        map.addAttribute("employeeInfo",employeeInfo);
-        return "TotalList";
-    }
 
 
     /**
@@ -108,7 +96,7 @@ public class EmployeeInfoController {
      {
          int userId = Integer.valueOf(userid.trim());
          User user = userService.get(userId);
-         user.setUsername(username.trim());
+         user.setTrueName(username.trim());
          user.setMobile(mobile.trim());
          user.setEmail(email.trim());
          user.setAge(Integer.valueOf(age.trim()));

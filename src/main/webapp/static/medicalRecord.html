@@ -58,9 +58,6 @@
                                 <dd th:if="${record.patientInfo.inpatient==false}"><span class="label label-primary">outPatient</span>
                                 <dt>Age: </dt>
                                 <dd th:text="${record.patientInfo.user.age}">20</dd>
-                                <dt>Gender: </dt>
-                                <dd th:text="${record.patientInfo.user.gender}">Male
-                                </dd>
                                 <dt>Allergic history: </dt>
                                 <dd th:text="${record.patientInfo.alleHis}">seafood and milk</dd>
                                 <dt>Medical History</dt>
@@ -104,10 +101,10 @@
                                         <div class="tab-pane active" id="tab-1">
                                             <div class="feed-activity-list">
                                                 <div class="feed-element" th:each="drug : ${record.drugs}">
-                                                    <a href="#" class="pull-left">
+                                                    <a href="#" class="pull-left" onclick="showDrug(this)">
                                                         <img alt="image" class="img-circle" th:src="${drug.drug.avator}">
                                                     </a>
-
+                                                    <input type="text" th:value="${drug.drugId}" style="display: none;"/>
                                                     <div class="media-body ">
                                                         <small class="pull-right text-navy" th:text="${drug.createTime}"></small>
                                                         <strong th:text="${drug.drug.drugName}"></strong>
@@ -164,14 +161,12 @@
                     <div id="contact-1" class="tab-pane active">
                         <div class="row m-b-lg">
                             <div class="col-lg-4 text-center" id="Name">
-                                <h2 id="departName">Medical department </h2>
+                                <h2 id="departName"></h2>
                             </div>
                             <div class="col-lg-8" id="Info">
                                 <h3>
-                                    Description
                                 </h3>
                                 <p id="description">
-                                    The hospital is a kind of organization helping people recover or get information of keeping health. We can see a hospital everywhere in our life, because hospitals are so important to us. Patients, or the one who has some mental or bodily discomfort should go to hospital for curing.
                                 </p>
                             </div>
                         </div>
@@ -230,6 +225,7 @@
 <script>
     function showEmp(btn) {
         var id = $(btn).closest('div').find('input').eq(0).val();
+        console.log(id);
         $.ajax({
             type: "GET",
             url: "/employee/" + id,
@@ -369,6 +365,51 @@
                 $("#contactInfo").append(html);
             }
         })
+    }
+</script>
+<script>
+    function showDrug(btn) {
+        var id = $(btn).closest('div').find('input').eq(0).val();
+        console.log(id);
+        $.ajax({
+            type: "GET",
+            url: "/drug/" + id,
+            dataType: "JSON",
+            success: function (data) {
+                let NameHtml = `
+                            <h2>${data.drugName}</h2>
+                            <div class="m-b-sm">
+                                <img alt="image" src="${data.avator}" style="width: 110px" />
+                            </div>`;
+                $('#Name').empty().append(NameHtml);
+                let docHtml = `
+                            <p>
+                                ${data.description}
+                            </p>
+                            <br />
+                            <input type="text" style="display:none;" value="${id}" id="descrpId"/>`;
+                $('#Info').empty().append(docHtml);
+                let html = `<ul  class="list-group clear-list">
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.effect} </span> Effect
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.qty} </span> Qty
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.unitPrice} </span> Price
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.instrument} </span>
+                                    </li>
+                                    </ul>
+                                    `;
+                $('#contactInfo').empty();
+                $("#contactInfo").append(html);
+            }
+
+        });
+
     }
 </script>
 

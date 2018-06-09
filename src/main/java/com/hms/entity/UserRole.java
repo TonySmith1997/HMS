@@ -1,5 +1,7 @@
 package com.hms.entity;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,6 +10,7 @@ import java.io.Serializable;
 /**
  * 多对多关联表
  */
+@Proxy(lazy = false)
 @Entity
 public class UserRole implements Serializable{
     @Id

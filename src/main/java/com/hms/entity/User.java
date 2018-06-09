@@ -6,8 +6,11 @@ import org.hibernate.annotations.Proxy;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.Set;
 
 @Proxy(lazy = false)
 @Entity
@@ -24,6 +27,16 @@ public class User extends BaseEntity{
     private int age;
     private boolean gender;//male 1，female 0
     private boolean ifEmloyee;
+    @Transient
+    private Set<String> role;
+
+    public Set<String> getRole() {
+        return role;
+    }
+
+    public void setRole(Set<String> role) {
+        this.role = role;
+    }
 
     public String getTrueName() {
         return trueName;
