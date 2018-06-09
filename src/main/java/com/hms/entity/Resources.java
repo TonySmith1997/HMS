@@ -1,10 +1,13 @@
 package com.hms.entity;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 
+@Proxy(lazy = false)
 @Entity
 public class Resources implements Serializable{
     @Id

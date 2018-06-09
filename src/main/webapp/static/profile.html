@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -15,7 +15,7 @@
     <link href="/static/css/animate.css" rel="stylesheet" />
     <link href="/static/css/style.css?v=4.1.0" rel="stylesheet" />
     <link href="/static/css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet" />
-
+    <link href="https://cdn.bootcss.com/cropper/3.1.3/cropper.min.css" rel="stylesheet">
 
 </head>
 
@@ -28,57 +28,55 @@
                         <h5>Personal Information</h5>
                     </div>
                     <div>
-                        <div class="ibox-content no-padding border-left-right">
-                            <img alt="image" class="img-responsive" src="/static/img/profile_big.jpg" />
-                        </div>
-                        <div class="ibox-content profile-content">
-                            <h4><strong>Tony</strong></h4>
-                            <h5>
-                                <i class="fa fa-binoculars"></i> Personal Info
-                            </h5>
-                            <p><i class="fa fa-stethoscope"></i> heart doctor
-                                </p>
-                            <p>
-                                <i class="fa fa-mars"></i> Age : 20
-                            </p>
-                            <hr />
-                            <h5>
-                                <i class="fa fa-suitcase"></i> Contact way
-                            </h5>
-                            <p><i class="fa fa-phone"></i> 110
-                            </p>
-                            <p><i class="fa fa-envelope"></i> ab@qq.com</p>
-                            <hr />
-                            <h5>
-                                <i class="fa fa-tags"></i> About me
-                                </h5>
-                            <p>
-                                During my study in school, I have a very solid knowledge of the basic knowledge of clinical subjects such as internal, external, women and children. After a year of clinical practice, I believe that I have the ability to be competent for this post of hospital resident. During my internship, I focused on hypertension, diabetes and the disease in the Department of general surgery, so if I was lucky enough to be hired, I would soon be able to integrate into the Department's work.
-                            </p>
-                            <div class="row m-t-lg">
-                                <div class="col-sm-4">
-                                    <span class="bar">5,3,9,6,5,9,7,3,5,2</span>
-                                    <h5><strong>169</strong> patient healed</h5>
+                        <div class="ibox-content profile-content" style="height: 500px;">
+                            <input type="text" th:value="${user.id}" style="display:none;" id="descrpId" />
+                            <div class="row m-b-lg">
+                                <div class="col-lg-4 text-center" id="Name">
+                                    <div class="m-b-sm">
+                                        <img alt="image" class="img-circle" th:src="${user.avator}" style="width: 110px" data-toggle="modal" data-target="#myModal1"/>
+                                    </div>
+                                    <button th:if="${patient != null && patient.isInpatient()}" type="button" class="btn btn-primary btn-sm btn-warning">Inpatient</button>
+                                    <button th:if="${patient != null && patient.isInpatient() == false}" type="button" class="btn btn-primary btn-sm btn-warning">Inpatient</button>
                                 </div>
-                                <div class="col-sm-4">
-                                    <span class="line">5,3,9,6,5,9,7,3,5,2</span>
-                                    <h5><strong>28</strong> paper release</h5>
+                                <div class="col-lg-8" id="Info">
+                                    <h3 th:if="${employee != null}"th:text="${employee.type}"></h3>
+                                    <h3 th:text="${user.trueName}"></h3>
+                                    <button type="button" class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#myModal2"><i class="fa fa-file"></i>Modify</button>
+                                    <button th:if="${patient != null && patient.isInpatient()}" type="button" class="btn btn-block btn-sm btn-danger"><i class="fa fa-calendar-check-o"></i>Discharge</button>
+                                    <button type="button" class="btn btn-warning btn-sm btn-block" data-toggle="modal" data-target="#myModal4"><i class="fa fa-key"></i>Password Change</button>
                                 </div>
                             </div>
-
-                            <div class="user-button">
-                                <div class="row">
-                                        <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-coffee"></i> update info</button>
-                                </div>
+                            <div  class="client-detail">
+                                    <ul  class="list-group clear-list">
+                                        <li class="list-group-item fist-item">
+                                            <span class="pull-right" th:text="${user.age}"> </span> Age
+                                        </li>
+                                        <li class="list-group-item ">
+                                            <span class="pull-right" th:if="${user.gender}">Male</span> Gender
+                                            <span class="pull-right" th:if="${user.gender == false}">Female</span> Gender
+                                        </li>
+                                        <li class="list-group-item ">
+                                            <span class="pull-right" th:text="${user.mobile}"></span> Mobile
+                                        </li>
+                                        <li class="list-group-item ">
+                                            <span class="pull-right" th:text="${user.email}"> </span> Email
+                                        </li>
+                                        <li class="list-group-item" th:if="${patient != null && patient.isInpatient()}">
+                                            <span class="pull-right" th:text="${patient.ward.location}"> </span> Ward Location
+                                        </li>
+                                        <li class="list-group-item" th:if="${employee != null}">
+                                            <span class="pull-right" th:text="${depart}"> </span> Department
+                                        </li>
+                                    </ul>
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             <div class="col-sm-8">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>Patient List</h5>
+                        <h5>Notify</h5>
                         <div class="ibox-tools">
                             <a class="search">
                                 <i class="fa fa-search" />
@@ -96,49 +94,34 @@
                         <div>
                             <div class="feed-activity-list">
 
-                                <div class="feed-element">
+                                <div class="feed-element" th:each="message : ${messages}">
                                     <a href="profile.html#" class="pull-left">
-                                        <img alt="image" class="img-circle" src="/static/img/a2.jpg" />
+                                        <img alt="image" class="img-circle" th:src="${message.from.avator}" />
                                     </a>
                                     <div class="media-body ">
-                                        <small class="pull-right">2hours ago</small>
+                                        <small class="pull-right" th:text="${message.createTime}">2hours ago</small>
                                         <!-- patient name and the illness name -->
-                                        <strong>Andy</strong> cough
+                                        <strong th:if="${message.from.gender}" th:text="'Mr.' + ${message.from.trueName}">Andy</strong>
+                                        <strong th:if="${message.from.gender == false}" th:text="'Miss.' + ${message.from.trueName}">Andy</strong>
                                         <br />
                                         <!-- when and who -->
-                                        <small class="text-muted">Today 09:27 diagnosed by Doctor.Tony</small>
-                                        <div class="well">
+                                        <small class="text-muted" th:if="${message.photo!=null}" th:text="${message.message}">Today 09:27 diagnosed by Doctor.Tony</small>
+                                        <div class="well" th:if="${message.photo ==null}" th:text="${message.message}">
                                             <!--病例清单-->
                                             need to get some cough syrup
                                         </div>
-                                        <div class="pull-right">
-                                            <a class="btn btn-xs btn-white"><i class="fa fa-at"></i> Contact </a>
-                                            <a class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Record-Detail</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="feed-element">
-                                    <a href="profile.html#" class="pull-left">
-                                        <img alt="image" class="img-circle" src="/static/img/a3.jpg" />
-                                    </a>
-                                    <div class="media-body ">
-                                        <small class="pull-right">2days ago</small>
-                                        <strong>Tobby</strong> right arm dislocated
-                                        <br />
-                                        <small class="text-muted">May.7 11:56 checked by Mr.Tony</small>
-                                        <div class="photo">
-                                            <a href="/static/img/p_big1.jpg" title="photo" data-gallery=""><img style="width: 45%;height: 45%" src="/static/img/p1.jpg" /></a>
-                                            <a href="/static/img/p_big2.jpg" title="photo" data-gallery=""><img style="width: 45%;height: 45%"  src="/static/img/p2.jpg" /></a>
+                                        <div class="photo" th:if="${message.photo != null}" th:each="photo : ${message.photos}">
+                                            <a  th:href="@{${photo}}" title="photo" data-gallery=""><img style="width: 45%;height: 45%" th:src="${photo}" /></a>
                                             <div id="blueimp-gallery" class="blueimp-gallery">
                                                 <div class="slides"></div>
-                                                <h3 class="title">photo</h3>
+                                                <h3 class="title" th:text="${message.message}"></h3>
                                                 <a class="play-pause"></a>
                                                 <ol class="indicator"></ol>
                                             </div>
                                         </div>
                                         <div class="pull-right">
-                                            <a class="btn btn-xs btn-white"><i class="fa fa-at"></i> Contact </a>
-                                            <a class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Record-Detail</a>
+                                            <a class="btn btn-xs btn-primary"  data-toggle="modal" data-target="#myModal3" onclick="showSend(this)"><i class="fa fa-at" ></i> Contact </a>
+                                            <input type="text" th:value="${message.from.id}" style="display: none" />
                                         </div>
                                     </div>
                                 </div>
@@ -152,29 +135,226 @@
                 </div>
 
             </div>
+
         </div>
+        <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated flipInY">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Modify Info</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="ibox-content">
+                            <form class="form-horizontal m-t-md">
+                                <input type="text" style="display: none;" id="userid"/>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control"  placeholder="" id="username" th:value="${user.trueName}">
+                                        <span class="help-block">6-8 characters</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Mobile</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="" id="mobile" th:value="${user.mobile}">
+                                        <span class="help-block">e.g. 13458769311</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control"  placeholder="" id="email" th:value="${user.email}">
+                                        <span class="help-block">e,g. aaa@aaa</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Age</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="" id="age" th:value="${user.age}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Gender</label>
+                                    <div class="col-sm-10">
+                                        <select id="gender" th:value="${user.gender}">
+                                            <option label="Male" value="true"></option>
+                                            <option label="Female" value="false"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                            <button type="submit" class="btn btn-primary" onclick="insert(this)">save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal inmodal" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated flipInY">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Send Message</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="ibox-content">
+                            <form class="form-horizontal m-t-md">
+                                <input type="text" style="display: none;" id="toId"/>
+                                <div class="form-group">
+                                        <textarea type="text" class="form-control"id="messageInfo" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                            <button type="submit" class="btn btn-primary" onclick="send(this)">send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
+                        <h4 class="modal-title text-primary">
+                            <i class="fa fa-pencil"></i>
+                            Update Avator
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="tip-info text-center">
+                            Unselected picture
+                        </p>
+                        <div class="img-container hidden">
+                            <img src="" alt="" id="photo">
+                        </div>
+                        <div class="img-preview-box hidden">
+                            <hr>
+                            <span>150*150:</span>
+                            <div class="img-preview img-preview-lg">
+                            </div>
+                            <span>100*100:</span>
+                            <div class="img-preview img-preview-md">
+                            </div>
+                            <span>30*30:</span>
+                            <div class="img-preview img-preview-sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <label class="btn btn-danger pull-left" for="photoInput">
+                            <input type="file" class="sr-only" id="photoInput" accept="image/*">
+                            <span>upload</span>
+                        </label>
+                        <button class="btn btn-primary disabled" disabled="true" onclick="sendPhoto();">save</button>
+                        <button class="btn btn-close" aria-hidden="true" data-dismiss="modal">cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal inmodal" id="myModal4" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated flipInY">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Modify Password</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="ibox-content">
+                            <form class="form-horizontal m-t-md">
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Password</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control"  placeholder="" id="password" >
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Confirm</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="" id="confirm_password">
+                                        <span class="help-block" id="mes"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                            <button type="submit" class="btn btn-primary" onclick="insert(this)">save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
     </div>
 
     <!-- 全局js -->
     <script src="/static/js/jquery.min.js?v=2.1.4"></script>
     <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
-
-
-
     <!-- 自定义js -->
     <script src="/static/js/content.js?v=1.0.0"></script>
-
-
-    <!-- Peity -->
-    <script src="/static/js/plugins/peity/jquery.peity.min.js"></script>
-
-    <!-- Peity -->
-    <script src="/static/js/demo/peity-demo.js"></script>
-
-
     <!-- blueimp gallery -->
     <script src="/static/js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
 
+    <!-- avator shiv -->
+    <script src="/static/js/avator-tail.js"></script>
+    <script src="https://cdn.bootcss.com/cropper/3.1.3/cropper.min.js"></script>
+
+    <!-- send Message -->
+    <script>
+        function showSend(btn) {
+            var id = $(btn).closest('div').find('input').eq(0).val();
+            console.log(id);
+            $('#toId').replaceWith(`<input type="text" style="display: none;" id="toId" value="${id}"/>`)
+        }
+    </script>
+
+    <script>
+        function send(btn) {
+           var message = $('#messageInfo').val();
+           var toId = $('#toId').val();
+            console.log(toId);
+            $.ajax({
+                type: "POST",
+                url: "/message",
+                data:{
+                    message:message,
+                    toId:toId
+                }
+            });
+            window.location.reload();
+        }
+    </script>
+
+    <!-- modify password -->
+    <script>
+        function send(btn) {
+            var password = $('#password').val();
+            var confirm_pass = $("#confirm_password").val();
+            if(!password==confirm_pass) {
+                $('#mes').replaceWith(`<span class="help-block" id="mes">Password Not Equal</span>`);
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: "/changePass",
+                data:{
+                    password:password
+                }
+            });
+            window.location.reload();
+        }
+    </script>
 </body>
 
 </html>

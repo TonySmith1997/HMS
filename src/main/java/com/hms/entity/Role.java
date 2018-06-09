@@ -1,6 +1,7 @@
 package com.hms.entity;
 
 import com.sun.javafx.beans.IDProperty;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import java.io.Serializable;
 /**
  * 角色
  */
+@Proxy(lazy = false)
 @Entity
 public class Role implements Serializable{
     @Id

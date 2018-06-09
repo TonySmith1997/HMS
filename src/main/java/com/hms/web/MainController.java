@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/")
 public class MainController {
 
-    @RequestMapping(value="/",method= RequestMethod.GET)
+    @RequestMapping(value="/sys",method= RequestMethod.GET)
     public String getIndex(){
         System.out.println("ok");
         return "index";
+    }
+    @RequestMapping(value="/403",method= RequestMethod.GET)
+    public String get403(){
+        return "403";
     }
 }

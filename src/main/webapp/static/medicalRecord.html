@@ -44,11 +44,12 @@
                             <dl class="dl-horizontal">
 
                                 <dt>Patient: </dt>
-                                <dd class="project-people">
+                                <dd class="project-people" onclick="showPatient(this)">
                                     <a href="#">
                                         <img alt="image" class="img-circle" th:src="${record.patientInfo.user.avator}">
                                         <h5 th:text="${record.patientInfo.user.trueName}"></h5>
                                     </a>
+                                    <input type="text" style="display:none;" th:value="${record.patientInfo.user.id}"/>
                                 </dd>
                                 <dt>status: </dt>
                                 <dd th:if="${record.patientInfo.inpatient}"><span class="label label-primary">InPatient</span></dd>
@@ -57,9 +58,6 @@
                                 <dd th:if="${record.patientInfo.inpatient==false}"><span class="label label-primary">outPatient</span>
                                 <dt>Age: </dt>
                                 <dd th:text="${record.patientInfo.user.age}">20</dd>
-                                <dt>Gender: </dt>
-                                <dd th:text="${record.patientInfo.user.gender}">Male
-                                </dd>
                                 <dt>Allergic history: </dt>
                                 <dd th:text="${record.patientInfo.alleHis}">seafood and milk</dd>
                                 <dt>Medical History</dt>
@@ -103,9 +101,10 @@
                                         <div class="tab-pane active" id="tab-1">
                                             <div class="feed-activity-list">
                                                 <div class="feed-element" th:each="drug : ${record.drugs}">
-                                                    <a href="#" class="pull-left">
+                                                    <a href="#" class="pull-left" onclick="showDrug(this)">
                                                         <img alt="image" class="img-circle" th:src="${drug.drug.avator}">
                                                     </a>
+                                                    <input type="text" th:value="${drug.drugId}" style="display: none;"/>
                                                     <div class="media-body ">
                                                         <small class="pull-right text-navy" th:text="${drug.createTime}"></small>
                                                         <strong th:text="${drug.drug.drugName}"></strong>
@@ -134,7 +133,7 @@
                                                     <small class="text-muted" th:text="${check.checkResult}"></small>
                                                     <div class="photos">
                                                         <a target="_blank">
-                                                            <img alt="image" class="feed-photo" th:src="${check.picture}">
+                                                            <img id='img' alt="image" class="feed-photo" th:src="${check.picture}">
                                                         </a>
                                                     </div>
                                                     <div class="actions">
@@ -162,14 +161,12 @@
                     <div id="contact-1" class="tab-pane active">
                         <div class="row m-b-lg">
                             <div class="col-lg-4 text-center" id="Name">
-                                <h2 id="departName">Medical department </h2>
+                                <h2 id="departName"></h2>
                             </div>
                             <div class="col-lg-8" id="Info">
                                 <h3>
-                                    Description
                                 </h3>
                                 <p id="description">
-                                    The hospital is a kind of organization helping people recover or get information of keeping health. We can see a hospital everywhere in our life, because hospitals are so important to us. Patients, or the one who has some mental or bodily discomfort should go to hospital for curing.
                                 </p>
                             </div>
                         </div>
@@ -193,7 +190,7 @@
 <!-- 自定义js -->
 <script src="/static/js/content.js?v=1.0.0"></script>
 <script src="/static/js/date2String.js"></script>
-
+<script src="/static/js/plugins/layer/layer.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -228,6 +225,7 @@
 <script>
     function showEmp(btn) {
         var id = $(btn).closest('div').find('input').eq(0).val();
+        console.log(id);
         $.ajax({
             type: "GET",
             url: "/employee/" + id,
@@ -241,7 +239,7 @@
                 $('#Name').empty().append(NameHtml);
                 let status = data.status;
                 let statusHtml = "";
-                switch(status){
+                switch (status) {
                     case 1:
                         statusHtml = `<button type="button" class="btn btn-primary btn-sm btn-info">working</button>`;
                         break;
@@ -261,16 +259,13 @@
                             <br />
                             <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message
                             </button>
-                            <button type="button" class="btn btn-success btn-sm btn-block"  onclick="insertShow(this)" data-toggle="modal" data-target="#myModal2"><i class="fa fa-file"></i>Modify
-                            <button type="button" class="btn btn-danger btn-sm btn-block"><i class="fa fa-lock"></i>Delete
-                            </button>
                             <input type="text" style="display:none;" value="${id}" id="descrpId"/>`;
                 let gender = data.user.gender;
                 let genderHtml = "";
-                if(gender==true){
+                if (gender == true) {
                     genderHtml = "Male";
                 }
-                else{
+                else {
                     genderHtml = "Female";
                 }
                 $('#Info').empty().append(docHtml);
@@ -288,110 +283,10 @@
                                     <span class="pull-right">${data.user.email} </span> Email
                                     </li>
                                     </ul>
-                                    <strong>Time Line</strong>
-                                    <div id="vertical-timeline" class="vertical-container light-timeline">
-                                    </div>
                                     `;
-                let Emplogs = data.employeeLogs;
-                let timeLineHtml = "";
-                $.each(Emplogs, function (i, val){
-                    let TimeString = timeStamp2String(Emplogs[i].when);
-                    switch (Emplogs[i].type){
-                        case "joining":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon navy-bg">
-                                                <i class="fa fa-briefcase"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Joining</h2>
-                                                <p>${Emplogs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                        case "promoting":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon yellow-bg">
-                                                <i class="fa fa-coffee"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Promoting</h2>
-                                                <p>${Emplogs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                        case "demoting":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon blue-bg">
-                                                <i class="fa fa-text"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Demoting</h2>
-                                                <p>${Emplogs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                        case "transferring":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon blue-bg">
-                                                <i class="fa fa-text"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Transferring</h2>
-                                                <p>${Emplogs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                        case "healing":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon red-bg">
-                                                <i class="fa fa-heart"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Healing</h2>
-                                                <p>${Emplogs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                    }
-                });
+
                 $('#contactInfo').empty();
                 $("#contactInfo").append(html);
-                $("#vertical-timeline").empty().append(timeLineHtml);
             }
         })
     }
@@ -399,7 +294,7 @@
 <!--ajax for patient-->
 <script>
     function showPatient(btn) {
-        var id = $(btn).closest('tr').find('input').eq(0).val();
+        var id = $(btn).closest('div').find('input').eq(0).val();
         $.ajax({
             type: "GET",
             url: "/patient/" + id,
@@ -437,9 +332,6 @@
                             <br />
                             <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message
                             </button>
-                            <button type="button" class="btn btn-success btn-sm btn-block"  onclick="insertShow(this)" data-toggle="modal" data-target="#myModal2"><i class="fa fa-file"></i>Modify
-                            <button type="button" class="btn btn-danger btn-sm btn-block"><i class="fa fa-lock"></i>Delete
-                            </button>
                             <input type="text" style="display:none;" value="${id}" id="descrpId"/>`;
                 let gender = data.user.gender;
                 let genderHtml = "";
@@ -468,80 +360,58 @@
                                     </li>
                                     ${wardInfo}
                                     </ul>
-                                    <strong>Time Line</strong>
-                                    <div id="vertical-timeline" class="vertical-container light-timeline">
-                                    </div>
-
                                     `;
-                let logs = data.patientLogs;
-                let timeLineHtml = "";
-                $.each(logs, function (i, val){
-                    let TimeString = timeStamp2String(logs[i].when);
-                    switch (logs[i].type){
-                        case "registered":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon navy-bg">
-                                                <i class="fa fa-medkit"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Registered</h2>
-                                                <p>${logs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                        case "hospitalized":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon yellow-bg">
-                                                <i class="fa fa-hospital-o"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Hospitalized</h2>
-                                                <p>${logs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                        case "healed":
-                            timeLineHtml += `
-                                            <div class="vertical-timeline-block">
-                                            <div class="vertical-timeline-icon red-bg">
-                                                <i class="fa fa-heart"></i>
-                                            </div>
-                                            <div class="vertical-timeline-content">
-                                                <h2>Healed</h2>
-                                                <p>${logs[i].what}
-                                                </p>
-                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
-                                                <span class="vertical-date">
-                                    <br>
-                                    <small>${TimeString}</small>
-                                    </span>
-                                            </div>
-                                            </div>`;
-                            break;
-                    }
-                });
                 $('#contactInfo').empty();
                 $("#contactInfo").append(html);
-                $("#vertical-timeline").empty().append(timeLineHtml);
             }
         })
     }
 </script>
+<script>
+    function showDrug(btn) {
+        var id = $(btn).closest('div').find('input').eq(0).val();
+        console.log(id);
+        $.ajax({
+            type: "GET",
+            url: "/drug/" + id,
+            dataType: "JSON",
+            success: function (data) {
+                let NameHtml = `
+                            <h2>${data.drugName}</h2>
+                            <div class="m-b-sm">
+                                <img alt="image" src="${data.avator}" style="width: 110px" />
+                            </div>`;
+                $('#Name').empty().append(NameHtml);
+                let docHtml = `
+                            <p>
+                                ${data.description}
+                            </p>
+                            <br />
+                            <input type="text" style="display:none;" value="${id}" id="descrpId"/>`;
+                $('#Info').empty().append(docHtml);
+                let html = `<ul  class="list-group clear-list">
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.effect} </span> Effect
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.qty} </span> Qty
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.unitPrice} </span> Price
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.instrument} </span>
+                                    </li>
+                                    </ul>
+                                    `;
+                $('#contactInfo').empty();
+                $("#contactInfo").append(html);
+            }
 
+        });
+
+    }
+</script>
 
 </body>
 

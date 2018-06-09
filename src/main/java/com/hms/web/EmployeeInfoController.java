@@ -59,26 +59,16 @@ public class EmployeeInfoController {
         List<User> employees = userService.getEmployeeList();
         List<Department> departmentList = departmentService.getAll();
         int count = employeeService.count();
+        int departcount = departmentService.count();
         Date LastUpdate = employeeService.getLastUpdate();
         map.addAttribute("lastUpdate",LastUpdate);
         map.addAttribute("empCount",count);
+        map.addAttribute("departCount",departcount);
         map.addAttribute("departmentList",departmentList);
         map.addAttribute("employees",employees);
         return "TotalList";
     }
 
-    /**
-     * 通过id得到员工的详细信息
-     * @param map
-     * @param userId
-     * @return
-     */
-    @RequestMapping(value = "/info",method = GET)
-    public String getEmployeeInfo(ModelMap map,int userId) {
-        EmployeeInfo employeeInfo = employeeService.getEmployeeInfo(userId);
-        map.addAttribute("employeeInfo",employeeInfo);
-        return "TotalList";
-    }
 
 
     /**
@@ -106,7 +96,7 @@ public class EmployeeInfoController {
      {
          int userId = Integer.valueOf(userid.trim());
          User user = userService.get(userId);
-         user.setUsername(username.trim());
+         user.setTrueName(username.trim());
          user.setMobile(mobile.trim());
          user.setEmail(email.trim());
          user.setAge(Integer.valueOf(age.trim()));

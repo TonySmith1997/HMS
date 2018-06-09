@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 
+@RequestMapping("/department")
 @Controller
 public class DepartmentController {
     @Autowired
@@ -27,7 +28,7 @@ public class DepartmentController {
     private UserService userService;
 
 
-    @RequestMapping(value = "/department/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "{id}",method = RequestMethod.GET)
     public @ResponseBody Department getDepartment(ModelMap map, @PathVariable String id) {
         Integer departId = Integer.valueOf(id);
         Department department = departmentService.get(departId);
@@ -40,4 +41,12 @@ public class DepartmentController {
         department.setEmployees(employeeInfos);
         return department;
     }
+
+    @RequestMapping(value = "/search/{searchName}",method = RequestMethod.GET)
+    public @ResponseBody
+    List<Department> getEmployeeLike(@PathVariable String searchName) {
+        List<Department> departments = departmentService.findDepartmentLike(searchName.trim()+"%");
+        return departments;
+    }
+
 }

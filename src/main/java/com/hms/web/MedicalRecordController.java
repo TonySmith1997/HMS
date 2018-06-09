@@ -39,40 +39,6 @@ public class MedicalRecordController {
         return "medicalRecord";
     }
 
-//    /**
-//     *
-//     * @param id userId
-//     * @return
-//     */
-//    @RequestMapping(value = "{id}",method = RequestMethod.GET)
-//    public @ResponseBody
-//    MedicalRecord getMedicalRecordById(@PathVariable String id) {
-//        Integer patientId = Integer.valueOf(id);
-//        User user = userService.get(patientId);
-//        PatientInfo patient = patientService.getPatientInfo(patientId);
-//        if(patient.isInpatient()) {
-//            InHospitalInfo inHospitalInfo= inHospitalInfoService.get(patient.getInHospitalId());
-//            Ward ward = wardService.get(inHospitalInfo.getWardNum());
-//            patient.setWard(ward);
-//        }
-//        patient.setUser(user);
-//        MedicalRecord medicalRecord = medicalRecordService.getRecordByUserId(patientId);
-//        int doctorId = medicalRecord.getDoctorId();
-//        EmployeeInfo doctor = employeeService.get(doctorId);
-//        User doctorInfo = userService.get(doctor.getUserId());
-//        doctor.setUser(doctorInfo);
-//        medicalRecord.setPatientInfo(patient);
-//        medicalRecord.setDoctor(doctor);
-//        List<DrugFee> drugFees = drugFeeService.getDrugFeeByPatient(patientId);
-//        int drugId;
-//        for(DrugFee drugFee : drugFees) {
-//            drugId  = drugFee.getDrugId();
-//            Drug drug = drugService.get(drugId);
-//            drugFee.setDrug(drug);
-//        }
-//        medicalRecord.setDrugs(drugFees);
-//        return medicalRecord;
-//    }
 
     /**
      *

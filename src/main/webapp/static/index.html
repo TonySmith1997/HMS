@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8" />
@@ -25,22 +26,20 @@
             <ul class="nav" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element">
-                        <span><img alt="image" class="img-circle" src="/static/img/profile_small.jpg" /></span>
+                        <span><img alt="image" class="img-circle" th:src="${userInfo.avator}" style="width: 78px;"/></span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                               <span class="block m-t-xs"><strong class="font-bold">Tony Lin</strong></span>
-                                <span class="text-muted text-xs block">admin<b class="caret"></b></span>
+                               <span class="block m-t-xs"><strong class="font-bold" th:text="${userInfo.trueName}"></strong></span>
+                                <span class="text-muted text-xs block">profile<b class="caret"></b></span>
                                 </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a class="J_menuItem" href="form_avatar.html">change avatar</a>
-                            </li>
                             <li><a class="J_menuItem" href="profile.html">profile</a>
                             </li>
                             <li><a class="J_menuItem" href="mailbox.html">mail box</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="login.html">logout</a>
+                            <li><a href="/logout">logout</a>
                             </li>
                         </ul>
                     </div>
@@ -48,13 +47,13 @@
                     </div>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="#">
                         <i class="fa fa-home"></i>
                         <span class="nav-label">Homepage</span>
                         <span class="fa arrow"></span>
                     </a>
                 </li>
-                <li>
+                <li th:if="${userInfo.role.contains('admin')}">
                     <a href="#"><i class="fa fa-user-md"></i> <span class="nav-label">Employee Management</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -68,7 +67,8 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li th:if="${userInfo.role.contains('admin') || userInfo.role.contains('doctor') || userInfo.role.contains('staff')
+                 || userInfo.role.contains('interne')}">
                     <a href="#">
                         <i class="fa fa fa-stethoscope"></i>
                         <span class="nav-label">Patient Management</span>
@@ -76,135 +76,61 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="/patient">List</a>
+                            <a class="J_menuItem" href="/patient">Patient List</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="graph_echarts.html">Log</a>
+                            <a class="J_menuItem" href="graph_echarts.html">Patient Log</a>
                         </li>
                     </ul>
                 </li>
-                <!--<li>-->
-                    <!--<a href="#">-->
-                        <!--<i class="fa fa fa-hotel"></i>-->
-                        <!--<span class="nav-label">Ward Management</span>-->
-                        <!--<span class="fa arrow"></span>-->
-                    <!--</a>-->
-                    <!--<ul class="nav nav-second-level">-->
-                        <!--<li>-->
-                            <!--<a class="J_menuItem" href="graph_echarts.html">Ward List</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<a class="J_menuItem" href="graph_flot.html" >Ward Log</a>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</li>-->
-                <li>
+                <li th:if="${userInfo.role.contains('admin') || userInfo.role.contains('doctor') || userInfo.role.contains('staff')
+                 || userInfo.role.contains('interne')}">
                     <a href="#">
                         <i class="fa fa fa-medkit"></i>
+                        <!--病历清单 -->
                         <span class="nav-label">Record Management</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="graph_echarts.html">Record List</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="graph_flot.html" >Record Log</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
+
+                <!--库存清单-->
+                <li th:if="${userInfo.role.contains('admin') || userInfo.role.contains('doctor') || userInfo.role.contains('staff')
+                 || userInfo.role.contains('interne')}">
                     <a href="#">
                         <i class="fa fa fa-flask"></i>
-                        <span class="nav-label">Drug Management</span>
+                        <span class="nav-label">Inventory Management</span>
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="/drug">List</a>
+                            <a class="J_menuItem" href="/drug">Inventory List</a>
                         </li>
                        <li>
                            <a class="J_menuItem" href="/drugs">Log</a>
                        </li>
                     </ul>
                 </li>
-                <!--<li>-->
-                    <!--<a href="#">-->
-                        <!--<i class="fa fa fa-wheelchair"></i>-->
-                        <!--<span class="nav-label">Device Management</span>-->
-                        <!--<span class="fa arrow"></span>-->
-                    <!--</a>-->
-                    <!--<ul class="nav nav-second-level">-->
-                        <!--<li>-->
-                            <!--<a class="J_menuItem" href="graph_echarts.html">Equipment Stock</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<a class="J_menuItem" href="graph_flot.html">Equipment Log</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<a class="J_menuItem" href="graph_morris.html">Equipment Insert</a>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</li>-->
-                <li>
+                <li th:if="${userInfo.role.contains('doctor')}">
                     <a href="#">
                         <i class="fa fa fa-pencil-square-o"></i>
-                        <span class="nav-label">Check Management</span>
-                        <span class="fa arrow"></span>
+                        <span class="nav-label">New Medical Record</span>
                     </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="graph_echarts.html">Examination List</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="graph_flot.html">Examination Log</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="graph_morris.html">Examination Insert</a>
-                        </li>
-                    </ul>
                 </li>
-
-                <li>
-                    <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">mail box</span><span class="label label-warning pull-right">16</span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="mailbox.html">Inbox</a>
-                        </li>
-                        <li><a class="J_menuItem" href="mail_detail.html" >Checking</a>
-                        </li>
-                        <li><a class="J_menuItem" href="mail_compose.html">Write Letters</a>
-                        </li>
-                    </ul>
+                <li th:if="${userInfo.role.contains('patient')}">
+                    <a class="J_menuItem" th:href="@{'/record/'+${userInfo.id}}">
+                        <i class="fa fa fa-pencil-square-o"></i>
+                        <span class="nav-label">Medical Record</span>
+                    </a>
                 </li>
-                <!--<li>-->
-                    <!--<a href="#"><i class="fa fa-line-chart"></i> <span class="nav-label">Financial Management</span><span class="fa arrow"></span></a>-->
-                    <!--<ul class="nav nav-second-level">-->
-                        <!--<li><a class="J_menuItem" href="form_basic.html">Financial Record</a>-->
-                        <!--</li>-->
-                        <!--<li><a class="J_menuItem" href="form_validate.html">Financial Log</a>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</li>-->
-                <li>
+                <li th:if="${userInfo.role.contains('patient')}">
+                    <a class="J_menuItem" th:href="@{'/fee/'+${userInfo.id}}">
+                        <i class="fa fa fa-money"></i>
+                        <span class="nav-label">Fee</span>
+                    </a>
+                </li>
+                <li th:if="${userInfo.role.contains('admin') || userInfo.role.contains('staff')}">
                     <a href="#"><i class="fa fa-heartbeat"></i> <span class="nav-label">Blood Management</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li>
-                            <a href="#">Blood Donor <span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li><a class="J_menuItem" href="projects.html">Insert</a>
-                                </li>
-                                <li><a class="J_menuItem" href="/blood">List</a>
-                                </li>
-                            </ul>
+                        <li><a class="J_menuItem" href="mailbox.html">Blood List</a>
                         </li>
-                        <li>
-                            <a href="#">Blood Bank <span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li><a class="J_menuItem" href="blog.html">Blood Log</a>
-                                </li>
-                                <li><a class="J_menuItem" href="404.html">Blood List</a>
-                                </li>
-                            </ul>
+                        <li><a class="J_menuItem" href="mail_detail.html" >Blood Log</a>
                         </li>
                     </ul>
                 </li>
@@ -227,74 +153,29 @@
                 <ul class="nav navbar-top-links navbar-right">
                     <li class="dropdown">
                         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                            <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
+                            <i class="fa fa-envelope"></i> <span class="label label-warning" th:text="${messageCount}"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-messages">
+                            <div th:each="mail : ${mails}">
                             <li class="m-t-xs">
                                 <div class="dropdown-messages-box">
-                                    <a href="profile.html" class="pull-left">
-                                        <img alt="image" class="img-circle" src="/static/img/a9.jpg" />
+                                    <a href="/profile" class="pull-left">
+                                        <img alt="image" class="img-circle" th:src="${mail.from.avator}" />
                                     </a>
                                     <div class="media-body">
-                                        <small class="pull-right">46 hours ago</small>
-                                        <strong>Tony</strong> Come to my office quickly
+                                        <small class="pull-right" th:src="${mail.createTime}">46 hours ago</small>
+                                        <strong th:text="${mail.from.trueName}">Tony</strong>
                                         <br />
-                                        <small class="text-muted">3days ago 2014.11.8</small>
+                                        <small class="text-muted" th:text="${mail.message}">3days ago 2014.11.8</small>
                                     </div>
                                 </div>
                             </li>
                             <li class="divider"></li>
-                            <li>
-                                <div class="dropdown-messages-box">
-                                    <a href="profile.html" class="pull-left">
-                                        <img alt="image" class="img-circle" src="/static/img/a4.jpg" />
-                                    </a>
-                                    <div class="media-body ">
-                                        <small class="pull-right text-navy">25 hours ago</small>
-                                        <strong>Andy</strong> I need help,Miss.Nurse
-                                        <br />
-                                        <small class="text-muted">yesterday</small>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="divider"></li>
+                            </div>
                             <li>
                                 <div class="text-center link-block">
-                                    <a class="J_menuItem" href="mailbox.html">
+                                    <a class="J_menuItem" href="/profile">
                                         <i class="fa fa-envelope"></i> <strong>check all the messages</strong>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                            <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-alerts">
-                            <li>
-                                <a href="mailbox.html">
-                                    <div>
-                                        <i class="fa fa-envelope fa-fw"></i>16 unread messages
-                                        <span class="pull-right text-muted small">4 minutes age</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="profile.html">
-                                    <div>
-                                        <i class="fa fa-qq fa-fw"></i> 3 new response
-                                        <span class="pull-right text-muted small">12 minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <div class="text-center link-block">
-                                    <a class="J_menuItem" href="404.html">
-                                        <strong>check all </strong>
-                                        <i class="fa fa-angle-right"></i>
                                     </a>
                                 </div>
                             </li>
@@ -314,7 +195,7 @@
             <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> Logout</a>
         </div>
         <div class="row J_mainContent" id="content-main">
-            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="404.html" frameborder="0" data-id="index_v1.html"></iframe>
+            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="404.html" frameborder="0" data-id="/sys"></iframe>
         </div>
         <div class="footer">
             <div class="pull-right">&copy; 2018-2018

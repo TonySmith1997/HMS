@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Total Fee</title>
+    <link rel="shortcut icon" href="/static/favicon.ico">
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+<div class="col-sm-12">
+    <div class="ibox-content p-xl">
+        <div class="row">
+            <div class="col-sm-6">
+                <address>
+                    <strong th:text="'Name:' + ${user.trueName}"></strong><br>
+                    <br>
+                    <abbr title="Phone" th:text="'Mobile: '+${user.mobile}"></abbr>
+                    <br />
+                    <abbr title="Phone" th:text="'Email: '+${user.email}"></abbr>
+                </address>
+            </div>
+
+            <div class="col-sm-6 text-right">
+                <h4>Document number: </h4>
+                <h4 class="text-navy" th:text="'HMS+-000567F7-' + ${user.id}"></h4>
+                <address>
+                    <strong>HMS</strong><br>
+                    6 layers of business building, East Software Park, 99 Huaxing Road, Hangzhou, China (310099)
+                </address>
+                <p>
+                    <span><strong th:text="'CreateTime: '+${user.createTime}"></strong> </span>
+                </p>
+            </div>
+        </div>
+
+        <div class="table-responsive m-t">
+            <table class="table invoice-table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Num</th>
+                    <th>Unit price</th>
+                    <th>Extra Message</th>
+                    <th>Total Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="fee : ${fees}">
+                    <td>
+                        <div><strong th:text="${fee.name}"></strong>
+                        </div>
+                    </td>
+                    <td th:text="${fee.num}">1</td>
+                    <td th:text="'$'+${fee.price}">&yen;26.00</td>
+                    <td th:text="${fee.extraMessage}">&yen;1.20</td>
+                    <td th:text="'$'+${fee.price}*${fee.num}">&yen;31,98</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /table-responsive -->
+
+        <table class="table invoice-total">
+            <tbody>
+            <tr>
+                <td><strong>TotalFee: </strong>
+                </td>
+                <td th:text="'$'+${toalFee}">&yen;1026.00</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-right">
+            <button class="btn btn-primary"><i class="fa fa-dollar"></i> Pay</button>
+        </div>
+
+        <div class="well m-t"><strong>Warning: </strong> Please complete the payment within 30 days
+        </div>
+    </div>
+</div>
+
+
+<!-- 全局js -->
+<script src="/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+<!-- 自定义js -->
+<script src="/static/js/content.js?v=1.0.0"></script>
+
+</body>
+
+</html>
