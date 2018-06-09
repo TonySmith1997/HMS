@@ -2,18 +2,12 @@ package com.hms.web;
 
 import com.hms.entity.Device;
 import com.hms.entity.Drug;
-import com.hms.entity.EmployeeInfo;
 import com.hms.service.DeviceService;
-import com.hms.service.DrugService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -64,8 +58,6 @@ public class DeviceController {
         device.setDeviceName(devicename.trim());
         device.setLocation(location.trim());
         //DeviceInfo deviceInfo = deviceService.getdeviceInfo(deviceId);
-//        int newLocationId =Integer.valueOf(location);//value
-//        device.setLocation(newLocationId);
         //deviceInfo.set(newLocationId);
         device.setDescription(devicedescription.trim());
         device.setQty(Integer.valueOf(deviceqty.trim()));
@@ -107,6 +99,11 @@ public class DeviceController {
         Device deviceInfo = deviceService.get(deviceId);
         return deviceInfo;
     }
-
+    @RequestMapping(value = "/search/{searchName}",method = RequestMethod.GET)
+    public @ResponseBody
+    List<Device> getDevicelike(@PathVariable String searchName) {
+        List<Device> devices = deviceService.getDeviceLike(searchName.trim()+"%");
+        return devices;
+    }
 
 }

@@ -22,11 +22,11 @@ public class DrugService extends BaseService<Drug,Integer> {
     }
 
     @Transactional
-    public Date getLastUpdate() {
-        String propertyName = "updateTime";
-        List<Drug> drugInfos =  drugDAO.findAll(propertyName,false);
-        return drugInfos.get(0).getUpdateTime();
-    }
+public Date getLastUpdate() {
+    String propertyName = "updateTime";
+    List<Drug> drugInfos =  drugDAO.findAll(propertyName,false);
+    return drugInfos.get(0).getUpdateTime();
+}
     @Transactional
     public List<Drug> getDrugLike(String searchName) {
         return drugDAO.findDrug(searchName);

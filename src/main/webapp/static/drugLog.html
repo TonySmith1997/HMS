@@ -23,16 +23,17 @@
                     <div class="input-group">
                         <input type="text" placeholder="Find Drugs" class="input form-control" id="searchName"/>
                         <span class="input-group-btn">
-                                        <button type="button" class="btn btn btn-primary" onclick="search(this)"> <i class="fa fa-search" ></i> Search</button>
+                                        <button type="button" class="btn btn btn-primary" id="searchBtn" onclick="search(this)"> <i class="fa fa-search" ></i> Search</button>
                                         <button type="button" class="btn btn btn-warning" onclick="refresh(this)"><i class="fa fa-refresh" ></i>Refresh </button>
                             </span>
                     </div>
                     <div class="clients-list">
                         <ul class="nav nav-tabs">
-                            <span id="counts" class="pull-right small text-muted" th:text="${drugCount}+ ' drugs'"></span>
-                            <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-medkit"></i>Drug</a>
+                            <!--/id="counts"///.-->
+                            <span id="count" class="pull-right small text-muted" th:text="${drugCount}+ ' drugs'"></span>
+                            <li class="active"><a data-toggle="tab" href="#tab-1" onclick="changeField(this)"><i class="fa fa-medkit"></i>Drug</a>
                             </li>
-                            <li class=""><a data-toggle="tab" href="#tab-4"><i class="fa fa-wheelchair"></i> Device</a>
+                            <li class=""><a data-toggle="tab" href="#tab-4"onclick="changeField2(this)"><i class="fa fa-wheelchair"></i> Device</a>
                             </li>
                         </ul>
 
@@ -65,8 +66,9 @@
                                     </div>
                                 </div>
                             </div>
-<!--show devicelist-->
+
                             <div id="tab-4" class="tab-pane">
+<!--show devicelist-->
                                 <div class="full-height-scroll">
                                     <div class="table-responsive">
                                         <table class="table table-striped table-hover">
@@ -84,7 +86,7 @@
                                                 </td>
                                                 <td th:text="${device.qty}"> gravida@qq.com</td>
                                                 <td class="contact-type"><a data-toggle="modal" data-target="#myModal4" href="#" class="fa fa-plus" /></td>
-                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal2" href="#" class="fa fa-edit" onclick="updateShowdevice(this)"/></td>
+                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal1" href="#" class="fa fa-edit" onclick="updateShowdevice(this)"/></td>
                                                 <td class="contact-type"><a href="#" class="fa fa-remove" />
                                                 </td>
                                             </tr>
@@ -182,12 +184,6 @@
                                     <textarea type="text" class="form-control" placeholder="" id="instruments"></textarea>
                                     <span class="help-block">drug's instrument</span>
                                 </div>
-                                <!--<div class="col-sm-10">-->
-                                    <!--<select id="description">-->
-                                        <!--<option label="Male" value="true"></option>-->
-                                        <!--<option label="Female" value="false"></option>-->
-                                    <!--</select>-->
-                                <!--</div>-->
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="hr-line-dashed"></div>
@@ -206,7 +202,7 @@
         <div class="modal-dialog">
             <div class="modal-content animated flipInY">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span>&times;<span class="sr-only">Close</span></button>
             <h4 class="modal-title">Device Info</h4>
             <small class="font-bold">Update or Insert</small>
         </div>
@@ -221,28 +217,29 @@
                             <span class="help-block">6-8 characters</span>
                         </div>
                     </div>
+                    <!--<div class="form-group">-->
+                        <!--<label class="col-sm-2 control-label">Location</label>-->
+                        <!--<div class="col-sm-10">-->
+                            <!--<input type="text" class="form-control" placeholder="" id="location">-->
+                            <!--<span class="help-block">the position of devices</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Location</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" placeholder="" id="location">
-                            <span class="help-block">the position of devices</span>
+                            <select id="location">
+                                <option value="101-1">&nbsp;  101-1&nbsp;   </option>
+                                <option value="101-2">&nbsp;  101-2&nbsp;   </option>
+                                <option value="102-1">&nbsp;  102-1&nbsp;   </option>
+                                <option value="102-2">&nbsp;  102-2&nbsp;   </option>
+                                <option value="201-1">&nbsp;  201-1&nbsp;   </option>
+                                <option value="201-2">&nbsp;  201-2&nbsp;   </option>
+                                <option value="301-2">&nbsp;  301-2&nbsp;   </option>
+                                <option value="401-2">&nbsp;  401-2&nbsp;  </option>
+                                <option value="501-2">&nbsp;  501-2&nbsp;   </option>
+                            </select>
                         </div>
                     </div>
-                    <!--<div class="form-group">-->
-                        <!--<label class="col-sm-2 control-label">Department</label>-->
-                        <!--<div class="col-sm-10">-->
-                            <!--<select id="depart">-->
-                                <!--<option value="1">101-1</option>-->
-                                <!--<option value="1">101-2</option>-->
-                                <!--<option value="1">102-1</option>-->
-                                <!--<option value="1">102-2</option>-->
-                                <!--<option value="1">201-1</option>-->
-                                <!--<option value="1">201-2</option>-->
-                                <!--<option value="1">301-2</option>-->
-                                <!--<option value="1">401-2</option>-->
-                                <!--<option value="1">501-2</option>-->
-                            <!--</select></div>-->
-                    <!--</div>-->
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Qty</label>
                         <div class="col-sm-10">
@@ -260,7 +257,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Description</label>
                         <div class="col-sm-10">
-                            <textarea type="text" class="form-control" placeholder="" id="devicedescription"/>
+                            <textarea type="text" class="form-control" placeholder="" id="devicedescription"></textarea>
                             <span class="help-block">device's description</span>
                         </div>
                     </div>
@@ -365,11 +362,27 @@
                                     <span class="help-block">6-8 characters</span>
                                 </div>
                             </div>
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-sm-2 control-label">Location</label>-->
+                                <!--<div class="col-sm-10">-->
+                                    <!--<input type="text" class="form-control" placeholder="" id="location1">-->
+                                    <!--<span class="help-block">the position of devices</span>-->
+                                <!--</div>-->
+                            <!--</div>-->
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Location</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="" id="location1">
-                                    <span class="help-block">the position of devices</span>
+                                    <select id="location1">
+                                        <option value="101-1">&nbsp;  101-1&nbsp;   </option>
+                                        <option value="101-2">&nbsp;  101-2&nbsp;   </option>
+                                        <option value="102-1">&nbsp;  102-1&nbsp;   </option>
+                                        <option value="102-2">&nbsp;  102-2&nbsp;   </option>
+                                        <option value="201-1">&nbsp;  201-1&nbsp;   </option>
+                                        <option value="201-2">&nbsp;  201-2&nbsp;   </option>
+                                        <option value="301-2">&nbsp;  301-2&nbsp;   </option>
+                                        <option value="401-2">&nbsp;  401-2&nbsp;  </option>
+                                        <option value="501-2">&nbsp;  501-2&nbsp;   </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -503,7 +516,7 @@
                 let NameHtml = `
                             <h2>${data.drugName}</h2>
                             <div class="m-b-sm">
-                                <img alt="image" class="img-circle" src="${data.avator}" style="width: 110px" />
+                                <img alt="image"  src="${data.avator}" style="width: 80px" />
                             </div>`;
                 $('#Name').empty().append(NameHtml);
                 let docHtml = `
@@ -527,10 +540,7 @@
                                     <span class="pull-right">${data.unitPrice} </span> Price
                                     </li>
                                     <li class="list-group-item ">
-                                    <span class="pull-right">${data.instrument} </span> Instrument
-                                    </li>
-                                    <li class="list-group-item ">
-                                    <span class="pull-right">${data.description} </span> Description
+                                    <span class="pull-right">${data.instrument} </span>
                                     </li>
                                     </ul>
                                     `;
@@ -640,10 +650,13 @@
                 $("#deviceid").replaceWith(`<input type="text" style="display: none;" id="deviceid" value="${data.id}"/>`);
                 $("#devicename").replaceWith(`<input type="text" class="form-control"   id="devicename" value="${data.deviceName}">`);
                 $("#deviceqty").replaceWith(`<input type="text" class="form-control"  id="deviceqty" value="${data.qty}">`);
-                $("#location").replaceWith(`<input type="text" class="form-control"  id="location" value="${data.location}">`);
+                //$("#location").replaceWith(`<input type="text" class="form-control"  id="location" value="${data.location}">`);
                 $("#deviceunitprice").replaceWith(`<input type="text" class="form-control"  id="deviceunitprice" value="${data.unitPrice}">`);
                 var descriptions= String(data.description);
+                var dep=String(data.location);
+                console.log(dep);
                 $('#devicedescription').val(descriptions);
+                $('#location').val(dep);
             }
         })
     }
@@ -733,9 +746,61 @@
         })
     }
 </script>
-<!--.-->
+<!--ajax for device search-->
 <script>
+    function searchdevice(btn) {
+        var searchName = $("#searchName").val();
+        console.log(searchName);
+        $.ajax({
+            type: "GET",
+            url: "/device/search/"+searchName,
+            dataType: "JSON",
+            success: function (data) {
+                $("#devices").empty();
+                $.each(data, function (i, val) {
+                    console.log(data);
 
+                    $("#devices").append(
+                        `<tr>
+                                                <td class="client-avatar"><img alt="image" src="${data[i].avator}" /> </td>
+                                                <td><a data-toggle="tab" onclick="showDevice(this)" class="client-link" >${data[i].deviceName}</a>
+                                                </td>
+                                                <td><input value="${data[i].id}" style="display: none;"/></td>
+                                                <td class="contact-type"><i class="fa fa-flask"> </i>
+                                                </td>
+                                                <td> ${data[i].location}</td>
+                                                <td class="client-status"></td>
+                                                    <td class="contact-type"><i class="fa fa-bar-chart"> </i>
+                                                </td>
+                                                <td>${data[i].qty}</td>
+                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal3" href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal2" href="#" class="fa fa-edit" onclick="updateShowdevice(this)"/></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" />
+                                                </td>
+                                            </tr>`
+                    );
+                });
+            }
+        })
+    }
+</script>
+<!--top device/drug change -->
+<script th:inline="javascript">
+    function changeField(btn) {
+        var drugCount = [[${drugCount}]];
+        $('#management').replaceWith(`<h2 id="management">Drug Management</h2>`);
+        $('#searchName').replaceWith(`<input type="text" placeholder="Find Drugs" class="input form-control" id="searchName"/>`);
+        $('#searchBtn').replaceWith(`<button type="button" class="btn btn btn-primary" onclick="search(this)" id="searchBtn"> <i class="fa fa-search" ></i> Search</button>`);
+        $('#count').replaceWith(`<span id="count" class="pull-right small text-muted">${drugCount} Drugs</span>`);
+    };
+    function changeField2(btn) {
+        var deviceCount = [[${deviceCount}]];
+        console.log(deviceCount);
+        $('#management').replaceWith(`<h2 id="management">Device Management</h2>`);
+        $('#searchName').replaceWith(`<input type="text" placeholder="Find Device" class="input form-control" id="searchName"/>`);
+        $('#searchBtn').replaceWith(`<button type="button" class="btn btn btn-primary" onclick="searchdevice(this)" id="searchBtn"> <i class="fa fa-search" ></i> Search</button>`);
+        $('#count').replaceWith(`<span id="count" class="pull-right small text-muted">${deviceCount} Devices</span>`);
+    }
 </script>
 </body>
 

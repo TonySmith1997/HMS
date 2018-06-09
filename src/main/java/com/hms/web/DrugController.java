@@ -41,9 +41,11 @@ public class DrugController {
         List<Drug> drugs = drugService.getAll();
         List<Device> deviceList=deviceService.getAll();
         int count = drugService.count();
+        int devicecount=deviceService.count();
         Date LastUpdate = drugService.getLastUpdate();
         map.addAttribute("lastUpdate",LastUpdate);
         map.addAttribute("drugCount",count);
+        map.addAttribute("deviceCount",devicecount);
         map.addAttribute("deviceList",deviceList);
         map.addAttribute("drugs",drugs);
         return "drugLog";

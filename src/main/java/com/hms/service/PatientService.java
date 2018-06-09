@@ -3,6 +3,7 @@ package com.hms.service;
 import com.hms.core.base.BaseDAOImpl;
 import com.hms.core.base.BaseService;
 import com.hms.dao.PatientDAO;
+import com.hms.entity.Device;
 import com.hms.entity.PatientInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,13 @@ public class PatientService extends BaseService<PatientInfo,Integer>{
     @Autowired
     private PatientDAO patientDAO;
 
-    @Override
-    public BaseDAOImpl getBaseDAO() {
+    public BaseDAOImpl<PatientInfo, Integer> getBaseDAO() {
         return patientDAO;
     }
+//    @Override
+//    public BaseDAOImpl getBaseDAO() {
+//        return patientDAO;
+//    }
 
     @Transactional
     public Date getLastUpdate() {
