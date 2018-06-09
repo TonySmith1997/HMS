@@ -163,7 +163,7 @@
                                         <img alt="image" class="img-circle" th:src="${mail.from.avator}" />
                                     </a>
                                     <div class="media-body">
-                                        <small class="pull-right" th:src="${mail.createTime}">46 hours ago</small>
+                                        <small class="pull-right" th:text="${mail.createTime}">46 hours ago</small>
                                         <strong th:text="${mail.from.trueName}">Tony</strong>
                                         <br />
                                         <small class="text-muted" th:text="${mail.message}">3days ago 2014.11.8</small>

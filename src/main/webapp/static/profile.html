@@ -288,7 +288,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
-                            <button type="submit" class="btn btn-primary" onclick="insert(this)">save</button>
+                            <button type="submit" class="btn btn-primary" onclick="changePass(this)">save</button>
                         </div>
                     </div>
                 </div>
@@ -338,7 +338,7 @@
 
     <!-- modify password -->
     <script>
-        function send(btn) {
+        function changePass(btn) {
             var password = $('#password').val();
             var confirm_pass = $("#confirm_password").val();
             if(!password==confirm_pass) {
