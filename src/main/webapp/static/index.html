@@ -46,11 +46,9 @@
                     <div class="logo-element">HMS
                     </div>
                 </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-home"></i>
+                <li >
+                    <a href="/home" class="J_menuItem">
                         <span class="nav-label">Homepage</span>
-                        <span class="fa arrow"></span>
                     </a>
                 </li>
                 <li th:if="${userInfo.role.contains('admin')}">
@@ -85,11 +83,22 @@
                 </li>
                 <li th:if="${userInfo.role.contains('admin') || userInfo.role.contains('doctor') || userInfo.role.contains('staff')
                  || userInfo.role.contains('interne')}">
-                    <a href="#">
+                    <a href="/record" class="J_menuItem">
                         <i class="fa fa fa-medkit"></i>
                         <!--病历清单 -->
                         <span class="nav-label">Record Management</span>
 
+                    </a>
+                </li>
+                <li th:if="${userInfo.role.contains('admin') || userInfo.role.contains('doctor') || userInfo.role.contains('staff')
+                 || userInfo.role.contains('interne')}">
+                    <a href="/check" class="J_menuItem">
+                        <i class="fa fa fa-eyedropper"></i>
+                        <!--病历清单 -->
+                        <span class="nav-label">Check Management</span>
+
+                    </a>
+                </li>
                 <!--库存清单-->
                 <li th:if="${userInfo.role.contains('admin') || userInfo.role.contains('doctor') || userInfo.role.contains('staff')
                  || userInfo.role.contains('interne')}">
@@ -106,12 +115,6 @@
                            <a class="J_menuItem" href="/drugs">Log</a>
                        </li>
                     </ul>
-                </li>
-                <li th:if="${userInfo.role.contains('doctor')}">
-                    <a href="#">
-                        <i class="fa fa fa-pencil-square-o"></i>
-                        <span class="nav-label">New Medical Record</span>
-                    </a>
                 </li>
                 <li th:if="${userInfo.role.contains('patient')}">
                     <a class="J_menuItem" th:href="@{'/record/'+${userInfo.id}}">
@@ -181,6 +184,21 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="dropdown" th:if="${userInfo.role.contains('doctor') || userInfo.role.contains('staff')
+                 || userInfo.role.contains('interne')}">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-bell"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <button id="signin" type="button" class="btn btn-success btn-sm btn-block" onclick="signIn(this)"><i class="fa  fa-calendar-plus-o"></i>Sign on
+                                </button>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <button id="signout" type="button" class="btn btn-warning btn-sm btn-block" onclick="signOut(this)"><i class="fa fa-calendar-minus-o"></i>Sign out
+                                </button>
+                            </li>
                 </ul>
             </nav>
         </div>
@@ -189,13 +207,13 @@
             </button>
             <nav class="page-tabs J_menuTabs">
                 <div class="page-tabs-content">
-                    <a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">Homepage</a>
+                    <a href="javascript:;" class="active J_menuTab" data-id="/home">Homepage</a>
                 </div>
             </nav>
             <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> Logout</a>
         </div>
         <div class="row J_mainContent" id="content-main">
-            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="404.html" frameborder="0" data-id="/sys"></iframe>
+            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/home" frameborder="0" data-id="/home"></iframe>
         </div>
         <div class="footer">
             <div class="pull-right">&copy; 2018-2018
@@ -211,6 +229,7 @@
 <script src="/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/static/js/plugins/layer/layer.min.js"></script>
+<script src="/static/js/sleep.js" ></script>
 
 <!-- 自定义js -->
 <script src="/static/js/hplus.js?v=4.1.0"></script>
@@ -219,6 +238,28 @@
 <!-- 第三方插件 -->
 <script src="/static/js/plugins/pace/pace.min.js"></script>
 
+<script>
+    function signIn(btn) {
+        $.ajax({
+            type: "POST",
+            url: "/employee/signin"
+
+        });
+        sleep(800);
+        $("#signin").replaceWith(`<button type="button" class="btn btn-default btn-sm btn-block" ><i class="fa  fa-calendar-plus-o"></i>Sign on
+                                </button>`);
+    }
+    function signOut(btn) {
+        $.ajax({
+            type: "POST",
+            url: "/employee/signout"
+
+        });
+        sleep(800);
+        $("#signout").replaceWith(`<button id="signout" type="button" class="btn btn-default btn-sm btn-block" ><i class="fa fa-calendar-minus-o"></i>Sign out
+                                </button>`);
+    }
+</script>
 </body>
 
 </html>

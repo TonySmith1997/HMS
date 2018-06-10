@@ -21,7 +21,7 @@
         <div class="col-sm-12">
             <div class="ibox">
                 <div class="ibox-title">
-                    <h5>Employee Register</h5>
+                    <h5>Patient Register</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -42,9 +42,9 @@
                 </div>
                 <div class="ibox-content">
                     <h2>
-                        Employee Register
+                        Patient Register
                     </h2>
-                    <form id="form" action="/employee/insert" class="wizard-big" method="post">
+                    <form id="form" action="/patient/insert" class="wizard-big" method="post">
                         <h1>Basic Info </h1>
                         <fieldset>
                             <h2>Basic Info</h2>
@@ -105,13 +105,27 @@
                             </div>
                         </fieldset>
 
-                        <h1>Employee Info</h1>
+                        <h1>Patient Info</h1>
                         <fieldset>
-                            <h2>User Info</h2>
+                            <h2>Patient Info</h2>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Department* </label>
+                                        <label>Tell us the disease name happended on you</label>
+                                        <input id="disease" name='disease' class="form-control"  />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Simply describe your condition </label>
+                                        <textarea id="describe" name='describe' class="form-control" ></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Do you have any allergic history</label>
+                                        <textarea id="allergy" name='allergy' class="form-control" ></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>department Name* </label>
                                         <select id="department" name="department" class="form-control">
                                             <option value="1">Medical department</option>
                                             <option value="2">Surgical department</option>
@@ -125,23 +139,6 @@
                                             <option value="10">Otorhinolaryngological department</option>
                                             <option value="11">Paediatrics department</option>
                                             <option value="12">Urology department</option>
-                                            <option value="13">X-ray department</option>
-                                            <option value="14">Registration office</option>
-                                            <option value="15">Laboratory</option>
-                                            <option value="16">Blood bank</option>
-                                            <option value="17">Pharmacy</option>
-                                            <option value="18">Nursing department</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Position* </label>
-                                        <select data-placeholder="choose position..." style="width:350px;" tabindex="2"
-                                                id="position" name="position" class="form-control">
-                                            <option value="Chief Doctor">Chief Doctor</option>
-                                            <option value="Associate Chief Doctor">Associate Chief Doctor</option>
-                                            <option value="Attending Doctor">Attending Doctor</option>
-                                            <option value="Interne">Interne</option>
-                                            <option value="Staff">Staff</option>
                                         </select>
                                     </div>
                                 </div>
@@ -158,11 +155,11 @@
 <!-- 全局js -->
 <script src="/static/js/jquery.min.js?v=2.1.4"></script>
 <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/static/js/sleep.js" ></script>
 
 
 
 <!-- 自定义js -->
-<script src="/static/js/content.js?v=1.0.0"></script>
 
 
 <!-- Steps -->
@@ -182,6 +179,11 @@
                 // Always allow going backward even if the current step contains invalid fields!
                 if (currentIndex > newIndex) {
                     return true;
+                }
+
+                // Forbid suppressing "Warning" step if the user is to young
+                if (newIndex === 3 && Number($("#age").val()) < 18) {
+                    return false;
                 }
 
                 var form = $(this);

@@ -99,6 +99,10 @@ public class UserService extends BaseService<User,Integer> {
         return userDAO.findAllEq(propertyName,false);
     }
 
+    @Transactional
+    public User getUserbyName(String username) {
+        return userDAO.findUniqueBy("trueName",username);
+    }
 
     @Transactional
     public List<User> getEmployeeLike(String searchName) {

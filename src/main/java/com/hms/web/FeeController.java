@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class FeeController {
     private UserService userService;
     @Autowired
     private DrugService drugService;
+
 
     @Transactional
     @RequestMapping(value = "{id}",method = RequestMethod.GET)
@@ -79,5 +81,27 @@ public class FeeController {
         map.addAttribute("fees",feeVos);
         map.addAttribute("toalFee",totalFee);
         return "TotalFee";
+    }
+
+    @Transactional
+    @RequestMapping(value = "update",method = RequestMethod.POST)
+    public void addDrug(@RequestParam("patientId") String patientId,
+                        @RequestParam("drugName") String drugName,
+                        @RequestParam("drugNum") String drugNum,
+                        @RequestParam("recordId") String recordId) {
+        DrugFee drugFee = new DrugFee();
+        drugFee.setCreateBy(1);
+        drugFee.setCreateTime(new Date());
+        Drug drug = drugService.getDrugByName(drugName.trim());
+        drugFee.setDrugId(drug.getId());
+        int drugNums = Integer.valueOf(drugNum);
+        drugFee.setDrugNum(drugNums);
+        drugFee.setPatientId(Integer.valueOf(patientId));
+        drugFee.setMedicalRecordId(Integer.valueOf(recordId));
+        drugFeeService.save(drugFee);
+        /** drug part **/
+        int drugQty = drug.getQty();
+        drug.setQty(drugQty-drugNums);
+        drugService.update(drug);
     }
 }

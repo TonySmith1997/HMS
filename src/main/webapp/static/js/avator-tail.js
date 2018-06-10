@@ -95,5 +95,8 @@ var sendPhoto = function () {
 
         }
     );
+    sleep(800);
     window.location.reload();
 }
+
+

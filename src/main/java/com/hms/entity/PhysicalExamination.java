@@ -27,7 +27,26 @@ public class PhysicalExamination extends BaseEntity{
     private int medicalRecordId;//FK
     @Transient
     private EmployeeInfo employeeInfo;
+    @Transient
+    private User patient;
+    @Transient
+    private User staff;
 
+    public User getPatient() {
+        return patient;
+    }
+
+    public void setPatient(User patient) {
+        this.patient = patient;
+    }
+
+    public User getStaff() {
+        return staff;
+    }
+
+    public void setStaff(User staff) {
+        this.staff = staff;
+    }
 
     public String getPicture() {
         return picture;

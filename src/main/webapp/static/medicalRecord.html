@@ -28,7 +28,13 @@
                         <div class="col-sm-12">
                             <div class="m-b-md">
                                 <a href="#">
-                                    <small class="pull-right text-navy" th:text="${record.createTime}"></small>
+                                    <small class="pull-right text-navy"  th:text="${record.createTime}"></small>
+                                </a>
+                                <a href="#" th:if="${permission}" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#myModal3">
+                                    modify
+                                </a>
+                                <a href="#" th:if="${permission}" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#myModal2">
+                                    add Drug
                                 </a>
                                 <h2>Medical Record</h2>
                             </div>
@@ -49,7 +55,8 @@
                                         <img alt="image" class="img-circle" th:src="${record.patientInfo.user.avator}">
                                         <h5 th:text="${record.patientInfo.user.trueName}"></h5>
                                     </a>
-                                    <input type="text" style="display:none;" th:value="${record.patientInfo.user.id}"/>
+
+                                    <input type="text" style="display:none;" th:value="${record.patientInfo.user.id}" id="userId"/>
                                 </dd>
                                 <dt>status: </dt>
                                 <dd th:if="${record.patientInfo.inpatient}"><span class="label label-primary">InPatient</span></dd>
@@ -60,24 +67,23 @@
                                 <dd th:text="${record.patientInfo.user.age}">20</dd>
                                 <dt>Allergic history: </dt>
                                 <dd th:text="${record.patientInfo.alleHis}">seafood and milk</dd>
-                                <dt>Medical History</dt>
-                                <dd th:text="${record.medHis}"></dd>
                             </dl>
                         </div>
                         <div class="col-sm-7" id="cluster_info">
                             <dl class="dl-horizontal">
-                                <dt>Doctor : </dt>
+                                <dt>Doctors : </dt>
                                 <dd class="project-people">
-                                    <a href="#" onclick="showEmp(this)" data-toggle="tab">
-                                        <img alt="image" class="img-circle" th:src="${record.doctor.user.avator}">
+                                    <xxx th:each="doctor : ${record.doctor}">
+                                    <a href="#" onclick="showEmp(this)" data-toggle="tab" >
+                                        <img alt="image" class="img-circle" th:src="${doctor.avator}">
                                     </a>
-                                    <input type="text" style="display:none;" th:value="${record.doctor.user.id}"/>
-                                    <h5 th:text="'Doctor.' + ${record.doctor.user.trueName}"></h5>
+                                    <input type="text" style="display:none;" th:value="${doctor.id}"/>
+                                    </xxx>
                                 </dd>
                                 <dt>Disease Detail</dt>
                                 <dd th:text="${record.diseaseDetail}"></dd>
-                                <dt>Recommend</dt>
-                                <dd th:text="${record.recommend}"></dd>
+                                <dt th:if="${record.recommend!=null}">Recommend</dt>
+                                <dd th:if="${record.recommend!=null}" th:text="${record.recommend}"></dd>
                             </dl>
                         </div>
                     </div>
@@ -100,7 +106,7 @@
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="tab-1">
                                             <div class="feed-activity-list">
-                                                <div class="feed-element" th:each="drug : ${record.drugs}">
+                                                <div class="feed-element" th:if="${record.drugs!=null && record.drugs.size()>0}" th:each="drug : ${record.drugs}">
                                                     <a href="#" class="pull-left" onclick="showDrug(this)">
                                                         <img alt="image" class="img-circle" th:src="${drug.drug.avator}">
                                                     </a>
@@ -121,7 +127,7 @@
 
                                         </div>
                                         <div class="tab-pane" id="tab-2">
-                                            <div class="feed-element" th:each="check : ${record.physicalExaminations}">
+                                            <div class="feed-element" th:if="${record.physicalExaminations!=null && record.physicalExaminations.size()>0}" th:each="check : ${record.physicalExaminations}">
                                                 <a href="#" class="pull-left" onclick="showEmp(this)" data-toggle="tab">
                                                     <img alt="image" class="img-circle" th:src="${check.employeeInfo.user.avator}">
                                                 </a>
@@ -179,17 +185,101 @@
             </div>
         </div>
     </div>
+    <div class="modal inmodal" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Modify Medical Record</h4>
+                    <small>Update the detail</small>
+                </div>
+                <div class="modal-body">
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t-md">
+                            <input type="text" style="display: none;" id="toId" th:value="${record.id}" />
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Disease Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control"  placeholder="" id="diseaseName" th:value="${record.diseaseName}" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Disease Detail</label>
+                                <div class="col-sm-10">
+                                    <textarea type="text" class="form-control" id="diseaseDetail" th:value="${record.diseaseDetail}" th:text="${record.diseaseDetail}"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Recommend</label>
+                                <div class="col-sm-10">
+                                    <textarea type="text" class="form-control" id="recommand" th:value="${record.recommend != null} ? ${record.recommend} : null" th:text="${record.recommend !=null} ? ${record.recommend} : null"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                        <button type="submit" class="btn btn-primary" onclick="updateRecord(this)">send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Modify Medical Record</h4>
+                    <small>Update the detail</small>
+                </div>
+                <div class="modal-body">
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t-md">
+                            <input type="text" style="display: none;" id="recordId" th:value="${record.id}" />
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Choose Drug</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="test_data">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Num</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="drugNum" number="true" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                        <button type="submit" class="btn btn-primary" onclick="addDrug(this)">send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <!-- 全局js -->
 <script src="/static/js/jquery.min.js?v=2.1.4"></script>
 <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
-
+<script src="/static/js/plugins/suggest/bootstrap-suggest.min.js"></script>
 
 
 <!-- 自定义js -->
 <script src="/static/js/content.js?v=1.0.0"></script>
 <script src="/static/js/date2String.js"></script>
+<script src="/static/js/sleep.js"></script>
 <script src="/static/js/plugins/layer/layer.min.js"></script>
 
 <script>
@@ -224,7 +314,10 @@
 <!--ajax for employeement-->
 <script>
     function showEmp(btn) {
-        var id = $(btn).closest('div').find('input').eq(0).val();
+        var id = $(btn).closest('xxx').find('input').eq(0).val();
+        if(id == undefined) {
+            id = $(btn).closest('div').find('input').eq(0).val();
+        }
         console.log(id);
         $.ajax({
             type: "GET",
@@ -410,6 +503,80 @@
 
         });
 
+    }
+</script>
+
+
+
+<script>
+    var testdataBsSuggest = $("#test_data").bsSuggest({
+        indexId: 2, //data.value 的第几个数据，作为input输入框的内容
+        indexKey: 1, //data.value 的第几个数据，作为input输入框的内容
+        url:"/drug/list",
+        getDataMethod: "url",
+        showHeader: true,
+        processData: function(json) { // url 获取数据时，对数据的处理，作为 getData 的回调函数
+            var i, len, data = {
+                value: []
+            };
+            if (!json || json.length == 0) {
+                return false;
+            }
+            len = json.length;
+            console.log(len);
+            for (i = 0; i < len; i++) {
+                data.value.push({
+                    "Id": json[i].id,
+                    "Name": json[i].drugName,
+                    "Effect": json[i].effect
+                });
+            }
+            return data;
+        }
+    });
+</script>
+
+<script>
+    function addDrug(btn) {
+        var id = $("#userId").val();
+        var drugName = $("#test_data").val();
+        var drugNum = $("#drugNum").val();
+        var recordId = $("#recordId").val();
+        $.ajax({
+            type: "POST",
+            url: "/fee/update",
+            data:
+                {
+                    patientId: id,
+                    drugName: drugName,
+                    drugNum: drugNum,
+                    recordId: recordId
+            },
+        })
+        sleep(1200);
+        window.location.reload();
+    }
+</script>
+
+<script>
+    function updateRecord(btn) {
+        var id = $("#toId").val();
+        var diseaseName = $("#diseaseName").val();
+        var diseaseDetail = $("#diseaseDetail").val();
+        var recommand = $("#recommand").val();
+        $.ajax({
+            type: "POST",
+            url: "/record/update",
+            data:
+                {
+                    recordId: id,
+                    diseaseName: diseaseName,
+                    diseaseDetail: diseaseDetail,
+                    recommand: recommand
+                },
+        })
+        sleep(1200);
+        window.location.reload();
     }
 </script>
 

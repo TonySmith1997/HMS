@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.beans.Transient;
+import java.util.List;
 
 @Service
 public class MedicalRecordService extends BaseService<MedicalRecord,Integer>{
@@ -26,5 +27,10 @@ public class MedicalRecordService extends BaseService<MedicalRecord,Integer>{
     public MedicalRecord getRecordByUserId(int patientId) {
         String propertyName = "patientId";
         return dao.findUniqueBy(propertyName,patientId);
+    }
+
+    @Transactional(propagation= Propagation.REQUIRED,readOnly=false,rollbackFor={Exception.class})
+    public List<MedicalRecord> getAllRecord() {
+        return dao.findAll();
     }
 }

@@ -1,14 +1,13 @@
 package com.hms.web;
 
 import com.hms.core.util.AvatorCopy;
+import com.hms.core.util.WebUtil;
 import com.hms.entity.Department;
 import com.hms.entity.EmployeeInfo;
 import com.hms.entity.User;
+import com.hms.entity.UserRole;
 import com.hms.entity.logs.EmployeeLog;
-import com.hms.service.DepartmentService;
-import com.hms.service.EmployeeLogService;
-import com.hms.service.EmployeeService;
-import com.hms.service.UserService;
+import com.hms.service.*;
 import com.hms.type.EmployeeType;
 import com.hms.type.LogType;
 import org.apache.log4j.LogManager;
@@ -43,6 +42,8 @@ public class EmployeeInfoController {
     private EmployeeLogService employeeLogService;
     @Autowired
     private DepartmentService departmentService;
+    @Autowired
+    private UserRoleService userRoleService;
 
 
     /**
@@ -122,6 +123,9 @@ public class EmployeeInfoController {
          else {
              employeeInfo.setIfHead(false);
          }
+         /**
+          * 权限管理 todo
+          */
          employeeService.update(employeeInfo);
          String type = "";
          /** --log -- **/
@@ -262,9 +266,41 @@ public class EmployeeInfoController {
             employeeInfo.setIfHead(true);
         }
         employeeService.save(employeeInfo);
+        /**
+         *  role
+         */
+        UserRole role = new UserRole();
+        role.setRoleId(4);//新注册的人都是新人
+        role.setUserId(user.getId());
+        userRoleService.save(role);
         /**employee Log **/
         EmployeeLog employeeLog = new EmployeeLog();
         employeeLogService.saveEmployeeLog(id,username,LogType.join,date);
         return "EmployeeInsert";
     }
+
+    /**
+     * 签到
+     */
+    @RequestMapping(value = "/signin",method = POST)
+    public @ResponseBody void signIn() {
+        User user = (User) WebUtil.getCurrentUser();
+        EmployeeInfo employeeInfo = employeeService.getEmployeeInfo(user.getId());
+        employeeInfo.setStatus(1);
+        employeeInfo.setUpdateTime(new Date());
+        employeeService.update(employeeInfo);
+    }
+
+    /**
+     * 签退
+     */
+    @RequestMapping(value = "/signout",method = POST)
+    public @ResponseBody void signOut() {
+        User user = (User) WebUtil.getCurrentUser();
+        EmployeeInfo employeeInfo = employeeService.getEmployeeInfo(user.getId());
+        employeeInfo.setStatus(0);
+        employeeInfo.setUpdateTime(new Date());
+        employeeService.update(employeeInfo);
+    }
+
 }

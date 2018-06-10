@@ -21,4 +21,9 @@ public class MainController {
     public String get403(){
         return "403";
     }
+
+    @RequestMapping(value ="/home",method = RequestMethod.GET)
+    public String getHomepage() {
+        return "homepage";
+    }
 }

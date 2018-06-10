@@ -31,4 +31,9 @@ public Date getLastUpdate() {
     public List<Drug> getDrugLike(String searchName) {
         return drugDAO.findDrug(searchName);
     }
+
+    @Transactional
+    public Drug getDrugByName(String drugName) {
+        return drugDAO.findUniqueBy("drugName",drugName);
+    }
 }
