@@ -8,12 +8,11 @@ import com.hms.service.WardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RequestMapping(value = "/ward")
 @Controller
@@ -21,15 +20,13 @@ public class WardController {
     @Autowired
     private WardService wardService;
     @Autowired
-    private PatientService patientService;
-    @Autowired
     private InHospitalInfoService inHospitalInfoService;
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = GET)
     public @ResponseBody
-    Ward getWard(ModelMap map, @PathVariable String id) {
+    Ward getWard( @PathVariable String id) {
         Integer wardId = Integer.valueOf(id);
         Ward ward = wardService.get(wardId);
         List<InHospitalInfo> inHospitalInfos = inHospitalInfoService.getPatientInfo(wardId);
@@ -40,5 +37,11 @@ public class WardController {
         }
         ward.setPatientInfos(inHospitalInfos);
         return ward;
+    }
+
+    @RequestMapping(value = "available",method = GET)
+    public @ResponseBody
+    List<Ward> getAvailableWard(){
+        return wardService.getAvailableWard();
     }
 }

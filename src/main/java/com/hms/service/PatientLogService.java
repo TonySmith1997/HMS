@@ -36,7 +36,6 @@ public class PatientLogService extends BaseService<PatientLog,Integer>{
         PatientLog log = new PatientLog();
         log.setWhen(date);
         log.setType(type);
-        log.setEmployeeId(employeeId);
         log.setPatientId(patientId);
         log.setWhat(patientName + " was " + type + " by " + employeeName + " at " + date);
         dao.save(log);

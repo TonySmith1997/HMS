@@ -1,5 +1,6 @@
 package com.hms.web;
 
+import com.hms.core.util.WebUtil;
 import com.hms.entity.*;
 import com.hms.entity.logs.PatientLog;
 import com.hms.service.*;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -79,6 +81,11 @@ public class PatientController {
     }
 
 
+    /**
+     * 用户list
+     * @param map
+     * @return
+     */
     @Transactional
     @RequestMapping(value= "/list",method = RequestMethod.GET)
     public @ResponseBody List<User> getPatientList(ModelMap map) {
@@ -107,7 +114,7 @@ public @ResponseBody PatientInfo getPatientForUpdate(@PathVariable String id) {
 }
 
     /**
-     *
+     * 病人更新
      * @param userid
      * @param username
      * @param mobile
@@ -140,11 +147,31 @@ public @ResponseBody PatientInfo getPatientForUpdate(@PathVariable String id) {
         return "PatientList";
     }
 
+    /**
+     * 病人注册页面跳转
+     * @return
+     */
     @RequestMapping(value = "register",method = GET)
     public String registerNewPatient() {
         return "PatientRegister";
     }
 
+    /**
+     * 病人注册
+     * @param username
+     * @param password
+     * @param trueName
+     * @param email
+     * @param mobile
+     * @param age
+     * @param gender
+     * @param disease
+     * @param allHis
+     * @param department
+     * @param describe
+     * @return
+     * @throws InterruptedException
+     */
     @Transactional
     @RequestMapping(value = "insert",method = POST)
     public String registerNewPatient(@RequestParam("username") String username,
@@ -214,8 +241,113 @@ public @ResponseBody PatientInfo getPatientForUpdate(@PathVariable String id) {
             message.setCreateTime(date);
             messageService.save(message);
         }
+        /** patient log **/
+        PatientLog log = new PatientLog();
+        log.setPatientId(id);
+        log.setWhen(date);
+        log.setType("joining");
+        log.setWhat("joining the hospital at "+date);
+        patientLogService.save(log);
         return "login";
     }
 
 
+    /**
+     * 病人出院
+     * @param userId
+     */
+    @Transactional
+    @RequestMapping(value = "discharge",method = POST)
+    public void discharge(@RequestParam("userId") String userId) {
+        Date date = new Date();
+        int id = Integer.valueOf(userId);
+        PatientInfo patientInfo = patientService.getPatientInfo(id);
+        /** ward **/
+        InHospitalInfo inHospitalInfo = inHospitalInfoService.get(patientInfo.getInHospitalId());
+        Ward ward = wardService.get(inHospitalInfo.getWardNum());
+        int oldNum = ward.getNum();
+        ward.setNum(oldNum - 1);
+        ward.setUpdateBy(1);
+        ward.setUpdateTime(date);
+        wardService.update(ward);
+        /** InHospital **/
+        inHospitalInfoService.delete(inHospitalInfo);
+        /** patient **/
+        patientInfo.setInHospitalId(0);
+        patientInfo.setInpatient(false);
+        User session = (User) WebUtil.getCurrentUser();
+        patientInfo.setUpdateBy(session.getId());
+        patientInfo.setUpdateTime(date);
+        patientService.update(patientInfo);
+
+        /** message **/
+        Message message = new Message();
+        message.setMessage("Congratulations on your discharge from hospital :)");
+        message.setFromId(session.getId());
+        message.setCreateTime(date);
+        message.setToId(id);
+        messageService.save(message);
+
+        /** patient log **/
+        PatientLog log = new PatientLog();
+        log.setPatientId(id);
+        log.setWhen(date);
+        log.setType("discharge");
+        log.setWhat("discharged by Doctor."+session.getTrueName()+" at "+date+", Stayed in the "+ward.getLocation());
+        patientLogService.save(log);
+    }
+
+
+    /**
+     * 入院
+     * @param userId
+     * @param wardId
+     */
+    @Transactional
+    @RequestMapping(value = "admission",method = POST)
+    public void admission(@RequestParam("userId") String userId,
+                          @RequestParam("wardId") String wardId) throws InterruptedException {
+        Date date = new Date();
+        User session = (User) WebUtil.getCurrentUser();
+        int employeeId = session.getId();
+        int patientId = Integer.valueOf(userId);
+        PatientInfo patientInfo = patientService.getPatientInfo(patientId);
+        patientInfo.setUpdateTime(date);
+        patientInfo.setUpdateBy(employeeId);
+        patientInfo.setInpatient(true);
+
+        /** ward **/
+        Ward ward = wardService.getWardByLocation(wardId);
+        int oldNum = ward.getNum();
+        ward.setNum(oldNum+1);
+        ward.setUpdateTime(date);
+        ward.setUpdateBy(1);
+        wardService.update(ward);
+
+        /** inhospitalInfo **/
+        InHospitalInfo inHospitalInfo = new InHospitalInfo();
+        inHospitalInfo.setStartTime(date);
+        inHospitalInfo.setWardNum(ward.getId());
+        inHospitalInfo.setFee(new BigDecimal(500));
+        inHospitalInfo.setUserId(patientId);
+        inHospitalInfoService.save(inHospitalInfo);
+        Thread.sleep(300);
+        patientInfo.setInHospitalId(inHospitalInfo.getId());
+        patientService.update(patientInfo);
+
+        /** patient log **/
+        PatientLog patientLog = new PatientLog();
+        patientLog.setPatientId(patientId);
+        patientLog.setType("Hospitalized");
+        patientLog.setWhen(date);
+        patientLog.setWhat("hospitalized by "+session.getTrueName()+" at "+date+",ward locates at "+ward.getLocation());
+        patientLogService.save(patientLog);
+        /**Message **/
+        Message message = new Message();
+        message.setToId(patientId);
+        message.setFromId(employeeId);
+        message.setCreateTime(date);
+        message.setMessage("Hospitalized Success,you ward location is "+ward.getLocation());
+        messageService.save(message);
+    }
 }
