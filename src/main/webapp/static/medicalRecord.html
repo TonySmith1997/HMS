@@ -357,7 +357,32 @@
                 </div>
             </div>
         </div>
+    <!--send message part-->
+    <div class="modal inmodal" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Send Message</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t-md">
+                            <input type="text" style="display: none;" id="toId"/>
+                            <div class="form-group">
+                                <textarea type="text" class="form-control"id="messageInfo" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                        <button type="submit" class="btn btn-primary" onclick="send(this)">send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+    </div>
     </div>
 </div>
 
@@ -443,7 +468,7 @@
                                 ${data.description}
                             </p>
                             <br />
-                            <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message
+                            <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#myModal5"><i class="fa fa-envelope"></i> Send Message
                             </button>
                             <input type="text" style="display:none;" value="${id}" id="descrpId"/>`;
                 let gender = data.user.gender;
@@ -516,7 +541,7 @@
                             </button>
                             <button class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-money"></i>
                             <br />
-                            <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message
+                            <button type="button" class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#myModal5"><i class="fa fa-envelope"></i> Send Message
                             </button>
                             <input type="text" style="display:none;" value="${id}" id="descrpId"/>`;
                 let gender = data.user.gender;
@@ -779,6 +804,31 @@
     }
 </script>
 
+<!--message -->
+<script>
+    function showsend(btn) {
+        var id = $(btn).closest('div').find('input').eq(0).val();
+        console.log(id);
+        $('#toId').replaceWith(`<input type="text" style="display: none;" id="toId" value="${id}"/>`)
+    }
+</script>
+
+<script>
+    function send(btn) {
+        var message = $('#messageInfo').val();
+        var toId = $('#toId').val();
+        console.log(toId);
+        $.ajax({
+            type: "POST",
+            url: "/message",
+            data:{
+                message:message,
+                toId:toId
+            }
+        });
+        window.location.reload();
+    }
+</script>
 
 </body>
 
