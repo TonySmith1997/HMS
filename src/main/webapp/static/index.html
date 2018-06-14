@@ -88,7 +88,7 @@
                     <a href="#">
                         <i class="fa fa fa-medkit"></i>
                         <!--病历清单 -->
-                        <span class="nav-label">Record Management</span>
+                        <span class="/record/logs">Record Management</span>
 
                 <!--库存清单-->
                 <li th:if="${userInfo.role.contains('admin') || userInfo.role.contains('doctor') || userInfo.role.contains('staff')
@@ -128,7 +128,7 @@
                 <li th:if="${userInfo.role.contains('admin') || userInfo.role.contains('staff')}">
                     <a href="#"><i class="fa fa-heartbeat"></i> <span class="nav-label">Blood Management</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a class="J_menuItem" href="mailbox.html">Blood List</a>
+                        <li><a class="J_menuItem" href="/donor">Blood List</a>
                         </li>
                         <li><a class="J_menuItem" href="mail_detail.html" >Blood Log</a>
                         </li>
