@@ -30,4 +30,9 @@ public class BlooddonorService extends BaseService<BloodDonor,Integer> {
     public List<BloodDonor> getBloodDonorLike(String searchName) {
         return blooddonorDAO.findBlooddonor(searchName);
     }
+    @Transactional
+    public BloodDonor getBloodDonorByMobile(String mobile) {
+        String property = "mobile";
+        return blooddonorDAO.findUniqueBy(property,mobile);
+    }
 }

@@ -22,7 +22,7 @@ public class BloodDonor extends BaseEntity{
     private String avatar;
     private String mobile;
     private String phone;
-    private int gender;
+    private boolean gender;
     private int age;
     private String bloodType;//血型
     private int times;//献血次数
@@ -77,11 +77,11 @@ public class BloodDonor extends BaseEntity{
         this.phone = phone;
     }
 
-    public int getGender() {
+    public boolean isGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 

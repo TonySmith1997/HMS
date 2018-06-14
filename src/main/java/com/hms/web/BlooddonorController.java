@@ -29,16 +29,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
         private BlooddonorService blooddonorService;
         @Autowired
         private BloodbankService bloodbankService;
-        /**
-         * 显示主页面
-         * 最新更新时间
-         * 用户数量
-         * 员工表
-         * 科室表
-         * @param map
-         * @return
-         */
-        @RequestMapping(value = "",method = GET)
+
+    /**
+     *
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = "",method = GET)
         public String getDrugLog(ModelMap map){
             List<BloodDonor> donors = blooddonorService.getAll();
            List<BloodBank> BloodBankList=bloodbankService.getAll();
@@ -66,8 +63,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
          * @param bloodName
          * @param age
          * @param mobile
-         * @param status
-         * @param times
          * @return
          */
         @RequestMapping(value = "update",method=POST)
@@ -75,18 +70,16 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
                 @RequestParam("id") String bloodDonorid,
                 @RequestParam("name") String bloodName,
                 @RequestParam("age") String age,
-                @RequestParam("mobile") String mobile,
-                @RequestParam("status") String status,
-                @RequestParam("times") String times
+                @RequestParam("gender") String gender,
+                @RequestParam("mobile") String mobile
                )
         {
             int bloodId = Integer.valueOf(bloodDonorid.trim());
             BloodDonor bloodDonor =blooddonorService.get(bloodId);
             bloodDonor.setName(bloodName.trim());
             bloodDonor.setAge(Integer.valueOf(age.trim()));
+            bloodDonor.setGender(Boolean.valueOf(gender.trim()));
             bloodDonor.setMobile(mobile.trim());
-            bloodDonor.setStatus(Integer.valueOf(status.trim()));
-            bloodDonor.setTimes(Integer.valueOf(times.trim()));
             bloodDonor.setUpdateBy(1);
             Date date = new Date();
             bloodDonor.setUpdateTime(date);
@@ -101,8 +94,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
      * @param bloodtype
      * @param gender
      * @param mobile
-     * @param status
-     * @param times
      * @return
      */
         @RequestMapping(value = "insert",method=POST)
@@ -111,22 +102,31 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
                 @RequestParam("age") String age,
                 @RequestParam("bloodtype") String bloodtype,
                 @RequestParam("gender") String gender,
-                @RequestParam("mobile") String mobile,
-                @RequestParam("status")String status,
-                @RequestParam("times")String times)
+                @RequestParam("mobile") String mobile
+                )
         {
-            BloodDonor bloodDonor = new BloodDonor();
-            bloodDonor.setAvatar("/static/img/a1.jpg");
-            bloodDonor.setName(blooddonorname.trim());
-            bloodDonor.setAge(Integer.valueOf(age.trim()));
-            bloodDonor.setBloodType(bloodtype.trim());
-            bloodDonor.setMobile(mobile.trim());
-            bloodDonor.setStatus(Integer.valueOf(status.trim()));
-            bloodDonor.setTimes(Integer.valueOf(times.trim()));
-            bloodDonor.setUpdateBy(1);
             Date date = new Date();
-            bloodDonor.setUpdateTime(date);
-            blooddonorService.save(bloodDonor);
+            BloodDonor bloodDonor = blooddonorService.getBloodDonorByMobile(mobile.trim());
+            if(bloodDonor == null) {
+                bloodDonor = new BloodDonor();
+                bloodDonor.setAvatar("/static/img/a1.jpg");
+                bloodDonor.setName(blooddonorname.trim());
+                bloodDonor.setGender(Boolean.valueOf(gender.trim()));
+                bloodDonor.setAge(Integer.valueOf(age.trim()));
+                bloodDonor.setBloodType(bloodtype.trim());
+                bloodDonor.setMobile(mobile.trim());
+                bloodDonor.setUpdateBy(1);
+                bloodDonor.setTimes(1);
+                bloodDonor.setUpdateTime(date);
+                blooddonorService.save(bloodDonor);
+            }
+            else {
+                int oldTimes = bloodDonor.getTimes();
+                bloodDonor.setTimes(oldTimes+1);
+                bloodDonor.setUpdateBy(1);
+                bloodDonor.setUpdateTime(date);
+                blooddonorService.save(bloodDonor);
+            }
 
             /** blood bank **
              *

@@ -156,86 +156,20 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">status</label>
+                                <label class="col-sm-2 control-label">gender</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="" id="status">
-                                    <span class="help-block">quality of blood</span>
+                                    <select id="gender">
+                                        <option label="Male" value="true"></option>
+                                        <option label="Female" value="false"></option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">times</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="" id="times">
-                                    <span class="help-block">donor times</span>
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
                             <div class="hr-line-dashed"></div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
                         <button type="submit" class="btn btn-primary" onclick="update(this)">save</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--.modify devices-->
-    <div class="modal inmodal" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content animated flipInY">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Device Info</h4>
-                    <small class="font-bold">Update or Insert</small>
-                </div>
-                <div class="modal-body">
-                    <div class="ibox-content">
-                        <form class="form-horizontal m-t-md">
-                            <input type="text" style="display: none;" id="deviceid"/>
-                            <div class="form-group">
-                                <label class="col-sm-2 col-sm-2 control-label">Name</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control"  placeholder="" id="devicename">
-                                    <span class="help-block">6-8 characters</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Location</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="" id="location">
-                                    <span class="help-block">the position of devices</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Qty</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control"  placeholder="" id="deviceqty">
-                                    <span class="help-block">Quantities in hospital</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Unitprice</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="" id="deviceunitprice">
-                                    <span class="help-block">Treatment of expense:RMB</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Description</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="" id="devicedescription">
-                                    <span class="help-block">device's description</span>
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="hr-line-dashed"></div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
-                        <button type="submit" class="btn btn-primary" onclick="updatedevice(this)">save</button>
                     </div>
                 </div>
             </div>
@@ -278,8 +212,10 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">gender</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="" id="gender1">
-                                    <span class="help-block">Male or Female</span>
+                                    <select id="gender1">
+                                        <option label="Male" value="true"></option>
+                                        <option label="Female" value="false"></option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -287,22 +223,6 @@
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" placeholder="" id="mobile1">
                                     <span class="help-block">mobile phone number</span>
-                                </div>
-
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">status</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="" id="status1">
-                                    <span class="help-block">the quality of blood</span>
-                                </div>
-
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">times</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="" id="times1">
-                                    <span class="help-block">donor times</span>
                                 </div>
 
                             </div>
@@ -359,51 +279,8 @@
 
 </script>
 
-<!-- ajax for device-->
-<script th:inline="text">
-    function showDevice(btn) {
-        var id = $(btn).closest('tr').find('input').eq(0).val();
-        $.ajax({
-            type:"GET",
-            url:"/device/"+id,
-            dataType: "JSON",
-            success: function (data) {
-                let NameHtml = `
-                            <h2>${data.deviceName}</h2>
-                            <div class="m-b-sm">
-                                <img alt="image" class="img-circle" src="${data.avator}" style="width: 110px" />
-                            </div>`;
-                $('#Name').empty().append(NameHtml);
-                let docHtml = `
-                            <p>
-                                ${data.description}
-                            </p>
-                            <br />
-                            <button type="button" class="btn btn-success btn-sm btn-block"  onclick="updateShowdevice(this)" data-toggle="modal" data-target="#myModal1"><i class="fa fa-file"></i>Modify
-                            <button type="button" class="btn btn-danger btn-sm btn-block"><i class="fa fa-lock"></i>Delete
-                            </button>
-                            <input type="text" style="display:none;" value="${id}" id="descrpId"/>`;
-                $('#Info').empty().append(docHtml);
-                let html = `<ul  class="list-group clear-list">
-                                    <li class="list-group-item ">
-                                    <span class="pull-right">${data.location} </span> Location:
-                                    </li>
-                                    <li class="list-group-item ">
-                                    <span class="pull-right">${data.qty} </span> Quantity:
-                                    </li>
-                                    <li class="list-group-item ">
-                                    <span class="pull-right">${data.unitPrice} </span> Treatemnt expense:
-                                    </li>
-                                    </ul>
-                                    `;
-                $('#contactInfo').empty();
-                $("#contactInfo").append(html);
-            }
-        })
-    };
-</script>
 
-<!--ajax for drug-->
+<!--ajax for donnor-->
 <script>
     function showBloodDonor(btn) {
         var id = $(btn).closest('tr').find('input').eq(0).val();
@@ -418,6 +295,14 @@
                                 <img alt="image" class="img-circle" src="${data.avatar}" style="width: 110px" />
                             </div>`;
                 $('#Name').empty().append(NameHtml);
+                let gender = data.user.gender;
+                let genderHtml = "";
+                if(gender==true){
+                    genderHtml = "Male";
+                }
+                else{
+                    genderHtml = "Female";
+                }
                 let docHtml = `
 
                             <br />
@@ -434,7 +319,7 @@
                                     <span class="pull-right">${data.status} </span> Status
                                     </li>
                                     <li class="list-group-item ">
-                                    <span class="pull-right">${data.gender} </span> Gender
+                                    <span class="pull-right">${genderHtml} </span> Gender
                                     </li>
                                     <li class="list-group-item ">
                                     <span class="pull-right">${data.mobile} </span> Mobile
@@ -442,7 +327,6 @@
                                     <li class="list-group-item ">
                                     <span class="pull-right">${data.times} </span> Times
                                     </li>
-
                                     </ul>
                                     `;
                 $('#contactInfo').empty();
@@ -475,7 +359,6 @@
                 $("#age").replaceWith(`<input type="text" class="form-control"  id="age" value="${data.age}">`);
                 $("#status").replaceWith(`<input type="text" class="form-control"  id="status" value="${data.status}">`);
                 $("#mobile").replaceWith(`<input type="text" class="form-control"  id="mobile" value="${data.mobile}">`);
-                $("#times").replaceWith(`<input type="text" class="form-control"  id="times" value="${data.times}">`);
             }
         })
     }
@@ -486,9 +369,8 @@
         var name = $("#blooddonorname").val();
         var age= $("#age").val();
         var mobile = $("#mobile").val();
-        var status = $("#status").val();
-        var times= $('#times').val();
-        console.log(id+name+age+mobile+status+times);
+        var gender = $("#gender").val();
+        console.log(id+name+age+mobile);
         $.ajax({
             type: "POST",
             url: "/donor/update",
@@ -496,9 +378,8 @@
                 id:id,
                 name:name,
                 age:age,
+                gender:gender,
                 mobile:mobile,
-                status:status,
-                times:times
             }
         })
         window.location.reload();
@@ -512,9 +393,7 @@
         var bloodtype= $("#bloodtype1").val();
         var gender = $("#gender1").val();
         var mobile= $('#mobile1').val();
-        var status= $('#status1').val();
-        var times= $('#times1').val();
-        console.log( blooddonorname + age +bloodtype+gender+mobile+status+times);
+        console.log( blooddonorname + age +bloodtype+gender+mobile);
         $.ajax({
             type: "POST",
             url: "/donor/insert",
@@ -524,56 +403,6 @@
                 bloodtype:bloodtype,
                 gender:gender,
                 mobile:mobile,
-                status:status,
-                times:times
-            }
-        })
-        window.location.reload();
-    }
-</script>
-<!--ajax for show device update -->
-<script>
-    function updateShowdevice(btn) {
-        var id = $(btn).closest('tr').find('input').eq(0).val();
-        if(id == undefined){
-            id = $("#descrpId").val();
-        }
-        $.ajax({
-            type: "GET",
-            url: "/device/update/" + id,
-            dataType: "JSON",
-            success: function (data) {
-                console.log(data.id);
-                $("#deviceid").replaceWith(`<input type="text" style="display: none;" id="deviceid" value="${data.id}"/>`);
-                $("#devicename").replaceWith(`<input type="text" class="form-control"   id="devicename" value="${data.deviceName}">`);
-                $("#deviceqty").replaceWith(`<input type="text" class="form-control"  id="deviceqty" value="${data.qty}">`);
-                $("#location").replaceWith(`<input type="text" class="form-control"  id="location" value="${data.location}">`);
-                $("#deviceunitprice").replaceWith(`<input type="text" class="form-control"  id="deviceunitprice" value="${data.unitPrice}">`);
-                var description= String(data.description);
-                $('#devicedescription').val(description);
-            }
-        })
-    }
-</script>
-<script>
-    function updatedevice(btn) {
-        var deviceid = $("#deviceid").val();
-        var devicename = $("#devicename").val();
-        var devicedescription= $("#devicedescription").val();
-        var location = $("#location").val();
-        var deviceunitprice = $("#deviceunitprice").val();
-        var deviceqty= $("#deviceqty").val();
-        console.log(deviceid + devicename + devicedescription +location+deviceunitprice+deviceqty);
-        $.ajax({
-            type: "POST",
-            url: "/device/update",
-            data:{
-                deviceid:deviceid,
-                devicename:devicename,
-                devicedescription:devicedescription,
-                location:location,
-                devcieunitprice:deviceunitprice,
-                deviceqty:deviceqty
             }
         })
         window.location.reload();
