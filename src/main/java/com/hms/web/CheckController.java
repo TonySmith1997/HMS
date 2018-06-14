@@ -89,4 +89,6 @@ public class CheckController {
         message.setPhoto(check.getPicture());
         messageService.save(message);
     }
+
+
 }

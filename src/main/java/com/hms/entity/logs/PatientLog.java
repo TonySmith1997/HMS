@@ -16,7 +16,6 @@ public class PatientLog implements Serializable{
     @GeneratedValue
     private int id;
 
-    private int employeeId;//user_id(doctor or DIO)
 
     private int patientId;
 
@@ -40,13 +39,6 @@ public class PatientLog implements Serializable{
         this.id = id;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
 
     public int getPatientId() {
         return patientId;

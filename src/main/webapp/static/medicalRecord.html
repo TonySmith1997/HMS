@@ -13,6 +13,8 @@
     <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
 
+    <!-- Sweet Alert -->
+    <link href="/static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="/static/css/animate.css" rel="stylesheet">
     <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
 
@@ -35,6 +37,15 @@
                                 </a>
                                 <a href="#" th:if="${permission}" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#myModal2">
                                     add Drug
+                                </a>
+                                <a href="#" th:if="${permission && record.patientInfo.inpatient}" class="btn btn-xs btn-info" onclick="showSwal(this)">
+                                    discharge
+                                </a>
+                                <a href="#" th:if="${permission && record.patientInfo.inpatient == false}" class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal1">
+                                    admission
+                                </a>
+                                <a href="#" th:if="${permission}" class="btn btn-xs btn-success" data-toggle="modal" data-target="#myModal4">
+                                    add checks
                                 </a>
                                 <h2>Medical Record</h2>
                             </div>
@@ -185,6 +196,7 @@
             </div>
         </div>
     </div>
+    <!-- 病历更新 -->
     <div class="modal inmodal" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated flipInY">
@@ -226,22 +238,64 @@
         </div>
 
     </div>
+    <!-- 药物添加 -->
     <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Add Drug</h4>
+                <small>add drug for your patient</small>
+            </div>
+            <div class="modal-body">
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t-md">
+                        <input type="text" style="display: none;" id="recordId" th:value="${record.id}" />
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Choose Drug</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="test_data">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Num</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="drugNum" number="true" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                    <button type="submit" class="btn btn-primary" onclick="addDrug(this)">send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    <!-- 入院 -->
+    <div class="modal inmodal" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content animated flipInY">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Modify Medical Record</h4>
-                    <small>Update the detail</small>
+                    <h4 class="modal-title">Admission</h4>
                 </div>
                 <div class="modal-body">
                     <div class="ibox-content">
                         <form class="form-horizontal m-t-md">
-                            <input type="text" style="display: none;" id="recordId" th:value="${record.id}" />
                             <div class="form-group">
-                                <label class="col-sm-2 col-sm-2 control-label">Choose Drug</label>
+                                <label class="col-sm-2 col-sm-2 control-label">Choose Ward</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="test_data">
+                                    <input type="text" class="form-control" id="ward_data">
                                     <div class="input-group-btn">
                                         <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
                                             <span class="caret"></span>
@@ -250,18 +304,55 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 col-sm-2 control-label">Num</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="drugNum" number="true" />
-                                </div>
-                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
-                        <button type="submit" class="btn btn-primary" onclick="addDrug(this)">send</button>
+                        <button type="submit" class="btn btn-primary" onclick="admission(this)">send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- 通知同事进行医疗检查 -->
+    <div class="modal inmodal" id="myModal4" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Checks</h4>
+                </div>
+                <div class="modal-body">
+                                <div class="ibox-content">
+                                    <form class="form-horizontal m-t-md">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">
+                                                Check Name</label>
+                                            <div class="col-sm-8">
+                                                <select id="checkName" name="checkName" class="form-control">
+                                                    <option value="CT">CT</option>
+                                                    <option value="X-ray">X-ray</option>
+                                                    <option value="URAN">URAN</option>
+                                                    <option value="Blood Test">Blood test</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">
+                                                Extra Message</label>
+                                            <div class="col-sm-8">
+                                                <div class="form-group">
+                                                    <textarea type="text" class="form-control"id="messageInfo" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                        <button type="submit" class="btn btn-primary" onclick="check(this)">send</button>
                     </div>
                 </div>
             </div>
@@ -281,6 +372,8 @@
 <script src="/static/js/date2String.js"></script>
 <script src="/static/js/sleep.js"></script>
 <script src="/static/js/plugins/layer/layer.min.js"></script>
+<!-- Sweet alert -->
+<script src="/static/js/plugins/sweetalert/sweetalert.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -507,8 +600,9 @@
 </script>
 
 
-
+<!-- 动态显示搜索框 -->
 <script>
+    // 药物
     var testdataBsSuggest = $("#test_data").bsSuggest({
         indexId: 2, //data.value 的第几个数据，作为input输入框的内容
         indexKey: 1, //data.value 的第几个数据，作为input输入框的内容
@@ -534,8 +628,36 @@
             return data;
         }
     });
+
+    //病房
+    var testdataBsSuggest = $("#ward_data").bsSuggest({
+        indexId: 2, //data.value 的第几个数据，作为input输入框的内容
+        indexKey: 1, //data.value 的第几个数据，作为input输入框的内容
+        url:"/ward/available",
+        getDataMethod: "url",
+        showHeader: true,
+        processData: function(json) { // url 获取数据时，对数据的处理，作为 getData 的回调函数
+            var i, len, data = {
+                value: []
+            };
+            if (!json || json.length == 0) {
+                return false;
+            }
+            len = json.length;
+            console.log(len);
+            for (i = 0; i < len; i++) {
+                data.value.push({
+                    "Id": json[i].id,
+                    "Location": json[i].location,
+                    "availableNum":json[i].totalNum - json[i].num
+                });
+            }
+            return data;
+        }
+    });
 </script>
 
+<!-- 添加药物 -->
 <script>
     function addDrug(btn) {
         var id = $("#userId").val();
@@ -558,6 +680,7 @@
     }
 </script>
 
+<!-- 更新病历 -->
 <script>
     function updateRecord(btn) {
         var id = $("#toId").val();
@@ -579,6 +702,83 @@
         window.location.reload();
     }
 </script>
+
+<!-- sweetalert 出院-->
+<script>
+    function showSwal(btn) {
+        var userId = $("#userId").val();
+        swal({
+                title: "Are you sure discharge this patient",
+                text: "It will not be restored after operation. Please exercise caution!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Confirm",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/patient/discharge",
+                        data:
+                            {
+                                userId: userId
+                            },
+                    })
+                    swal("discharge success! ", "you already discharge the patient. ", "success");
+                    sleep(500);
+                    window.location.reload();
+                } else {
+                    swal("Cancel", "you already cancel the operation! ", "error");
+                }
+            });
+        }
+</script>
+
+<!-- 入院 -->
+<script>
+    function admission(btn) {
+        var userId = $("#userId").val();
+        var wardId = $("#ward_data").val();
+        console.log(wardId);
+        $.ajax({
+            type: "POST",
+            url: "/patient/admission",
+            data:
+                {
+                    userId : userId,
+                    wardId : wardId
+                },
+        })
+        sleep(600);
+        window.location.reload();
+    }
+</script>
+
+<!-- 检查 -->
+<script>
+    function check(btn) {
+        var userId = $("#userId").val();
+        var check = $("#checkName").val();
+        var extraMessage = $("#messageInfo").val();
+        $.ajax({
+            type: "POST",
+            url: "/message/check",
+            data:
+                {
+                    userId: userId,
+                    check: check,
+                    extraMessage : extraMessage
+                },
+        })
+        sleep(600);
+        window.location.reload();
+    }
+</script>
+
 
 </body>
 
