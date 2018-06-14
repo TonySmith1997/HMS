@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HMS Blood Management</title>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet" />
+    <link href="/static/css/animate.css" rel="stylesheet" />
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet" />
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <span class="text-muted small pull-right">Last Updated: <i class="fa fa-clock-o"></i>
+                    <h5 th:text="${lastUpdate}"></h5>
+                    </span>
+                    <h2 id="management">Blood Management</h2>
+                    <div class="input-group">
+                        <input type="text" placeholder="Find BloodDonor" class="input form-control" id="searchName"/>
+                        <span class="input-group-btn">
+                                        <button type="button" class="btn btn btn-primary" onclick="search(this)"> <i class="fa fa-search" ></i> Search</button>
+                                        <button type="button" class="btn btn btn-warning" onclick="refresh(this)"><i class="fa fa-refresh" ></i>Refresh </button>
+                            </span>
+                    </div>
+                    <div class="clients-list">
+                        <ul class="nav nav-tabs">
+                            <span id="counts" class="pull-right small text-muted" th:text="${blooddonorCount}+ ' donors'"></span>
+                            <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-medkit"></i> Donor</a>
+                            </li>
+                            <li class=""><a data-toggle="tab" href="#tab-4"><i class="fa fa-wheelchair"></i> Bank</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+  <!--show donor list -->
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="full-height-scroll">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <tbody id="donors">
+                                            <tr th:each="donor : ${donors}">
+                                                <td class="client-avatar"><img alt="image" th:src="${donor.avatar}" /> </td>
+                                                <td><a data-toggle="tab" onclick="showBloodDonor(this)" class="client-link" th:text="${donor.name}">Admin</a>
+                                                </td>
+                                                <td><input th:value="${donor.id}" style="display: none;"/></td>
+                                                <td class="contact-type"><i class="fa fa-flask"> </i>
+                                                </td>
+                                                <td th:text="${donor.age}"> 13209009485</td>
+                                                <td class="client-status"></td>
+                                                <td class="contact-type"><i class="fa fa-bar-chart"> </i>
+                                                </td>
+                                                <td th:text="${donor.gender}"> gravida@qq.com</td>
+                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal3" href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal2" href="#" class="fa fa-edit" onclick="updateShow(this)"/></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" />
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tab-4" class="tab-pane">
+  <!--show bank list-->
+                                <div class="full-height-scroll">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <tbody id="devices">
+                                            <tr th:each="bank : ${banks}">
+                                                <td class="client-avatar"> </td>
+                                                <td><a data-toggle="tab" onclick="showDevice(this)" class="client-link" th:text="${bank.bloodType}">Admin</a>
+                                                </td>
+                                                <td class="contact-type"><i class="fa fa-flask"> </i>
+                                                <td th:text="${bank.qty}"> gravida@qq.com</td>
+                                                </td>
+
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox ">
+
+                <div class="ibox-content">
+                    <div class="tab-content">
+                        <div id="contact-1" class="tab-pane active">
+                            <div class="row m-b-lg">
+                                <div class="col-lg-4 text-center" id="Name">
+                                    <h2 id="departmentName">Medical department </h2>
+                                </div>
+                                <div class="col-lg-8" id="Info">
+                                    <h3>
+                                        Description
+                                    </h3>
+                                    <p id="description">
+                                        The hospital is a kind of organization helping people recover or get information of keeping health. We can see a hospital everywhere in our life, because hospitals are so important to us. Patients, or the one who has some mental or bodily discomfort should go to hospital for curing.
+                                    </p>
+                                </div>
+                            </div>
+                            <div  class="client-detail">
+                                <div class="full-height-scroll" id="contactInfo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modify blooddonor-->
+    <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Blood Info</h4>
+                    <small class="font-bold">Update or Insert</small>
+                </div>
+                <div class="modal-body">
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t-md">
+                            <input type="text" style="display: none;" id="id"/>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control"  placeholder="" id="blooddonorname">
+                                    <span class="help-block">6-8 characters</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">age</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="age">
+                                    <span class="help-block">how old</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Mobile</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control"  placeholder="" id="mobile">
+                                    <span class="help-block">Within 13 numbers</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">status</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="status">
+                                    <span class="help-block">quality of blood</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">times</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="times">
+                                    <span class="help-block">donor times</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="hr-line-dashed"></div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                        <button type="submit" class="btn btn-primary" onclick="update(this)">save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--.modify devices-->
+    <div class="modal inmodal" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Device Info</h4>
+                    <small class="font-bold">Update or Insert</small>
+                </div>
+                <div class="modal-body">
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t-md">
+                            <input type="text" style="display: none;" id="deviceid"/>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control"  placeholder="" id="devicename">
+                                    <span class="help-block">6-8 characters</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Location</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="location">
+                                    <span class="help-block">the position of devices</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Qty</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control"  placeholder="" id="deviceqty">
+                                    <span class="help-block">Quantities in hospital</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Unitprice</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="deviceunitprice">
+                                    <span class="help-block">Treatment of expense:RMB</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Description</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="devicedescription">
+                                    <span class="help-block">device's description</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="hr-line-dashed"></div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                        <button type="submit" class="btn btn-primary" onclick="updatedevice(this)">save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--insert blooddonor-->
+    <div class="modal inmodal" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated flipInY">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Blood Info</h4>
+                    <small class="font-bold">Update or Insert</small>
+                </div>
+                <div class="modal-body">
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t-md">
+                            <input type="text" style="display: none;" id="blooddonorid1"/>
+                            <div class="form-group">
+                                <label class="col-sm-2 col-sm-2 control-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control"  placeholder="" id="blooddonorname1">
+                                    <span class="help-block">6-8 characters</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">age</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="age1">
+                                    <span class="help-block">how old</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">bloodtype</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control"  placeholder="" id="bloodtype1">
+                                    <span class="help-block">what kind of bloodtype</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">gender</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="gender1">
+                                    <span class="help-block">Male or Female</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">mobile</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="mobile1">
+                                    <span class="help-block">mobile phone number</span>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">status</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="status1">
+                                    <span class="help-block">the quality of blood</span>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">times</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="" id="times1">
+                                    <span class="help-block">donor times</span>
+                                </div>
+
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <!--<div class="hr-line-dashed"></div>-->
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                        <button type="submit" class="btn btn-primary" onclick="insert(this)">save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 全局js -->
+<script src="/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/static/js/plugins/layer/layer.min.js"></script>
+<!-- 自定义js -->
+<script src="/static/js/content.js?v=1.0.0"></script>
+<script>
+    $(function () {
+        $('.full-height-scroll').slimScroll({
+            height: '100%'
+        });
+    });
+</script>
+
+<!-- Date2String -->
+<script>
+    function timeStamp2String(time){
+        var datetime = new Date();
+        datetime.setTime(time);
+        var year = datetime.getFullYear();
+        var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+        var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+        var hour = datetime.getHours()< 10 ? "0" + datetime.getHours() : datetime.getHours();
+        var minute = datetime.getMinutes()< 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+        var second = datetime.getSeconds()< 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+        return year + "-" + month + "-" + date+" "+hour+":"+minute+":"+second;
+    }
+</script>
+<!--Refresh -->
+<script>
+    function refresh(btn) {
+        window.location.reload();
+    }
+
+</script>
+
+<!-- ajax for device-->
+<script th:inline="text">
+    function showDevice(btn) {
+        var id = $(btn).closest('tr').find('input').eq(0).val();
+        $.ajax({
+            type:"GET",
+            url:"/device/"+id,
+            dataType: "JSON",
+            success: function (data) {
+                let NameHtml = `
+                            <h2>${data.deviceName}</h2>
+                            <div class="m-b-sm">
+                                <img alt="image" class="img-circle" src="${data.avator}" style="width: 110px" />
+                            </div>`;
+                $('#Name').empty().append(NameHtml);
+                let docHtml = `
+                            <p>
+                                ${data.description}
+                            </p>
+                            <br />
+                            <button type="button" class="btn btn-success btn-sm btn-block"  onclick="updateShowdevice(this)" data-toggle="modal" data-target="#myModal1"><i class="fa fa-file"></i>Modify
+                            <button type="button" class="btn btn-danger btn-sm btn-block"><i class="fa fa-lock"></i>Delete
+                            </button>
+                            <input type="text" style="display:none;" value="${id}" id="descrpId"/>`;
+                $('#Info').empty().append(docHtml);
+                let html = `<ul  class="list-group clear-list">
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.location} </span> Location:
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.qty} </span> Quantity:
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.unitPrice} </span> Treatemnt expense:
+                                    </li>
+                                    </ul>
+                                    `;
+                $('#contactInfo').empty();
+                $("#contactInfo").append(html);
+            }
+        })
+    };
+</script>
+
+<!--ajax for drug-->
+<script>
+    function showBloodDonor(btn) {
+        var id = $(btn).closest('tr').find('input').eq(0).val();
+        $.ajax({
+            type: "GET",
+            url: "/donor/" + id,
+            dataType: "JSON",
+            success: function (data) {
+                let NameHtml = `
+                            <h2>${data.name}</h2>
+                            <div class="m-b-sm">
+                                <img alt="image" class="img-circle" src="${data.avatar}" style="width: 110px" />
+                            </div>`;
+                $('#Name').empty().append(NameHtml);
+                let docHtml = `
+
+                            <br />
+                            <button type="button" class="btn btn-success btn-sm btn-block"  onclick="updateShow(this)" data-toggle="modal" data-target="#myModal2"><i class="fa fa-file"></i>Modify
+                            <button type="button" class="btn btn-danger btn-sm btn-block"><i class="fa fa-lock"></i>Delete
+                            </button>
+                            <input type="text" style="display:none;" value="${id}" id="descrpId"/>`;
+                $('#Info').empty().append(docHtml);
+                let html = `<ul  class="list-group clear-list">
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.age} </span> Age
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.status} </span> Status
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.gender} </span> Gender
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.mobile} </span> Mobile
+                                    </li>
+                                    <li class="list-group-item ">
+                                    <span class="pull-right">${data.times} </span> Times
+                                    </li>
+
+                                    </ul>
+                                    `;
+                $('#contactInfo').empty();
+                $("#contactInfo").append(html);
+            }
+
+        });
+
+    }
+</script>
+
+<!--ajax for show blooddonor update -->
+<script>
+    function updateShow(btn) {
+        var id = $(btn).closest('tr').find('input').eq(0).val();
+        if(id == undefined){
+            id = $("#descrpId").val();
+        }
+        if(id==undefined){
+            insert(btn);
+        }
+        $.ajax({
+            type: "GET",
+            url: "/donor/update/" + id,
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data.id);
+                $("#id").replaceWith(`<input type="text" style="display: none;" id="id" value="${data.id}"/>`);
+                $("#blooddonorname").replaceWith(`<input type="text" class="form-control"   id="blooddonorname" value="${data.name}">`);
+                $("#age").replaceWith(`<input type="text" class="form-control"  id="age" value="${data.age}">`);
+                $("#status").replaceWith(`<input type="text" class="form-control"  id="status" value="${data.status}">`);
+                $("#mobile").replaceWith(`<input type="text" class="form-control"  id="mobile" value="${data.mobile}">`);
+                $("#times").replaceWith(`<input type="text" class="form-control"  id="times" value="${data.times}">`);
+            }
+        })
+    }
+</script>
+<script>
+    function update(btn) {
+        var id = $("#id").val();
+        var name = $("#blooddonorname").val();
+        var age= $("#age").val();
+        var mobile = $("#mobile").val();
+        var status = $("#status").val();
+        var times= $('#times').val();
+        console.log(id+name+age+mobile+status+times);
+        $.ajax({
+            type: "POST",
+            url: "/donor/update",
+            data:{
+                id:id,
+                name:name,
+                age:age,
+                mobile:mobile,
+                status:status,
+                times:times
+            }
+        })
+        window.location.reload();
+    }
+</script>
+<!--blooddonor insert-->
+<script>
+    function insert(btn) {
+        var blooddonorname = $("#blooddonorname1").val();
+        var age= $("#age1").val();
+        var bloodtype= $("#bloodtype1").val();
+        var gender = $("#gender1").val();
+        var mobile= $('#mobile1').val();
+        var status= $('#status1').val();
+        var times= $('#times1').val();
+        console.log( blooddonorname + age +bloodtype+gender+mobile+status+times);
+        $.ajax({
+            type: "POST",
+            url: "/donor/insert",
+            data:{
+                blooddonorname:blooddonorname,
+                age:age,
+                bloodtype:bloodtype,
+                gender:gender,
+                mobile:mobile,
+                status:status,
+                times:times
+            }
+        })
+        window.location.reload();
+    }
+</script>
+<!--ajax for show device update -->
+<script>
+    function updateShowdevice(btn) {
+        var id = $(btn).closest('tr').find('input').eq(0).val();
+        if(id == undefined){
+            id = $("#descrpId").val();
+        }
+        $.ajax({
+            type: "GET",
+            url: "/device/update/" + id,
+            dataType: "JSON",
+            success: function (data) {
+                console.log(data.id);
+                $("#deviceid").replaceWith(`<input type="text" style="display: none;" id="deviceid" value="${data.id}"/>`);
+                $("#devicename").replaceWith(`<input type="text" class="form-control"   id="devicename" value="${data.deviceName}">`);
+                $("#deviceqty").replaceWith(`<input type="text" class="form-control"  id="deviceqty" value="${data.qty}">`);
+                $("#location").replaceWith(`<input type="text" class="form-control"  id="location" value="${data.location}">`);
+                $("#deviceunitprice").replaceWith(`<input type="text" class="form-control"  id="deviceunitprice" value="${data.unitPrice}">`);
+                var description= String(data.description);
+                $('#devicedescription').val(description);
+            }
+        })
+    }
+</script>
+<script>
+    function updatedevice(btn) {
+        var deviceid = $("#deviceid").val();
+        var devicename = $("#devicename").val();
+        var devicedescription= $("#devicedescription").val();
+        var location = $("#location").val();
+        var deviceunitprice = $("#deviceunitprice").val();
+        var deviceqty= $("#deviceqty").val();
+        console.log(deviceid + devicename + devicedescription +location+deviceunitprice+deviceqty);
+        $.ajax({
+            type: "POST",
+            url: "/device/update",
+            data:{
+                deviceid:deviceid,
+                devicename:devicename,
+                devicedescription:devicedescription,
+                location:location,
+                devcieunitprice:deviceunitprice,
+                deviceqty:deviceqty
+            }
+        })
+        window.location.reload();
+    }
+</script>
+<!--ajax for search -->
+<script>
+    function search(btn) {
+        var searchName = $("#searchName").val();
+        console.log(searchName);
+        $.ajax({
+            type: "GET",
+            url: "/donor/search/"+searchName,
+            dataType: "JSON",
+            success: function (data) {
+                $("#donors").empty();
+                $.each(data, function (i, val) {
+                    console.log(data);
+
+                    $("#donors").append(
+                        `<tr>
+                                                <td class="client-avatar"><img alt="image" src="${data[i].avatar}" /> </td>
+                                                <td><a data-toggle="tab" onclick="showBloodDonor(this)" class="client-link" >${data[i].name}</a>
+                                                </td>
+                                                <td><input value="${data[i].id}" style="display: none;"/></td>
+                                                <td class="contact-type"><i class="fa fa-flask"> </i>
+                                                </td>
+                                                <td> ${data[i].age}</td>
+                                                <td class="client-status"></td>
+                                                    <td class="contact-type"><i class="fa fa-bar-chart"> </i>
+                                                </td>
+                                                <td>${data[i].status}</td>
+                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal3" href="#" class="fa fa-plus" /></td>
+                                                <td class="contact-type"><a data-toggle="modal" data-target="#myModal2" href="#" class="fa fa-edit" onclick="updateShow(this)"/></td>
+                                                <td class="contact-type"><a href="#" class="fa fa-remove" />
+                                                </td>
+                                            </tr>`
+                    );
+                });
+            }
+        })
+    }
+</script>
+<!--.-->
+<script>
+
+</script>
+</body>
+
+</html>
