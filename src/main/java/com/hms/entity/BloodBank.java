@@ -1,13 +1,14 @@
 package com.hms.entity;
 
 import com.hms.core.base.BaseEntity;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
-
+@Proxy(lazy = false)
 @Entity
 public class BloodBank extends BaseEntity{
     @Id

@@ -1,6 +1,7 @@
 package com.hms.entity;
 
 import com.hms.core.base.BaseEntity;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
 /**
  * 献血者信息
  */
+@Proxy(lazy = false)
 @Entity
 public class BloodDonor extends BaseEntity{
     @Id
