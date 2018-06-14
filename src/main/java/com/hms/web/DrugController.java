@@ -152,6 +152,12 @@ public class DrugController {
         return drugs;
     }
 
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    public @ResponseBody
+    List<Drug> getDrugList() {
+        List<Drug> drugs = drugService.getAll();
+        return drugs;
+    }
 
 }
 

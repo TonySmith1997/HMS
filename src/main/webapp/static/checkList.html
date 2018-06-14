@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <title>HMS -- Check List</title>
+
+    <link rel="shortcut icon" href="/static/favicon.ico" />
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet" />
+    <link href="/static/css/plugins/footable/footable.core.css" rel="stylesheet" />
+    <link href="/static/css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet" />
+    <link href="/static/css/animate.css" rel="stylesheet" />
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet" />
+    <link href="https://cdn.bootcss.com/cropper/3.1.3/cropper.min.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="full-height-scroll">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Medical Record List</h5>
+
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Refresh</a>
+                                    </li>
+                                    <li><a data-toggle="modal" data-target="#myModal1">Insert</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                                   placeholder="Search..." />
+
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="8" data-filter="#filter">
+                                <thead>
+                                        <tr>
+                                            <th data-toggle="true">Photo</th>
+                                            <th>Patient Name</th>
+                                            <th>Check Name</th>
+                                            <th>CheckBy</th>
+                                            <th>CheckTime</th>
+                                            <th data-hide="all">checkResult</th>
+                                            <th data-hide="all">checkPicture</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="check : ${checks}">
+                                            <td>
+                                                <img alt="image" class="img-circle" th:src="${check.patient.avator}" style="width: 40px" />
+                                            </td>
+                                            <td th:text="${check.patient.trueName}">cough syrup
+                                            </td>
+                                            <td th:text="${check.checkName}">healing cough</td>
+                                            <td th:text="${check.staff.trueName}">2018-5-20</td>
+                                            <td th:text="${check.createTime}"></td>
+                                            <td th:text="${check.checkResult}"></td>
+                                            <td th:if="${check.picture!=null}">
+                                                <a  th:href="@{${check.picture}}" title="photo" data-gallery=""><img style="width: 45%;height: 45%" th:src="${check.picture}" /></a>
+                                                <div id="blueimp-gallery" class="blueimp-gallery">
+                                                    <div class="slides"></div>
+                                                    <h3 class="title" th:text="${check.checkResult}"></h3>
+                                                    <a class="play-pause"></a>
+                                                    <ol class="indicator"></ol>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5">
+                                                <ul class="pagination pull-right"></ul>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        <div class="modal inmodal" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated flipInY">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Physical Check</h4>
+                        <small class="font-bold">Insert a new check for a patient</small>
+                    </div>
+                    <div class="modal-body">
+                        <div class="ibox-content">
+                            <form class="form-horizontal m-t-md">
+
+                                <input type="text" style="display: none;" id="userid"/>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Choose Patient</label>
+                                    <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="test_data">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">
+                                        Check Name</label>
+                                    <div class="col-sm-8">
+                                        <select id="checkName" name="checkName" class="form-control">
+                                            <option value="CT">CT</option>
+                                            <option value="X-ray">X-ray</option>
+                                            <option value="URAN">URAN</option>
+                                            <option value="Blood Test">Blood test</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">
+                                        Check Result</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="detail" class="form-control"></textarea>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <p class="tip-info text-center">
+                                Unselected picture
+                            </p>
+                            <div class="img-container hidden">
+                                <img src="" alt="" id="photo">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <label class="btn btn-danger pull-left" for="photoInput">
+                                <input type="file" class="sr-only" id="photoInput" accept="image/*">
+                                <span>upload</span>
+                            </label>
+                            <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                            <button type="submit" class="btn btn-primary" onclick="insert(this)">save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+    <!-- 全局js -->
+    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/static/js/plugins/footable/footable.all.min.js"></script>
+    <script src="/static/js/plugins/suggest/bootstrap-suggest.min.js"></script>
+    <script src="/static/js/sleep.js" ></script>
+    <!-- blueimp gallery -->
+    <script src="/static/js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/js/content.js?v=1.0.0"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+
+        });
+
+    </script>
+    <script>
+        var testdataBsSuggest = $("#test_data").bsSuggest({
+            indexId: 2, //data.value 的第几个数据，作为input输入框的内容
+            indexKey: 0, //data.value 的第几个数据，作为input输入框的内容
+            url:"/patient/list",
+            getDataMethod: "url",
+            showHeader: true,
+            processData: function(json) { // url 获取数据时，对数据的处理，作为 getData 的回调函数
+                var i, len, data = {
+                    value: []
+                };
+                if (!json || json.length == 0) {
+                    return false;
+                }
+                len = json.length;
+                console.log(len);
+                for (i = 0; i < len; i++) {
+                    data.value.push({
+                        "Id": json[i].id,
+                        "Name": json[i].trueName,
+                        "Age": json[i].age
+                    });
+                }
+                return data;
+            }
+        });
+    </script>
+
+    <script src="https://cdn.bootcss.com/cropper/3.1.3/cropper.min.js"></script>
+    <!-- avator shiv -->
+    <script src="/static/js/avator-tail.js"></script>
+    <script>
+        function insert(btn) {
+            var patientName = $("#test_data").val();
+            var checkName = $('#checkName').val();
+            var checkResult = $("#detail").val();
+            // 得到PNG格式的dataURL
+            var cas = $('#photo').cropper('getCroppedCanvas',{
+                width: 300,
+                height: 300
+            });
+            console.log(cas);
+            var photo = cas.toDataURL();
+
+            $.ajax({
+                    url: 'check/update/',
+                    type: 'post',
+                    data: {
+                        checkName : checkName,
+                        patientId : patientName,
+                        checkResult : checkResult,
+                        imgData: photo
+                    },
+                }
+            );
+            sleep(800);
+            window.location.reload();
+        }
+    </script>
+
+
+</body>
+
+</html>

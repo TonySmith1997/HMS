@@ -5,9 +5,11 @@ import com.hms.entity.logs.PatientLog;
 import com.hms.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +29,14 @@ public class PatientController {
     PatientLogService patientLogService;
     @Autowired
     InHospitalInfoService inHospitalInfoService;
+    @Autowired
+    MedicalRecordService medicalRecordService;
+    @Autowired
+    EmployeeService employeeService;
+    @Autowired
+    MessageService messageService;
+    @Autowired
+    UserRoleService userRoleService;
 
 
     @RequestMapping(value = "",method = GET)
@@ -69,6 +79,11 @@ public class PatientController {
     }
 
 
+    @Transactional
+    @RequestMapping(value= "/list",method = RequestMethod.GET)
+    public @ResponseBody List<User> getPatientList(ModelMap map) {
+        return userService.getPatientList();
+    }
 
     /**
      * 搜索
@@ -102,7 +117,7 @@ public @ResponseBody PatientInfo getPatientForUpdate(@PathVariable String id) {
      * @return
      */
     @RequestMapping(value = "update",method=POST)
-    public String registerNewEmployee(
+    public String updateNewPatient(
             @RequestParam("userid") String userid,
             @RequestParam("username") String username,
             @RequestParam("mobile") String mobile,
@@ -124,4 +139,83 @@ public @ResponseBody PatientInfo getPatientForUpdate(@PathVariable String id) {
         userService.update(user);
         return "PatientList";
     }
+
+    @RequestMapping(value = "register",method = GET)
+    public String registerNewPatient() {
+        return "PatientRegister";
+    }
+
+    @Transactional
+    @RequestMapping(value = "insert",method = POST)
+    public String registerNewPatient(@RequestParam("username") String username,
+                                     @RequestParam("password") String password,
+                                     @RequestParam("trueName") String trueName,
+                                     @RequestParam("email") String email,
+                                     @RequestParam("mobile") String mobile,
+                                     @RequestParam("age") String age,
+                                     @RequestParam("gender") String gender,
+                                     @RequestParam("disease") String disease,
+                                     @RequestParam("allergy") String allHis,
+                                     @RequestParam("department") String department,
+                                     @RequestParam("describe") String describe) throws InterruptedException {
+        Date date = new Date();
+        /** User **/
+        User user = new User();
+        user.setUsername(username.trim());
+        user.setAvator("/static/img/a8.jpg");//default
+        user.setPassword(password.trim());
+        user.setTrueName(trueName.trim());
+        user.setEmail(email.trim());
+        user.setMobile(mobile.trim());
+        user.setAge(Integer.valueOf(age.trim()));
+        user.setGender(Boolean.valueOf(gender));
+        user.setCreateBy(1);
+        user.setCreateTime(date);
+        user.setIfEmloyee(false);
+        userService.save(user);
+        int id = user.getId();
+        Thread.sleep(500);
+        /** patient **/
+        PatientInfo patientInfo = new PatientInfo();
+        patientInfo.setUserId(user.getId());
+        patientInfo.setAlleHis(allHis);
+        patientInfo.setCreateBy(1);
+        patientInfo.setCreateTime(date);
+        patientInfo.setInpatient(false);
+        patientInfo.setInHospitalId(0);
+        patientService.save(patientInfo);
+
+        /**PatientRole **/
+        UserRole role = new UserRole();
+        role.setRoleId(5);
+        role.setUserId(user.getId());
+        userRoleService.save(role);
+
+
+        /** medical init **/
+        MedicalRecord medicalRecord = new MedicalRecord();
+        medicalRecord.setPatientId(user.getId());
+        medicalRecord.setCreateBy(1);
+        medicalRecord.setCreateTime(date);
+        medicalRecord.setDiseaseDetail(describe);
+        medicalRecordService.save(medicalRecord);
+        /**message **/
+        List<EmployeeInfo> doctors = employeeService.getEmployeeInfoByDepartment(Integer.valueOf(department));
+        List<User> docs = new ArrayList<>();
+        for(EmployeeInfo doctor : doctors) {
+            User doc = userService.get(doctor.getUserId());
+            docs.add(doc);
+        }
+        for(User doc : docs) {
+            Message message = new Message();
+            message.setToId(doc.getId());
+            message.setFromId(user.getId());
+            message.setMessage(describe);
+            message.setCreateTime(date);
+            messageService.save(message);
+        }
+        return "login";
+    }
+
+
 }

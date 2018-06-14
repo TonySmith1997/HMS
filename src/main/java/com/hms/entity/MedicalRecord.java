@@ -17,9 +17,8 @@ public class MedicalRecord extends BaseEntity{
     @Id
     @GeneratedValue
     private int id;
-    private int patientId;
-    private int doctorId;//这里的id都是user表的里id
-    private String medHis;//药物历史
+    private int patientId;//patient
+    private String doctorId;//这里的id都是user表的里id id e.g. 1;2;3
     private String diseaseName;//病名
     private String diseaseDetail;
     private String recommend;//（饮食，预防）建议
@@ -30,7 +29,7 @@ public class MedicalRecord extends BaseEntity{
     @Transient
     @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
     @JsonSerialize
-    private EmployeeInfo doctor;
+    private List<User> doctor;
 
 
     @Transient
@@ -42,14 +41,6 @@ public class MedicalRecord extends BaseEntity{
     @JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
     @JsonSerialize
     private List<PhysicalExamination> physicalExaminations;//所做的检查
-
-
-    public String getMedHis() {
-        return medHis;
-    }
-    public void setMedHis(String medHis) {
-        this.medHis = medHis;
-    }
 
     public List<PhysicalExamination> getPhysicalExaminations() {
         return physicalExaminations;
@@ -94,11 +85,11 @@ public class MedicalRecord extends BaseEntity{
         this.patientId = patientId;
     }
 
-    public int getDoctorId() {
+    public String getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(int doctorId) {
+    public void setDoctorId(String doctorId) {
         this.doctorId = doctorId;
     }
 
@@ -125,11 +116,12 @@ public class MedicalRecord extends BaseEntity{
     public void setDiseaseDetail(String diseaseDetail) {
         this.diseaseDetail = diseaseDetail;
     }
-    public EmployeeInfo getDoctor() {
+
+    public List<User> getDoctor() {
         return doctor;
     }
 
-    public void setDoctor(EmployeeInfo doctor) {
+    public void setDoctor(List<User> doctor) {
         this.doctor = doctor;
     }
 }

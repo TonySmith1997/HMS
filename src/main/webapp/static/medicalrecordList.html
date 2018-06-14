@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <title>HMS -- Medical Record List</title>
+
+    <link rel="shortcut icon" href="/static/favicon.ico" />
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet" />
+    <link href="/static/css/plugins/footable/footable.core.css" rel="stylesheet" />
+
+    <link href="/static/css/animate.css" rel="stylesheet" />
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet" />
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Medical Record List</h5>
+
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Refresh</a>
+                                    </li>
+                                    <li><a data-toggle="modal" data-target="#myModal2">Insert</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                                   placeholder="Search..." />
+
+                            <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="8" data-filter="#filter">
+                                <thead>
+                                        <tr>
+                                            <th>Photo</th>
+                                            <th>Name</th>
+                                            <th>Disease</th>
+                                            <th>HappenTime</th>
+                                            <th>Operation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="record : ${records}">
+                                            <td>
+                                                <img alt="image" class="img-circle" th:src="${record.patientInfo.user.avator}" style="width: 40px" />
+                                            </td>
+                                            <td th:text="${record.patientInfo.user.trueName}">cough syrup
+                                            </td>
+                                            <td th:text="${record.diseaseName}">healing cough</td>
+                                            <td th:text="${record.createTime}">2018-5-20</td>
+                                            <td>
+                                                <button type="button" class="btn btn-success btn-sm btn-block" onclick="showRecord(this)"><i class="fa fa-eye"></i> Detail
+                                            </button>
+                                                <input th:value="${record.patientInfo.user.id}" style="display: none" />
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5">
+                                                <ul class="pagination pull-right"></ul>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated flipInY">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Medical Record</h4>
+                        <small class="font-bold">Insert a new record for a patient</small>
+                    </div>
+                    <div class="modal-body">
+                        <div class="ibox-content">
+                            <form class="form-horizontal m-t-md">
+                                <input type="text" style="display: none;" id="userid"/>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">Patient</label>
+                                    <div class="col-sm-10">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="test_data">
+                                                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                                            <i class="fa fa-angle-down" /></span>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-messages" id="dropdown">
+                                                        </ul>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">
+                                        Disease Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" placeholder="" id="diseaseName">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">
+                                        Disease Detail</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="detail" class="form-control"></textarea>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">
+                                        Recomand</label>
+                                    <div class="col-sm-10">
+                                        <textarea id="recomand" class="form-control"></textarea>
+                                        <span class="help-block"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">close</button>
+                            <button type="submit" class="btn btn-primary" onclick="insert(this)">save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+    <!-- 全局js -->
+    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/static/js/plugins/footable/footable.all.min.js"></script>
+    <script src="/static/js/plugins/suggest/bootstrap-suggest.min.js"></script>
+    <script src="/static/js/sleep.js" ></script>
+    <!-- 自定义js -->
+    <script src="/static/js/content.js?v=1.0.0"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+
+        });
+
+    </script>
+
+    <!--layui -->
+    <script src="/static/js/plugins/layer/layer.min.js"></script>
+    <script>
+        function showRecord(btn) {
+            var id = $(btn).closest('td').find('input').eq(0).val();
+            console.log(id);
+            layer.open({
+                type: 2,
+                area: ['700px', '450px'],
+                fixed: false, //不固定
+                maxmin: true,
+                content: 'record/'+id
+            });
+        }
+    </script>
+
+</body>
+
+</html>
