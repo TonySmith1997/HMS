@@ -249,7 +249,7 @@ public class EmployeeInfoController {
         /** User **/
         User user = new User();
         user.setUsername(username.trim());
-        user.setAvator("/static/img/a5.jpg");//default
+        user.setAvator("/static/img/user.png");//default
         user.setPassword(password.trim());
         user.setTrueName(trueName.trim());
         user.setEmail(email.trim());

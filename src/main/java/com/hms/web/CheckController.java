@@ -3,8 +3,11 @@ package com.hms.web;
 import com.hms.core.util.AvatorCopy;
 import com.hms.core.util.WebUtil;
 import com.hms.entity.*;
+import com.hms.entity.logs.EmployeeLog;
+import com.hms.entity.logs.PatientLog;
 import com.hms.service.*;
 import com.hms.type.CheckType;
+import com.hms.type.LogType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +33,10 @@ public class CheckController {
     private MessageService messageService;
     @Autowired
     private MedicalRecordService medicalRecordService;
+    @Autowired
+    private PatientLogService patientLogService;
+    @Autowired
+    private EmployeeLogService employeeLogService;
 
     @RequestMapping("")
     public String getRecordPage() {
@@ -81,6 +88,7 @@ public class CheckController {
         checkService.save(check);
 
         Thread.sleep(500);
+        /**message **/
         Message message = new Message();
         message.setCreateTime(date);
         message.setMessage(checkName+","+checkResult);
@@ -88,6 +96,22 @@ public class CheckController {
         message.setFromId(session.getId());
         message.setPhoto(check.getPicture());
         messageService.save(message);
+
+        /** log **/
+        PatientLog patientLog = new PatientLog();
+        patientLog.setType("healed");
+        patientLog.setPatientId(id);
+        patientLog.setWhen(date);
+        patientLog.setWhat(checkName+","+checkResult+", by "+session.getTrueName()+", at "+date);
+        patientLogService.save(patientLog);
+
+        /** emp log **/
+        EmployeeLog employeeLog = new EmployeeLog();
+        employeeLog.setWho(session.getId());
+        employeeLog.setWhat("make "+checkName+" for " + user.getTrueName() + " at "+date);
+        employeeLog.setType(LogType.heal);
+        employeeLog.setWhen(date);
+        employeeLogService.save(employeeLog);
     }
 
 

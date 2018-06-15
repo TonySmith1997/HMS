@@ -288,9 +288,9 @@
 <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
 <script src="/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="https://cdn.bootcss.com/cropper/3.1.3/cropper.min.js"></script>
-<script src="/static/js/demo/form-advanced-demo.js"></script>
 <!-- 自定义js -->
 <script src="/static/js/content.js?v=1.0.0"></script>
+<script src="/static/js/sleep.js" ></script>
 <script>
     $(function () {
         $('.full-height-scroll').slimScroll({
@@ -484,6 +484,24 @@
                                             </div>
                                             <div class="vertical-timeline-content">
                                                 <h2>Hospitalized</h2>
+                                                <p>${logs[i].what}
+                                                </p>
+                                                <a class="btn btn-sm btn-primary" href="#"> more info</a>
+                                                <span class="vertical-date">
+                                    <br>
+                                    <small>${TimeString}</small>
+                                    </span>
+                                            </div>
+                                            </div>`;
+                            break;
+                        case "discharge":
+                            timeLineHtml += `
+                                            <div class="vertical-timeline-block">
+                                            <div class="vertical-timeline-icon blue-bg">
+                                                <i class="fa fa-hospital-o"></i>
+                                            </div>
+                                            <div class="vertical-timeline-content">
+                                                <h2>Discharged</h2>
                                                 <p>${logs[i].what}
                                                 </p>
                                                 <a class="btn btn-sm btn-primary" href="#"> more info</a>

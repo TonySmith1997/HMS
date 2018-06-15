@@ -18,7 +18,7 @@ public enum CheckType {
 
     public static BigDecimal getValue(String name){
         for(CheckType e : CheckType.values()) {
-            if(e.getName().trim() == name.trim()) {
+            if(e.getName().trim().equals(name.trim())) {
                 return e.fee;
             }
         }

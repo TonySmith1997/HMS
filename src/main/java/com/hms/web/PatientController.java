@@ -189,7 +189,7 @@ public @ResponseBody PatientInfo getPatientForUpdate(@PathVariable String id) {
         /** User **/
         User user = new User();
         user.setUsername(username.trim());
-        user.setAvator("/static/img/a8.jpg");//default
+        user.setAvator("/static/img/user.png");//default
         user.setPassword(password.trim());
         user.setTrueName(trueName.trim());
         user.setEmail(email.trim());

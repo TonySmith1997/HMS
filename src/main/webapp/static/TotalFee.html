@@ -20,7 +20,7 @@
 <body class="gray-bg">
 
 <div class="col-sm-12">
-    <div class="ibox-content p-xl">
+    <div class="ibox-content p-xl" id="fee">
         <div class="row">
             <div class="col-sm-6">
                 <address>
@@ -82,7 +82,7 @@
             </tbody>
         </table>
         <div class="text-right">
-            <button class="btn btn-primary"><i class="fa fa-dollar"></i> Pay</button>
+            <button class="btn btn-primary" onclick="print()"><i class="fa fa-dollar"></i> Pay</button>
         </div>
 
         <div class="well m-t"><strong>Warning: </strong> Please complete the payment within 30 days
@@ -95,10 +95,12 @@
 <script src="/static/js/jquery.min.js?v=2.1.4"></script>
 <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
 <script src="/static/js/sleep.js" ></script>
-
+<script type="text/javascript" src="http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <!-- 自定义js -->
 <script src="/static/js/content.js?v=1.0.0"></script>
+
+
 
 </body>
 
