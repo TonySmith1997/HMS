@@ -100,14 +100,12 @@
                         <div id="contact-1" class="tab-pane active">
                             <div class="row m-b-lg">
                                 <div class="col-lg-4 text-center" id="Name">
-                                    <h2 id="departmentName">Medical department </h2>
+                                    <h2 id="departmentName"></h2>
                                 </div>
                                 <div class="col-lg-8" id="Info">
                                     <h3>
-                                        Description
                                     </h3>
                                     <p id="description">
-                                        The hospital is a kind of organization helping people recover or get information of keeping health. We can see a hospital everywhere in our life, because hospitals are so important to us. Patients, or the one who has some mental or bodily discomfort should go to hospital for curing.
                                     </p>
                                 </div>
                             </div>
@@ -158,7 +156,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">gender</label>
                                 <div class="col-sm-10">
-                                    <select id="gender">
+                                    <select id="gender" class="form-control">
                                         <option label="Male" value="true"></option>
                                         <option label="Female" value="false"></option>
                                     </select>
@@ -212,7 +210,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">gender</label>
                                 <div class="col-sm-10">
-                                    <select id="gender1">
+                                    <select id="gender1" class="form-control">
                                         <option label="Male" value="true"></option>
                                         <option label="Female" value="false"></option>
                                     </select>
@@ -295,7 +293,7 @@
                                 <img alt="image" class="img-circle" src="${data.avatar}" style="width: 110px" />
                             </div>`;
                 $('#Name').empty().append(NameHtml);
-                let gender = data.user.gender;
+                let gender = data.gender;
                 let genderHtml = "";
                 if(gender==true){
                     genderHtml = "Male";

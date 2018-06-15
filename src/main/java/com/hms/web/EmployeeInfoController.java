@@ -67,6 +67,13 @@ public class EmployeeInfoController {
         map.addAttribute("departCount",departcount);
         map.addAttribute("departmentList",departmentList);
         map.addAttribute("employees",employees);
+        /** first employee **/
+        User employee = employees.get(0);
+        EmployeeInfo employeeInfo = employeeService.getEmployeeInfo(employee.getId());
+        employeeInfo.setUser(employee);
+        List<EmployeeLog> employeeLogs = employeeLogService.getEmployeeLog(employee.getId());
+        employeeInfo.setEmployeeLogs(employeeLogs);
+        map.addAttribute("emp",employeeInfo);
         return "TotalList";
     }
 
